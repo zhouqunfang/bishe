@@ -1,0 +1,64 @@
+#footer_bar ul{
+  padding:35px 0 3px;
+  position: fixed;
+  bottom: 0;
+  display:flex;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  border-top: 1px #D5DDFB solid;
+}
+#footer_bar li{
+  flex: 1;
+}
+#footer_bar li>a{
+  position: relative;
+   text-decoration: none;
+    color:#777;
+    font-weight:normal;
+    display:block;
+}
+#footer_bar ul>li .router-link-active{
+  color: #7F84E9;
+}
+#footer_bar li>a>span::after{
+  content: '';
+  display:inline-block;
+  bottom: 15px;
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  margin-left: -15px;
+  width: 30px;
+  height: 30px;
+}
+#footer_bar .first::after{
+  background: url('../../image/first(1).svg') center no-repeat;
+}
+#footer_bar .router-link-active .first::after {
+  background: url('../../image/first.svg') center no-repeat;
+}
+#footer_bar .company::after{
+  background: url('../../image/company(1).svg') center no-repeat;
+}
+#footer_bar .router-link-active .company::after{
+  background: url('../../image/company.svg') center no-repeat;
+}
+#footer_bar .message::after{
+  background: url('../../image/message(1).svg') center no-repeat;
+}
+#footer_bar .router-link-active .message::after{
+  background: url('../../image/message.svg') center no-repeat;
+}
+#footer_bar .todo::after{
+  background: url('../../image/todo.svg') center no-repeat;
+}
+#footer_bar  .router-link-active .todo::after{
+  background: url('../../image/todo(1).svg') center no-repeat;
+}
+#footer_bar .my::after{
+  background: url('../../image/my(1).svg') center no-repeat;
+}
+#footer_bar .router-link-active .my::after{
+  background: url('../../image/my.svg') center no-repeat;
+}

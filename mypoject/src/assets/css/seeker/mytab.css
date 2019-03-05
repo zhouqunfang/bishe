@@ -1,0 +1,22 @@
+.myTab ul{
+  padding: 0 15px;
+  font-size: 14px;
+}
+.myTab li{
+  padding: 16px 0 16px 5px;
+  border-bottom:1px solid #EDEDED;
+}
+.myTab li a{
+  position: relative;
+  color:#3F3F3F;
+}
+.myTab li a>b{
+  margin-left: 15px;
+}
+.myTab .triangle{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 320px;
+  top: 0;
+}

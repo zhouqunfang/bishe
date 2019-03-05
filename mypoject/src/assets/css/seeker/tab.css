@@ -1,0 +1,30 @@
+.todo_tab{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.todo_tab .todo_item{
+  padding:35px 0 3px;
+  position: fixed;
+  bottom: 0;
+  display:flex;
+  width: 100%;
+  font-size: 12px;
+  border-top: 1px #D5DDFB solid;
+}
+.todo_item span{
+  display: inline-block;
+  flex: 1;
+  text-align: center;
+}
+.todo_item .img_tab{
+  display:inline-block;
+  position: absolute;
+  top: 50%;
+  bottom: 50%;
+  margin-top: -20px;
+  width: 28px;
+  height: 28px; 
+}
+

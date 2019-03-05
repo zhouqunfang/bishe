@@ -1,0 +1,44 @@
+.todo-item{
+  position: relative;
+  background-color: #fff;
+  font-size: 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.todo-item .content{
+  white-space: pre-line;
+  word-break: break-all;
+  padding: 15px 60px 15px 15px;
+  margin-left: 30px;
+  display:  block;
+  line-height:  1.2;
+  transition:  color 0.4s;
+}
+.completed .content{
+  color: #746363;
+  text-decoration: line-through;
+}
+.toggle {
+        display: inline-block;
+        text-align: center;
+        width: 20px;
+        height: 20px;
+        position: absolute;  
+        top: 50%;
+        bottom: 50%;
+        margin-top: -20px;
+        cursor: pointer;
+        margin-left: 20px;
+        background: url('../../image/unchecked.svg') no-repeat;
+}   
+.todo-item .destory{
+display: inline-block;
+position: absolute;
+top: 0;
+right: 10px;
+bottom: 0;
+width: 25px;
+height: 25px;
+margin: auto 0;
+background: url('../../image/delete.svg') center no-repeat; 
+
+}
