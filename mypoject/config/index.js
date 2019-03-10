@@ -11,7 +11,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    // node端的端口是 3001
+    // node端的端口是 3000
     // webpack的端口是8083 存在跨域
     proxyTable: {
       '/api': {
@@ -26,7 +26,7 @@ module.exports = {
 
     // Various Dev Server settings
     /* 服务器相关配置项 */
-    host: '127.0.0.1', // can be overwritten by process.env.HOST
+    host: 'localhost', // can be overwritten by process.env.HOST
     port: 8083, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

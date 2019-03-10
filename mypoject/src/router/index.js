@@ -29,7 +29,7 @@ const routes = new Router({
       path: '/index',
       name: 'Index',
       meta: {
-        requireAuth: false // 添加该字段，表示进入这个路由是需要登录的
+        requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
       },
       component: Index
     },
@@ -81,7 +81,8 @@ routes.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
     //  console.log(routes)
     //  console.log(routes.app.$options.store.state.token)
-    const token = routes.app.$options.store.state.token
+    // const token = routes.app.$options.store.state.token
+    const token = localStorage.getItem('token')
     console.log(token)
     if (token) { // 通过vuex state获取当前的token是否存在
       next()

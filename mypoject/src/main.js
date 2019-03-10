@@ -67,6 +67,28 @@ axios.interceptors.response.use(
     }
     return Promise.reject(error.response.data)
   })
+
+
+/*
+* 封裝 get post方法
+* @param url
+* @param data
+* @return {Promise}
+*/
+export function post(url, params) {
+  return new Promise((resolve, reject) => {
+    axios.post(url, {
+      params: params
+    })
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
 new Vue({
   el: '#app',
   router,

@@ -65,14 +65,15 @@ router.post('/api/user/sign', (req, res) => {
         let token = jwt.sign(content, secretOrPrivateKey, {
           expiresIn: 60 * 60 * 1 // 1小时过期
         })
-        docs[0].token = token // token写入数据库
-        db.User(docs[0]).save(function (err) {
-          if (err) {
-            res.status(500).send()
-            return
-          }
+        docs[0].token = token 
+        // token写入数据库
+        // db.User(docs[0]).save(function (err) {
+        //   if (err) {
+        //     res.status(500).send()
+        //     return
+        //   }
           res.send({'status': 2, msg: '登录成功', 'token': docs[0].token, 'username': username})// //返回给前台
-        })
+        // })
       }
     }
   })

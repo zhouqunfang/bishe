@@ -13,6 +13,7 @@
     </div>
 </template>
 <script>
+import { SignIn } from './api/api.js';
 export default {
   data () {
     return {
@@ -29,28 +30,36 @@ export default {
         password: this.inputpassword,
         username: this.username
       }
-      this.$http.post('/api/user/sign',
-        params
-      ).then(res => {
-        // console.log(res)
-        if (res.data.status === 2) {
+      SignIn(params).then(res => {
+        console.log(res)
+        if (res.status === 2) {
           this.$toast({
-            message: res.data.msg,
+            message: res.msg,
             duration: 2000,
             iconClass: 'icon icon-success',
             className: 'success_toast'
-          })
-          // 根据store中set_token方法将token保存至localStorage/sessionStorage中，获取token的value值
-          this.$store.commit('set_token', res.data['token'])
-          if (this.$store.state.token) {
-            this.$router.push('/index')
+               }
+           )
           }
-        }
-      })
-    }
-  }
-
+        })  
+      }}
 }
+      // this.$http.post('/api/user/sign',
+      //   params
+      // ).then(res => {
+      //   // console.log(res)
+      //   if (res.data.status === 2) {
+      //     this.$toast({
+      //       message: res.data.msg,
+      //       duration: 2000,
+      //       iconClass: 'icon icon-success',
+      //       className: 'success_toast'
+      //     })
+          // 根据store中set_token方法将token保存至localStorage/sessionStorage中，获取token的value值
+          // this.$store.commit('set_token', res.data['token'])
+          // if (this.$store.state.token) {
+          //   this.$router.push('/index')
+          // }
 </script>
 <style lang="scss" scoped>
 
