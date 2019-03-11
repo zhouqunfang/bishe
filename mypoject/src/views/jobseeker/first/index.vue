@@ -14,17 +14,17 @@
                   >
         </position-piker>
        <mt-swipe :auto="4000">
-          <mt-swipe-item><img src="../../assets/image/lunbo.jpg"  ></mt-swipe-item>
-          <mt-swipe-item><img src="../../assets/image/lunbo.jpg"  ></mt-swipe-item>
-          <mt-swipe-item><img src="../../assets/image/lunbo.jpg"  ></mt-swipe-item>
+          <mt-swipe-item><img src="@/assets/image/lunbo.jpg"  /></mt-swipe-item>
+          <mt-swipe-item><img src="@/assets/image/lunbo(1).jpg" /></mt-swipe-item>
+          <mt-swipe-item><img src="@/assets/image/lunbo.jpg"  /></mt-swipe-item>
       </mt-swipe>
        <footer-bar></footer-bar>
     </div>
 
 </template>
 <script>
-import FooterBar from '../component/seeker/footerbar'
-import PositionPiker from '../component/PositionPiker'
+import FooterBar from '@/views/component/seeker/footerbar'
+import PositionPiker from '../../component/PositionPiker'
 export default {
   name: 'Index',
   components: {
@@ -385,7 +385,6 @@ export default {
   }
 }
 </script>
-<style lang="css" scoped>
-@import '../../assets/css/seeker/first.css';
-
+<style lang="css">
+@import './first.css';
 </style>

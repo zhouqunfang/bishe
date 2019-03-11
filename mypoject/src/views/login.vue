@@ -13,7 +13,7 @@
     </div>
 </template>
 <script>
-import { SignIn } from './api/api.js';
+
 export default {
   data () {
     return {
@@ -30,36 +30,72 @@ export default {
         password: this.inputpassword,
         username: this.username
       }
-      SignIn(params).then(res => {
-        console.log(res)
-        if (res.status === 2) {
-          this.$toast({
-            message: res.msg,
-            duration: 2000,
-            iconClass: 'icon icon-success',
-            className: 'success_toast'
-               }
-           )
-          }
-        })  
-      }}
-}
-      // this.$http.post('/api/user/sign',
-      //   params
-      // ).then(res => {
-      //   // console.log(res)
+      this.$store.dispatch('set_token', params).then(() => {
+        // mint ui toast
+        let toast = this.$store.state.toast
+        console.log(toast)
+        this.$toast({
+          message: toast.message,
+          duration: 2000,
+          iconClass: 'icon icon-success',
+          className: 'success_toast'
+        }
+        )
+        this.$router.push({path: '/index'})
+      }).catch(err => {
+        this.$toast({
+          message: err,
+          duration: 2000,
+          iconClass: 'icon icon-success',
+          className: 'success_toast'
+        }
+        )
+      })
+      // SignIn(params).then(res => {
+      //   console.log(res)
       //   if (res.data.status === 2) {
       //     this.$toast({
       //       message: res.data.msg,
       //       duration: 2000,
       //       iconClass: 'icon icon-success',
       //       className: 'success_toast'
+      //     }
+      //     )
+      //   } else if (res.data.status === 1) {
+      //     this.$toast({
+      //       message: res.data.msg,
+      //       duration: 2000,
+      //       iconClass: 'icon icon-success',
+      //       className: 'success_toast'
+      //     }
+      //     )
+      //   } else {
+      //     this.$toast({
+      //       message: res.data.msg,
+      //       duration: 2000,
+      //       iconClass: 'icon icon-success',
+      //       className: 'success_toast'
       //     })
-          // 根据store中set_token方法将token保存至localStorage/sessionStorage中，获取token的value值
-          // this.$store.commit('set_token', res.data['token'])
-          // if (this.$store.state.token) {
-          //   this.$router.push('/index')
-          // }
+      //   }
+      // })
+    }}
+}
+// this.$http.post('/api/user/sign',
+//   params
+// ).then(res => {
+//   // console.log(res)
+//   if (res.data.status === 2) {
+//     this.$toast({
+//       message: res.data.msg,
+//       duration: 2000,
+//       iconClass: 'icon icon-success',
+//       className: 'success_toast'
+//     })
+// 根据store中set_token方法将token保存至localStorage/sessionStorage中，获取token的value值
+// this.$store.commit('set_token', res.data['token'])
+// if (this.$store.state.token) {
+//   this.$router.push('/index')
+// }
 </script>
 <style lang="scss" scoped>
 

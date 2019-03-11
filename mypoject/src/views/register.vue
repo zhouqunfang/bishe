@@ -27,29 +27,34 @@ export default {
         username: this.username
       }
       this.$http.post('/api/user/register', params).then(res => {
+        console.log(res)
+        this.$store.dispatch('add_toast', res.data.msg)
         if (res.data.status === 1) {
-          this.$toast({
-            message: res.data.msg,
-            duration: 2000,
-            iconClass: 'icon icon-success',
-            className: 'success_toast'
-          })
           this.$router.push('/')
-        } else if (res.data.status === 0) {
-          this.$toast({
-            message: res.data.msg,
-            duration: 2000,
-            iconClass: 'icon icon-success',
-            className: 'success_toast'
-          })
-        } else if (res.data.status === 2) {
-          this.$toast({
-            message: res.data.msg,
-            duration: 2000,
-            iconClass: 'icon icon-success',
-            className: 'success_toast'
-          })
         }
+        // if (res.data.status === 1) {
+        //   this.$toast({
+        //     message: res.data.msg,
+        //     duration: 2000,
+        //     iconClass: 'icon icon-success',
+        //     className: 'success_toast'
+        //   })
+        //   this.$router.push('/')
+        // } else if (res.data.status === 0) {
+        //   this.$toast({
+        //     message: res.data.msg,
+        //     duration: 2000,
+        //     iconClass: 'icon icon-success',
+        //     className: 'success_toast'
+        //   })
+        // } else if (res.data.status === 2) {
+        //   this.$toast({
+        //     message: res.data.msg,
+        //     duration: 2000,
+        //     iconClass: 'icon icon-success',
+        //     className: 'success_toast'
+        //   })
+        // }
       }
       )
     }

@@ -39,7 +39,7 @@ axios.defaults.headers.common['Authentication-Token'] = localStorage.getItem('to
 axios.interceptors.request.use(config => {
 // 在发送请求之前做些什么
 // 判断是否存在token，如果存在将每个页面header都添加token
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('Token')
   if (token) {
     config.headers.common['Authentication-Token'] = token
   }
@@ -68,26 +68,25 @@ axios.interceptors.response.use(
     return Promise.reject(error.response.data)
   })
 
-
 /*
 * 封裝 get post方法
 * @param url
 * @param data
 * @return {Promise}
 */
-export function post(url, params) {
-  return new Promise((resolve, reject) => {
-    axios.post(url, {
-      params: params
-    })
-      .then(response => {
-        resolve(response.data);
-      })
-      .catch(err => {
-        reject(err)
-      })
-  })
-}
+// export function post (url, params) {
+//   return new Promise((resolve, reject) => {
+//     axios.post(url, {
+//       params: params
+//     })
+//       .then(response => {
+//         resolve(response.data)
+//       })
+//       .catch(err => {
+//         reject(err)
+//       })
+//   })
+// }
 
 new Vue({
   el: '#app',
