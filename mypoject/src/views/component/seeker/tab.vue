@@ -9,11 +9,13 @@
                   @click="toggleFilter(item.name)"
               >
                  <img :src="item.srcImg" class="img_tab">
-                 <b>{{item.name}}</b>
+                 <div>{{item.name}}</div>
               </span>
           <span class="clear" @click="clearAllCompleted">
-               <img src="../../../assets/image/clear.svg" class="img_tab">
-              <b>Clear</b>
+               <!-- <img src="../../../assets/image/clear.svg" class="img_tab"> -->
+               <span class="img_clear">
+               </span>
+              <div>Clear</div>
           </span>
         </div>
     </div>
