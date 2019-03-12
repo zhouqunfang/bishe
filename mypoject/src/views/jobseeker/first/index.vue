@@ -18,6 +18,7 @@
           <mt-swipe-item><img src="@/assets/image/lunbo(1).jpg" /></mt-swipe-item>
           <mt-swipe-item><img src="@/assets/image/lunbo.jpg"  /></mt-swipe-item>
       </mt-swipe>
+      <job-list></job-list>
        <footer-bar></footer-bar>
     </div>
 
@@ -25,11 +26,13 @@
 <script>
 import FooterBar from '@/views/component/seeker/footerbar'
 import PositionPiker from '../../component/PositionPiker'
+import JobList from './firstjoblist'
 export default {
   name: 'Index',
   components: {
     FooterBar,
-    PositionPiker
+    PositionPiker,
+    JobList
   },
   data () {
     return {

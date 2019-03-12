@@ -7,6 +7,7 @@
   text-align: center;
   font-size: 12px;
   border-top: 1px #D5DDFB solid;
+  background: #fff;
 }
 #footer_bar li{
   flex: 1;

@@ -1,0 +1,42 @@
+$jobtitle-color:#3D3D3D;
+$little-color:#999;
+.first_joblist{
+  .recommen_job{
+    margin-top: 20px;
+    text-align: center;
+    color: $jobtitle-color;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .joblist_content{
+    padding: 18px 37.5px 0 37.5px;
+    ul{ 
+      li{
+        width: 100%;
+        height: 150px;
+      }
+      .joblist_left{
+        float: left;
+        width: 112px;
+        height: 112px;
+        margin-top: 20px;
+        margin-right: 40px;
+      }
+      .joblist_right{
+        margin-top: 28px;
+        float: left;
+        width: 520px;
+        height: 100px;
+        .joblist_right_top{
+          color: $jobtitle-color;
+          font-size: 30px;
+          font-weight: bold;
+        }
+        .joplist_right_bottom{
+          margin-top: 15px;
+          font-size: 22px;
+        }
+      }
+    }
+  }
+}

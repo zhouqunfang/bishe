@@ -15,3 +15,10 @@ export const SignIn = params => {
     data: params
   })
 }
+// 首页职位数据
+export const JobList = () => {
+  return axios({
+    method: 'get',
+    url: '/api/index/job'
+  })
+}
