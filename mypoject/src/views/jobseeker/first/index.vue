@@ -1,7 +1,7 @@
 <template>
     <div class="index">
       <div class="top_search">
-          <input type="text" placeholder="公司/岗位">
+          <input-search></input-search>
           <span class="city_search" @click="choiceCity()">{{youChoiceCityName}}</span>
        </div>
         <position-piker
@@ -27,12 +27,14 @@
 import FooterBar from '@/views/component/seeker/footerbar'
 import PositionPiker from '../../component/PositionPiker'
 import JobList from './firstjoblist'
+import InputSearch from '@/views/component/seeker/inputsearch'
 export default {
   name: 'Index',
   components: {
     FooterBar,
     PositionPiker,
-    JobList
+    JobList,
+    InputSearch
   },
   data () {
     return {
@@ -41,9 +43,11 @@ export default {
         cityData: [],
         onChoose: null,
         localCity: {},
-        starCity: []
+        starCity: [],
+        searchMessage: ''
+
       },
-      youChoiceCityName: '城市'
+      youChoiceCityName: '广州'
     }
   },
   mounted () {

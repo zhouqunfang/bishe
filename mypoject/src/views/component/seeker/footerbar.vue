@@ -3,7 +3,6 @@
         <ul>
           <li>
             <router-link to='/index'>
-
                   <span class="first">首页</span>
             </router-link>
           </li>

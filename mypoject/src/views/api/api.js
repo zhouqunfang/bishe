@@ -22,3 +22,10 @@ export const JobList = () => {
     url: '/api/index/job'
   })
 }
+// 首页新闻展示
+export const NewList = () => {
+  return axios({
+    method: 'get',
+    url: '/api/index/news'
+  })
+}

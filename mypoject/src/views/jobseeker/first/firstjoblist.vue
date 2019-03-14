@@ -20,26 +20,44 @@
               </li>
             </ul>
         </div>
+        <div class="new_content">
+          <ul>
+            <li v-for="(item,index) in newsdata" :key="index">
+              <span>{{item}}</span>
+              <b></b>
+            </li>
+          </ul>
+        </div>
   </div>
 </template>
 <script>
-import {JobList} from '../../api/api.js'
+// mock 数据接口
+import {JobList, NewList} from '../../api/api.js'
 export default {
   name: 'JobList',
   data () {
     return {
-      jobdataList: ''
+      jobdataList: '',
+      newsdata: ''
 
     }
   },
   mounted () {
-    this.JobList()
+    this.JobList(),
+    this.NewsList()
   },
   methods: {
     JobList () {
+      // 请求数据
       JobList().then(res => {
         this.jobdataList = res.data.jobdataList
-        console.log(this.jobdataList)
+        console.log(res)
+      })
+    },
+    NewsList () {
+      NewList().then(res => {
+        this.newsdata = res.data.newslist
+        console.log(res)
       })
     }
   }

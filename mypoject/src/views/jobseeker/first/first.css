@@ -1,41 +1,14 @@
- .top_search{
-    padding: 10px 7px;
-    height: 30px;
-    overflow: hidden;
- }
-    input{
-      padding: 5px 0 5px 10px;
-      width: 80%;
-      float: left;
-      text-decoration: none;
-      outline: none;
-      border: none;
-      border: 2px solid #7E89EB;
-      border-radius: 20px;
-    }
+
     .city_search{
-      width: 16%;
+      position: absolute;
+      top: 15px;
+      right:15px ;
       display: inline-block;
-      float: right;
       height: 30px; 
-      line-height:30px;
       text-align: center;
       font-size: 14px;
-      /* margin-top: px; */
     }
-    /* .city_search::before{
-          content: '';
-          display: inline-block;
-          position: absolute;
-          top: 21px;
-          right: 50px;
-          width: 10px;
-          height: 10px;
-          background: url('../../../assets/image/pull.svg') center no-repeat;
-          /* sass-loader是读取绝对路径的 */
-      /* }  */
     .index .mint-swipe {
-      /* margin-top:-50px; */
       background: #ebebeb;
     }
     .mint-swipe-items-wrap {
