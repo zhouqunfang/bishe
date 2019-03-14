@@ -1,0 +1,74 @@
+.add_div{
+  height: 40px;
+  width: 100%;
+}
+.mint-header{
+  height: 35px;
+  background-color: #fff;
+  box-sizing: border-box;
+  color:#BBBBBB ;
+}
+.mint-header .mint-header-button>a {
+  margin-left: 10px;
+}
+.mint-header .mint-header-button>a::before{
+  content: '';
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-left: 2px solid #BBBBBB;
+  border-top: 2px solid #BBBBBB;
+  transform: rotate(-45deg);
+}
+.mint-button--normal {
+  position: fixed;
+  bottom: 77px;
+  right: 18px;
+  width: 50px;
+  height:50px;
+  border-radius: 50%;
+}
+.show_input{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 30px;
+}
+.show_input span{
+  position: absolute;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-left: 15px;
+  margin-top: 10px;
+  border-left: 2px solid #BBBBBB;
+  border-top: 2px solid #BBBBBB;
+  transform: rotate(-45deg);
+}
+.show_input input{
+  width: 100%;
+  padding: 10px 0 10px 35px;
+  border: none;
+  outline: none;
+  background: none;
+  background: #D5DDFB;
+}
+.addTodo{
+  position: absolute;
+  top: 5px;
+  right: 11px;
+  width: 28px;
+  height: 28px;
+  display: inline-block;
+  background: url('../../../assets/image/todo_add.svg') center no-repeat;
+}
+.goback{
+  position: absolute;
+  bottom: 150px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  background: url('../../../assets/image/todo_back.svg') center no-repeat;
+  opacity: .5;
+}
+

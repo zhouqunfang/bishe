@@ -20,18 +20,14 @@
   flex: 1;
   text-align: center;
 }
-.todo_item .img_clear{
+
+/* .todo_item .img_clear{
   display:inline-block;
   width: 28px;
   height: 28px; 
   background: url('../../image/clear.svg') center no-repeat;
-}
-.clear .acctived{
-  display:inline-block;
-  width: 28px;
-  height: 28px; 
-  background: url('../../image/clear(1).svg') center no-repeat;
-}
+} */
+
 
 
 
