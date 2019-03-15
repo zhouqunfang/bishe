@@ -55,7 +55,7 @@ export default {
     this.getCityInfo()
     this.city.onChoose = function (res) {
       // ToDo: 选完城市后......
-      console.log(res)
+      // console.log(res)
       _this.city.isShow = false
       _this.youChoiceCityName = res.cityName
       _this.city.localCity.cityName = res.cityName

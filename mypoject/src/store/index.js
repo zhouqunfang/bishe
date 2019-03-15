@@ -10,7 +10,9 @@ const store = new Vuex.Store({
       duration: 2000,
       iconClass: 'icon icon-success',
       className: 'success_toast'
-    }
+    },
+    newSearchList: []
+
   },
   mutations: {
     SET_TOKEN (state, token) {
@@ -23,6 +25,10 @@ const store = new Vuex.Store({
     },
     ADD_TOAST (state, toast) {
       state.toast.message = toast
+    },
+    Search_List (state, searchlist) {
+      console.log(this.state.newSearchList)
+      state.newSearchList = searchlist
     }
   },
   // actions可以进行异步操作
@@ -42,6 +48,9 @@ const store = new Vuex.Store({
           reject(error)
         })
       })
+    },
+    searchlist ({commit}, searchlists) {
+      commit('Search_List', searchlists)
     }
   }
 })

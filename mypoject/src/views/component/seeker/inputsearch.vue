@@ -15,34 +15,30 @@ export default {
       newSearchList: []
     }
   },
-  mounted () {
-    this.getJobList()
-  },
   methods: {
     // 搜索匹配含有关键字的职位数据
-    searchJob () {
-      let keyword = this.keyword
-      if (keyword) {
-        this.searchjobList.filter(item => {
-          console.log(item)
-          if (item.indexOf(keyword) !== -1) {
-            this.newSearchList.push(item)
-            console.log(this.newSearchList)
-            this.newSearchList = []
-          }
-        })
-      }
-      this.keyword = ''
-    },
+    // searchJob () {
+    //   this.keyword = ''
+    // },
     // 获取公司职位列表数据
-    getJobList () {
+    searchJob  () {
       JobList().then(res => {
         let jobdataList = res.data.jobdataList
         jobdataList.forEach(element => {
-          this.searchjobList.push(element.jobTitle)
+          this.searchjobList.push(element)
         })
-        // console.log('数据' + this.searchjobList)
+        let keyword = this.keyword
+        if (keyword) {
+          this.searchjobList.filter(item => {
+            if (item.jobTitle.indexOf(keyword) !== -1) {
+              this.newSearchList.push(item)
+            }
+          })
+        }
+        this.keyword = ''
       })
+      this.$store.dispatch('searchlist', this.newSearchList)
+      this.$router.push('/searchlist')
     }
 
   }

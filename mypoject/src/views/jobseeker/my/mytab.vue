@@ -5,7 +5,7 @@
             <router-link :to='item.myPath'>
                 <img :src="item.mySrc">
                 <b>{{item.name}}</b>
-                <img src="../../assets/image/triangle.png" class="triangle">
+                <img src="@/assets/image/triangle.png" class="triangle">
             </router-link>
           </li>
       </ul>
@@ -42,5 +42,5 @@ export default {
 }
 </script>
 <style lang="css" scoped>
-@import '../../assets/css/seeker/mytab.css';
+@import '../../../assets/css/seeker/mytab.css';
 </style>

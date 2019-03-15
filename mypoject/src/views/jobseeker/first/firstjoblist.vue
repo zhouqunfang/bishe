@@ -51,13 +51,13 @@ export default {
       // 请求数据
       JobList().then(res => {
         this.jobdataList = res.data.jobdataList
-        console.log(res)
+        // console.log(res)
       })
     },
     NewsList () {
       NewList().then(res => {
         this.newsdata = res.data.newslist
-        console.log(res)
+        // console.log(res)
       })
     }
   }

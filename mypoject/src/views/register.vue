@@ -27,7 +27,7 @@ export default {
         username: this.username
       }
       this.$http.post('/api/user/register', params).then(res => {
-        console.log(res)
+        // console.log(res)
         this.$store.dispatch('add_toast', res.data.msg)
         if (res.data.status === 1) {
           this.$router.push('/')

@@ -33,7 +33,7 @@ export default {
       this.$store.dispatch('set_token', params).then(() => {
         // mint ui toast
         let toast = this.$store.state.toast
-        console.log(toast)
+        // console.log(toast)
         this.$toast({
           message: toast.message,
           duration: 2000,

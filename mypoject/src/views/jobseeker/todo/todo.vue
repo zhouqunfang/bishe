@@ -91,7 +91,7 @@ export default {
     newTime () {
       var time1 = new Date().format('yyyy-MM-dd hh:mm')
       this.time = time1
-      console.log(time1)
+      // console.log(time1)
     },
     addTodo () {
       this.newTime()

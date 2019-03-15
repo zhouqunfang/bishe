@@ -4,7 +4,7 @@
     </div>
 </template>
 <script>
-import FooterBar from '../component/seeker/footerbar'
+import FooterBar from '../../component/seeker/footerbar'
 export default {
   name: 'Message',
   components: {

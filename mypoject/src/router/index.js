@@ -5,13 +5,14 @@ const Login = r => require.ensure([], () => r(require('@/views/login')), 'chunkn
 const Register = r => require.ensure([], () => r(require('@/views/register')), 'chunkname1')
 const Index = r => require.ensure([], () => r(require('@/views/jobseeker/first/index')), 'chunkname1')
 const Company = r => require.ensure([], () => r(require('@/views/jobseeker/company/company')), 'chunkname1')
-const Message = r => require.ensure([], () => r(require('@/views/jobseeker/message')), 'chunkname1')
-const My = r => require.ensure([], () => r(require('@/views/jobseeker/my')), 'chunkname1')
+const Message = r => require.ensure([], () => r(require('@/views/jobseeker/message/message')), 'chunkname1')
+const My = r => require.ensure([], () => r(require('@/views/jobseeker/my/my')), 'chunkname1')
 const Todo = r => require.ensure([], () => r(require('@/views/jobseeker/todo/todo')), 'chunkname1')
-const Resume = r => require.ensure([], () => r(require('@/views/jobseeker/myPath/resume')), 'chunkname2')
-const Findjob = r => require.ensure([], () => r(require('@/views/jobseeker/myPath/findjob')), 'chunkname2')
-const Collectjob = r => require.ensure([], () => r(require('@/views/jobseeker/myPath/collectjob')), 'chunkname2')
-const Setting = r => require.ensure([], () => r(require('@/views/jobseeker/myPath/setting')), 'chunkname2')
+const Resume = r => require.ensure([], () => r(require('@/views/jobseeker/my/resume')), 'chunkname2')
+const Findjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/findjob')), 'chunkname2')
+const Collectjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/collectjob')), 'chunkname2')
+const Setting = r => require.ensure([], () => r(require('@/views/jobseeker/my/setting')), 'chunkname2')
+const Searchlist = r => require.ensure([], () => r(require('@/views/jobseeker/searchlist/searchlist.vue')), 'chunkname2')
 // const Position = r => require.ensure([], () => r(require('@/views/component/seeker/position')), 'chunkname1')
 const routes = new Router({
   routes: [
@@ -28,6 +29,12 @@ const routes = new Router({
     {
       path: '/index',
       name: 'Index',
+      // children: [
+      //   {
+      //     path: '/searchlist',
+      //     component: Searchlist
+      //   }
+      // ],
       meta: {
         requireAuth: false// 添加该字段，表示进入这个路由是需要登录的
       },
@@ -72,6 +79,16 @@ const routes = new Router({
       path: '/setting',
       name: 'Setting',
       component: Setting
+    },
+    // 搜索框得到数据模块
+    {
+      path: '/searchlist',
+      name: 'Searchlist',
+      component: Searchlist
+    },
+    {
+      path: '/searchlist',
+      component: Searchlist
     }
   ]
 })
