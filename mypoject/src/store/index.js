@@ -15,20 +15,28 @@ const store = new Vuex.Store({
 
   },
   mutations: {
+    // 存储token
     SET_TOKEN (state, token) {
       state.token = token
       // localStorage.setItem('token', token)
     },
+    // 删除token
     DEL_TOKEN (state) {
       state.token = ''
       // localStorage.removeItem('token')
     },
+    // 在vuex使用minui toast方法
     ADD_TOAST (state, toast) {
       state.toast.message = toast
     },
-    Search_List (state, searchlist) {
+    // 搜索框搜索职位数据
+    SEARCH_LIST (state, searchlist) {
       console.log(this.state.newSearchList)
       state.newSearchList = searchlist
+    },
+    // 放空职位数据数据
+    DELETE_LIST (state) {
+      state.newSearchList = []
     }
   },
   // actions可以进行异步操作
@@ -50,7 +58,10 @@ const store = new Vuex.Store({
       })
     },
     searchlist ({commit}, searchlists) {
-      commit('Search_List', searchlists)
+      commit('SEARCH_LIST', searchlists)
+    },
+    delete_list ({commit}) {
+      commit('DELETE_LIST')
     }
   }
 })

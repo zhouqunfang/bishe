@@ -111,7 +111,7 @@ export default {
     },
     // 返回上一层
     goback () {
-      this.$router.go(-1)
+      this.$router.push('/index')
     }
     // clearAllCompleted () {
     //   this.todos = this.todos.filter(todo => !todo.completed)

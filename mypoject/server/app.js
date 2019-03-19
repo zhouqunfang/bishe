@@ -31,5 +31,13 @@ app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type')
   next()
 })
-app.listen(3000)
+const server = app.listen(3000)
+// socket.io集成 (或挂载) 到 Node.JS HTTP 服务器
+const io = require('socket.io')(server)
+io.on('connection', socket => {
+  socket.emit('news', { hello: 'world' })
+  socket.on('my other event', data => {
+    console.log(data)
+  })
+})
 console.log('success listen…………')

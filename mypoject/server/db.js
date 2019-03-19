@@ -10,16 +10,47 @@ db.once('open', function () {}) // 数据库连接成功事件
 db.once('close', function () {}) // 数据库断开的事件
 // Schema、Model、Entity或者Documents的关系请牢记，Schema生成Model，Model创造Entity，Model和Entity都可对数据库操作造成影响，但Model比Entity更具操作性。
 /// / 创建Schema(模式)对象
+// 登录注册
 const userSchema = new mongoose.Schema({
   username: String,
   password: String
+})
+// 用户的socketid与用户名
+const idtoidSchema = new mongoose.Schema({
+  socketid: String,
+  username: String
+})
+// 聊天页面内容信息
+// Schema.Type是由Mongoose内定的一些数据类型
+const chatcontentSchema = new mongoose.Schema({
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  chatWith: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  addTime: {
+    type: Date,
+    default: Date.now
+  },
+  content: {
+    type: String
+  },
+  unread: {
+    type: Boolean,
+    default: true
+  }
 })
 // 通过Schema来创建Model
 // Model代表的是数据库中的集合，通过Model才能对数据库进行操作
 // mongoose.model(modelName,schema) (集合名，Schema)
 // modelName 就是要映射的集合名，mongoose会自动将集合名变成复数
 const Models = {
-  User: mongoose.model('User', userSchema)
+  User: mongoose.model('User', userSchema),
+  Idtoid: mongoose.model('Idtoid', idtoidSchema),
+  Chatcontent: mongoose.model('Chatcontent', chatcontentSchema)
 }
 
 module.exports = Models

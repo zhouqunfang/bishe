@@ -1,5 +1,8 @@
 <template>
     <div class="select_position">
+        <div class="chat_list">
+          <input type="text" >
+        </div>
         <footer-bar></footer-bar>
     </div>
 </template>

@@ -10,6 +10,7 @@ axios.defaults.headers.common['Authentication-Token'] = localStorage.getItem('to
 axios.interceptors.request.use(config => {
 // 在发送请求之前做些什么
 // 判断是否存在token，如果存在将每个页面header都添加token
+
   const token = localStorage.getItem('Token')
 
   if (token) {
