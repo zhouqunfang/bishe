@@ -28,6 +28,7 @@ import FooterBar from '@/views/component/seeker/footerbar'
 import PositionPiker from '../../component/PositionPiker'
 import JobList from './firstjoblist'
 import InputSearch from '@/views/component/seeker/inputsearch'
+import {SetUserInfo} from '../../api/message/message.js'
 export default {
   name: 'Index',
   components: {
@@ -44,14 +45,19 @@ export default {
         onChoose: null,
         localCity: {},
         starCity: [],
-        searchMessage: ''
+        searchMessage: '',
+        username:''
 
       },
       youChoiceCityName: '广州'
     }
   },
+  created(){
+
+  },
   mounted () {
     let _this = this
+    this.setuserinfo()
     this.getCityInfo()
     this.city.onChoose = function (res) {
       // ToDo: 选完城市后......
@@ -62,6 +68,15 @@ export default {
     }
   },
   methods: {
+    //获取用户信息 
+    setuserinfo(){
+      let username= localStorage.getItem('Username')
+      let params = {username:username}
+      SetUserInfo(params).then(res=>{
+        console.log(res)
+      this.$store.state.userInfo = res.data.userinfo
+        })
+      },
     getCityInfo () {
       this.city.starCity = [
         {

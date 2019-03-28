@@ -72,12 +72,158 @@ router.post('/api/user/sign', (req, res) => {
         //     res.status(500).send()
         //     return
         //   }
+        //添加信息到Userinfo表
+        db.Userinfo.find({ username: username }, (err, data) =>{
+          if(data.length==0){
+            let setUser = new db.Userinfo({
+              username: username,
+              iscompany: false
+            })
+            setUser.save((err, docs) => {
+              console.log(docs)
+              if (err) {
+                res.send(err)
+                return
+              }
+            }) 
+            }
+          })
         res.send({'status': 2, msg: '登录成功', 'token': docs[0].token, 'username': username})// //返回给前台
-        // })
       }
     }
   })
 })
-// 消息聊天
-// router.post()
+ 
+//获取用户信息
+router.post('/api/chat/userInfo',(req,res)=>{
+  let username = req.body.username
+  if(username){
+    db.Userinfo.find({ username: username }, (err, data) => {
+      if (err) {
+        res.send(err)
+        return
+      }
+      res.send({
+        'code': 0, 'docs': '获取成功', 'userinfo': data
+        })
+      })
+   }
+  })
+  
+
+
+// 聊天对象信息 
+router.post('/api/chat/touserInfo',(req,res)=>{
+  let tousername = req.body.username
+  console.log(req.body.username)
+  db.User.find(
+    {username:tousername},(err,docs)=>{
+      if (err) {
+        res.send(err)
+        return
+      }else{
+        console.log('聊天对象'+docs)
+        res.send(docs)
+
+            }
+    }
+  )
+})
+//聊天信息发送
+//populate 连表查询
+router.post('/api/chat/chatwith', (req, res) => {
+  let chatWith = req.body.chatWithId;
+  let user_id = req.body.user_id;
+  let content = req.body.content;
+  if (chatWith == user_id) {
+    let newChatcontent = new db.Chatcontent(
+      {
+      chatWith: chatWith,
+      user_id: user_id,
+      content: content,
+    })
+    newChatcontent.save().then((newContent) => {
+      db.Chatrelation.findOne({
+        $or: [{
+          userA: user_id,
+          userB: chatWith
+        }, {
+          userB: user_id,
+          userA: chatWith
+        }]
+      }).then((rs) => {
+        if (rs) {
+          let Chatcontent = rs.Chatcontent;
+          // Chatcontent.unshift(newContent._id);
+         db.Chatrelation.update({
+            _id: rs.id
+          }, {
+              Chatcontent: Chatcontent
+            }).then(() => {
+              res.send({
+                code: 0,
+                data: newContent
+              })
+            })
+        } else {
+          let Chatrelation = new db.Chatrelation({
+            userA: user_id,
+            userB: chatWith,
+            chatcontent: [{ newContent }]
+          })
+          Chatrelation.save().then(()=>{
+            res.send({
+              code: 0,
+              data: newContent
+            })
+          })
+        }
+      })
+    })
+  }
+  let Chatcontent = new db.Chatcontent({
+    chatWith: chatWith,
+    user_id: user_id,
+    content: content
+  })
+  Chatcontent.save().then((newContent) => {
+    db.Chatrelation.findOne({
+      $or: [{
+        userA: user_id,
+        userB: chatWith
+      }, {
+        userB: user_id,
+        userA: chatWith
+      }]
+    }).then((rs) => {
+      if (rs) {
+        let Chatcontent = rs.Chatcontent;
+        // Chatcontent.unshift(newContent._id);
+        db.Chatrelation.update({
+          _id: rs.id
+        }, {
+            Chatcontent: Chatcontent
+          }).then(() => {
+            // res.send({
+            //   code: 0,
+            //   data: newContent
+            // })
+          })
+      } else {
+        let Chatrelation = new db.Chatrelation({
+          userA: user_id,
+          userB: chatWith,
+          Chatcontent: [newContent._id]
+        })
+        Chatrelation.save().then(() => {
+          res.send({
+            code: 0,
+            data: newContent
+          })
+        })
+      }
+    })
+  })
+
+});
 module.exports = router
