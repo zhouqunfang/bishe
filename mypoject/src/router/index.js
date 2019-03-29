@@ -61,7 +61,7 @@ const routes = new Router({
       component: My
     },
     {
-      path: '/resume',
+      path: '/my/resume',
       name: 'Resume',
       component: Resume
     },

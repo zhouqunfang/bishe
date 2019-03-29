@@ -68,6 +68,15 @@ const chatrelateSchema = new mongoose.Schema({
   }],
 
 });
+//简历模快个人信息
+const baseinforSchema = new mongoose.Schema({
+  name: String,
+  sex: String,
+  birth:String,
+  phone:String,
+  school:String,
+  major:String
+})
 // 通过Schema来创建Model
 // Model代表的是数据库中的集合，通过Model才能对数据库进行操作
 // mongoose.model(modelName,schema) (集合名，Schema)
@@ -77,6 +86,7 @@ const Models = {
   Idtoid: mongoose.model('Idtoid', idtoidSchema),
   Userinfo: mongoose.model('Userinfo', userinfoSchema ),
   Chatcontent: mongoose.model('Chatcontent', chatcontentSchema),
-  Chatrelation: mongoose.model('Chatrelation', chatrelateSchema)
+  Chatrelation: mongoose.model('Chatrelation', chatrelateSchema),
+  Baseinfor:mongoose.model('Baseinfor',baseinforSchema)
 }
 module.exports = Models
