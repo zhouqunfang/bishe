@@ -13,9 +13,27 @@ const Findjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/fi
 const Collectjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/collectjob')), 'chunkname2')
 const Setting = r => require.ensure([], () => r(require('@/views/jobseeker/my/setting')), 'chunkname2')
 const Searchlist = r => require.ensure([], () => r(require('@/views/jobseeker/searchlist/searchlist.vue')), 'chunkname2')
-// const Position = r => require.ensure([], () => r(require('@/views/component/seeker/position')), 'chunkname1')
+const Addjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/addjob')), 'chunkname2')
+const Select = r => require.ensure([], () => r(require('@/views/component/city/city.vue')), 'chunkname3')
+const cityList = r => require.ensure([], () => r(require('@/views/component/city/cityselect.vue')), 'chunkname3')
 const routes = new Router({
   routes: [
+    {
+      path: '/cityList',
+      name: 'cityList',
+      meta: {
+        hasBack: true
+      },
+      component: cityList
+    },
+    {
+      path: '/select',
+      name: 'Select',
+      meta: {
+        hasBack: false
+      },
+      component: Select
+    },
     {
       path: '/',
       name: 'Login',
@@ -89,7 +107,12 @@ const routes = new Router({
     {
       path: '/searchlist',
       component: Searchlist
-    }
+    },
+    {
+      path: '/my/addjob',
+      name: 'Addjob',
+      component: Addjob
+    },
   ]
 })
 

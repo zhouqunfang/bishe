@@ -2,11 +2,11 @@
     <div class="myTab">
         <section class="resume_content">
           <div class="base_infor">
-            <div class="ifshow_infor"  v-if="ifshow">
+            <div class="ifshow_infor"  v-if="ifshow" @click="addBase">
               <div class="add_info">添加基本信息</div>
               <span>+</span>
             </div>
-            <div class="base_detail">
+            <div class="base_detail" v-if="ifappear">
               <div class="base_update" @click="goAdd"></div>
               <h4>基本信息</h4>
               <h3>{{basename}}</h3>
@@ -18,10 +18,19 @@
             </div>
           </div>
           <div class="search_infor">
-            <div class="ifshow_infor">
+            <div class="ifshow_infor" @click="addJob" v-if="jobshow">
               <div class="add_info">添加求职意向</div> 
               <span>+</span>
+            </div>
+            <div class="job_detail" v-if="ifjob">
+              <div class="job_update" @click="jobAdd"></div>
+              <h4>求职意向</h4>
+              <h3>{{jobinfo}}</h3>
+              <div class="base_some">
+                <b>{{cityinfo}}</b>
+                <b>{{salaryinfo}}</b>
               </div>
+            </div>            
           </div>
           <div class="job_infor">
             <div class="ifshow_infor">
@@ -39,25 +48,58 @@
     </div>
 </template>
 <script>
-import {getBaseInfor} from '@/views/api/resume/resume.js';
+import {getBaseInfor,getJobInfor} from '@/views/api/resume/resume.js';
 export default {
   data () {
     return {
       ifshow:true,
+      ifappear:false,
       basename:'',
       basephone:'',
       basesex:'',
-      basemajor:''
+      basemajor:'',
+      ifjob:false,
+      jobshow:true,
+      cityinfo:'',
+      jobinfo:'',
+      salaryinfo:'',
     }
   },
   mounted(){
     this.getbaseInfor()
   },
   methods:{
+    //增加个人基本信息
+    addBase(){
+      this.$router.push('/my/resume')
+    },
+    //增加求职意向
+    addJob(){
+      this.$router.push('/my/addjob')
+    },
+    //如果已经有基本信息的跳转
     goAdd(){
-      console.log(11111)
       this.$router.push({name:'Resume',query:{id:0}})
       this.$router.go(0)
+    },
+   //如果已经有求职意向的跳转
+    jobAdd(){
+      this.$router.push({name:'Addjob',query:{id:0}})
+      this.$router.go(0)
+    },
+    //获取求职意向信息
+    getjobInfor(){
+      getJobInfor(params).then(res=>{
+          if(res.data.code === "0"){
+              this.cityinfo = res.data.data.city
+              this.jobinfo = res.data.data.salary
+              this.salaryinfo = res.data.data.job
+              this.ifjob = true
+          }else{
+              jobshow:false,      
+          }
+        })
+    }
     },
     //获取基本信息
     getbaseInfor(){
@@ -74,6 +116,7 @@ export default {
               this.basesex = res.data.data.sex
               this.basephone = res.data.data.phone
               this.basemajor = res.data.data.major
+              this.ifappear = true
           }else{
             this.ifshow = true
           }
