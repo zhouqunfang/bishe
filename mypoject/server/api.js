@@ -224,6 +224,30 @@ router.post('/api/chat/chatwith', (req, res) => {
       }
     })
   })
-
 });
+//简历个人信息
+router.post('/api/resume/baseinfor', (req,res)=>{
+  let name = req.body.name
+  let sex = req.body.sex
+  let birth = req.body.birth
+  let phone = req.body.phone
+  let school = req.body.school
+  let major = req.body.major
+  let newDatabase = new db.Baseinfor({
+    name: name,
+    sex: sex,
+    birth: birth,
+    phone: phone,
+    school: school,
+    major: major
+  })
+  newDatabase.save((err,data)=>{
+    if (err) {
+      res.send(err)
+    }else{
+      res.send({ 'code': 0, msg: '保存成功' })
+    }
+    })
+  })
+
 module.exports = router

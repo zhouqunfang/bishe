@@ -23,7 +23,7 @@
           </li>
           <li>
             <router-link to='/my'>
-                 <span class="my">我的</span>
+                 <span class="my">简历</span>
             </router-link>
           </li>
         </ul>

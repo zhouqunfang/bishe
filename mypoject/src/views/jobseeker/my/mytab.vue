@@ -1,46 +1,76 @@
 <template>
     <div class="myTab">
-      <ul>
-          <li v-for="item in myData" :key="item.name">
-            <router-link :to='item.myPath'>
-                <img :src="item.mySrc">
-                <b>{{item.name}}</b>
-                <img src="@/assets/image/triangle.png" class="triangle">
-            </router-link>
-          </li>
-      </ul>
+        <section class="resume_content">
+          <div class="base_infor">
+            <div class="ifshow_infor" @click="goAdd">
+              <div>添加基本信息</div>
+              <span>+</span>
+            </div>
+          </div>
+          <div class="search_infor">
+            <div class="ifshow_infor">
+              <div>添加求职意向</div> 
+              <span>+</span>
+              </div>
+          </div>
+          <div class="job_infor">
+            <div class="ifshow_infor">
+              <div>添加工作经验</div>
+              <span>+</span>
+            </div>
+          </div>
+          <div class="poject_infor">
+            <div class="ifshow_infor">
+              <div>添加项目经历</div>
+              <span>+</span>
+            </div>    
+          </div>
+        </section>
     </div>
 </template>
 <script>
 export default {
   data () {
     return {
-      myData: [
-        {
-          name: '我的简历',
-          mySrc: '',
-          myPath: '/resume'
-        },
-        {
-          name: '求职意向',
-          mySrc: '',
-          myPath: '/findjob'
-        },
-        {
-          name: '职位收藏',
-          mySrc: '',
-          myPath: '/collectjob'
-        },
-        {
-          name: '设置',
-          mySrc: '',
-          myPath: '/setting'
-        }
-      ]
+      
+    }
+  },
+  methods:{
+    goAdd(){
+      this.$router.push('/my/resume')
     }
   }
 }
 </script>
-<style lang="css" scoped>
-@import '../../../assets/css/seeker/mytab.css';
+<style lang="scss" scoped>
+/* @import '../../../assets/css/seeker/mytab.css'; */
+.myTab{
+  .resume_content{
+    padding: 20px 40px;
+    div{
+      margin-bottom: 50px;
+    }
+    .base_infor,.search_infor,.job_infor,.poject_infor{
+      position: relative;
+      width: 100%;
+      height: 40px;
+      padding:20px 0 ;
+      text-align: center;
+      border: 1px solid black;
+      font-size: 28px;
+      span{
+        display: inline-block;
+        position: absolute;
+        width:40px;
+        height: 40px;
+        font-size: 55px;
+        top:50%;
+        margin-top:-20px;
+        left:420px;
+        text-align: center;
+        line-height: 40px;
+      }
+    }
+  }
+}
 </style>
