@@ -2,6 +2,7 @@
     <div class="myTab">
         <section class="resume_content">
           <div class="base_infor">
+<<<<<<< HEAD
             <div class="ifshow_infor"  v-if="ifshow">
               <div class="add_info">添加基本信息</div>
               <span>+</span>
@@ -20,18 +21,36 @@
           <div class="search_infor">
             <div class="ifshow_infor">
               <div class="add_info">添加求职意向</div> 
+=======
+            <div class="ifshow_infor" @click="goAdd">
+              <div>添加基本信息</div>
+              <span>+</span>
+            </div>
+          </div>
+          <div class="search_infor">
+            <div class="ifshow_infor">
+              <div>添加求职意向</div> 
+>>>>>>> e0c84e828594f9fc3863a7fe52bbe031f018f5a0
               <span>+</span>
               </div>
           </div>
           <div class="job_infor">
             <div class="ifshow_infor">
+<<<<<<< HEAD
               <div class="add_info">添加工作经验</div>
+=======
+              <div>添加工作经验</div>
+>>>>>>> e0c84e828594f9fc3863a7fe52bbe031f018f5a0
               <span>+</span>
             </div>
           </div>
           <div class="poject_infor">
             <div class="ifshow_infor">
+<<<<<<< HEAD
               <div class="add_info">添加项目经历</div>
+=======
+              <div>添加项目经历</div>
+>>>>>>> e0c84e828594f9fc3863a7fe52bbe031f018f5a0
               <span>+</span>
             </div>    
           </div>
@@ -43,6 +62,7 @@ import {getBaseInfor} from '@/views/api/resume/resume.js';
 export default {
   data () {
     return {
+<<<<<<< HEAD
       ifshow:true,
       basename:'',
       basephone:'',
@@ -78,6 +98,14 @@ export default {
             this.ifshow = true
           }
         })
+=======
+      
+    }
+  },
+  methods:{
+    goAdd(){
+      this.$router.push('/my/resume')
+>>>>>>> e0c84e828594f9fc3863a7fe52bbe031f018f5a0
     }
   }
 }
@@ -93,6 +121,7 @@ export default {
     .base_infor,.search_infor,.job_infor,.poject_infor{
       position: relative;
       width: 100%;
+<<<<<<< HEAD
       padding:20px 0 ;
       border: 1px solid black;
       font-size: 28px;
@@ -105,6 +134,13 @@ export default {
         height: 20px;
         width: 200px;
       }
+=======
+      height: 40px;
+      padding:20px 0 ;
+      text-align: center;
+      border: 1px solid black;
+      font-size: 28px;
+>>>>>>> e0c84e828594f9fc3863a7fe52bbe031f018f5a0
       span{
         display: inline-block;
         position: absolute;
@@ -112,13 +148,17 @@ export default {
         height: 40px;
         font-size: 55px;
         top:50%;
+<<<<<<< HEAD
         left:50%;
         margin-left: -20px;
+=======
+>>>>>>> e0c84e828594f9fc3863a7fe52bbe031f018f5a0
         margin-top:-20px;
         left:420px;
         text-align: center;
         line-height: 40px;
       }
+<<<<<<< HEAD
       .base_detail{
         .base_update{
           position: absolute;
@@ -130,6 +170,8 @@ export default {
           background: url('../../../assets/image/update.svg') center no-repeat;
         }
       }
+=======
+>>>>>>> e0c84e828594f9fc3863a7fe52bbe031f018f5a0
     }
   }
 }

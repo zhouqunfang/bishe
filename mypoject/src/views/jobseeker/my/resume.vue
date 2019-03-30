@@ -194,16 +194,16 @@ export default {
             className: 'success_toast'
               }
           )
-        }
+          }
         })
       },
       //保存编辑页
       updateInfor(){
         this.updateInfo()
-      
+        }
       }
     }
-  }
+  
 
 </script>
 <style lang="scss" scoped>

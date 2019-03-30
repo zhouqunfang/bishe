@@ -16,14 +16,14 @@ const jwt = require('jsonwebtoken')
 router.post('/api/user/register', (req, res) => {
   let password = req.body.password
   let username = req.body.username
-  db.User.find({username: username}, (err, data) => {
+  db.User.find({ username: username }, (err, data) => {
     if (err) {
       res.send(err)
       return
     }
     // 判断用户名是否已存在
     if (data.length > 0) {
-      res.send({'status': 0, 'msg': '用户名已存在'})
+      res.send({ 'status': 0, 'msg': '用户名已存在' })
     } else if (data.length === 0) {
       if (password) {
         let newUser = new db.User({
@@ -34,11 +34,11 @@ router.post('/api/user/register', (req, res) => {
           if (err) {
             res.send(err)
           } else {
-            res.send({'status': 1, 'msg': '注册成功'})
+            res.send({ 'status': 1, 'msg': '注册成功' })
           }
         })
       } else {
-        res.send({'status': 2, 'msg': '密码不能为空'})
+        res.send({ 'status': 2, 'msg': '密码不能为空' })
       }
     }
   })
@@ -48,19 +48,19 @@ router.post('/api/user/register', (req, res) => {
 router.post('/api/user/sign', (req, res) => {
   let inputpassword = req.body.password
   let username = req.body.username
-  db.User.find({username: username, password: inputpassword}, (err, docs) => {
+  db.User.find({ username: username, password: inputpassword }, (err, docs) => {
     if (err) {
       res.send(err)
       return
     }
     if (docs.length === 0) {
-      res.send({'status': 0, 'msg': '用户名不存在'})
+      res.send({ 'status': 0, 'msg': '用户名不存在' })
     } else if (docs.length > 0) {
       let password = docs[0].password
       if (inputpassword !== password) {
-        res.send({'status': 1, 'msg': '密码错误'})
+        res.send({ 'status': 1, 'msg': '密码错误' })
       } else {
-        let content = {username: username}// 生成token的主题信息
+        let content = { username: username }// 生成token的主题信息
         let secretOrPrivateKey = '123456'// 这是加密的key（密钥）
         let token = jwt.sign(content, secretOrPrivateKey, {
           expiresIn: 60 * 60 * 1 // 1小时过期
@@ -73,8 +73,8 @@ router.post('/api/user/sign', (req, res) => {
         //     return
         //   }
         //添加信息到Userinfo表
-        db.Userinfo.find({ username: username }, (err, data) =>{
-          if(data.length==0){
+        db.Userinfo.find({ username: username }, (err, data) => {
+          if (data.length == 0) {
             let setUser = new db.Userinfo({
               username: username,
               iscompany: false
@@ -85,19 +85,19 @@ router.post('/api/user/sign', (req, res) => {
                 res.send(err)
                 return
               }
-            }) 
-            }
-          })
-        res.send({'status': 2, msg: '登录成功', 'token': docs[0].token, 'username': username})// //返回给前台
+            })
+          }
+        })
+        res.send({ 'status': 2, msg: '登录成功', 'token': docs[0].token, 'username': username })// //返回给前台
       }
     }
   })
 })
- 
+
 //获取用户信息
-router.post('/api/chat/userInfo',(req,res)=>{
+router.post('/api/chat/userInfo', (req, res) => {
   let username = req.body.username
-  if(username){
+  if (username) {
     db.Userinfo.find({ username: username }, (err, data) => {
       if (err) {
         res.send(err)
@@ -105,27 +105,27 @@ router.post('/api/chat/userInfo',(req,res)=>{
       }
       res.send({
         'code': 0, 'docs': '获取成功', 'userinfo': data
-        })
       })
-   }
-  })
-  
+    })
+  }
+})
+
 
 
 // 聊天对象信息 
-router.post('/api/chat/touserInfo',(req,res)=>{
+router.post('/api/chat/touserInfo', (req, res) => {
   let tousername = req.body.username
   console.log(req.body.username)
   db.User.find(
-    {username:tousername},(err,docs)=>{
+    { username: tousername }, (err, docs) => {
       if (err) {
         res.send(err)
         return
-      }else{
-        console.log('聊天对象'+docs)
+      } else {
+        console.log('聊天对象' + docs)
         res.send(docs)
 
-            }
+      }
     }
   )
 })
@@ -138,10 +138,10 @@ router.post('/api/chat/chatwith', (req, res) => {
   if (chatWith == user_id) {
     let newChatcontent = new db.Chatcontent(
       {
-      chatWith: chatWith,
-      user_id: user_id,
-      content: content,
-    })
+        chatWith: chatWith,
+        user_id: user_id,
+        content: content,
+      })
     newChatcontent.save().then((newContent) => {
       db.Chatrelation.findOne({
         $or: [{
@@ -155,7 +155,7 @@ router.post('/api/chat/chatwith', (req, res) => {
         if (rs) {
           let Chatcontent = rs.Chatcontent;
           // Chatcontent.unshift(newContent._id);
-         db.Chatrelation.update({
+          db.Chatrelation.update({
             _id: rs.id
           }, {
               Chatcontent: Chatcontent
@@ -171,7 +171,7 @@ router.post('/api/chat/chatwith', (req, res) => {
             userB: chatWith,
             chatcontent: [{ newContent }]
           })
-          Chatrelation.save().then(()=>{
+          Chatrelation.save().then(() => {
             res.send({
               code: 0,
               data: newContent
@@ -226,7 +226,7 @@ router.post('/api/chat/chatwith', (req, res) => {
   })
 });
 //增加简历个人信息
-router.post('/api/resume/baseinfor', (req,res)=>{
+router.post('/api/resume/baseinfor', (req, res) => {
   let username = req.body.username
   let name = req.body.name
   let sex = req.body.sex
@@ -241,35 +241,35 @@ router.post('/api/resume/baseinfor', (req,res)=>{
     phone: phone,
     school: school,
     major: major,
-    username:username
+    username: username
   })
-  newDatabase.save((err,data)=>{
+  newDatabase.save((err, data) => {
     if (err) {
       res.send(err)
-    }else{
+    } else {
       res.send({ 'code': 0, msg: '保存成功' })
     }
-    })
   })
-  //获取基本信息
+})
+//获取基本信息
 router.post('/api/my/baseinfor', (req, res) => {
   let username = req.body.username
-  db.Baseinfor.find({username:username},(err,data)=>{
-    if(err){
+  db.Baseinfor.find({ username: username }, (err, data) => {
+    if (err) {
       res.send(err)
       return
-    }else if(data.length>0){
-      res.send({"code":"0","msg":"保存成功","data":data[0]})
-    }else{
-      res.send({"code":"1"})
+    } else if (data.length > 0) {
+      res.send({ "code": "0", "msg": "保存成功", "data": data[0] })
+    } else {
+      res.send({ "code": "1" })
     }
   })
 })
 //更新简历基本信息
-router.post('/api/my/updatebase',(req,res)=>{
-  let username= req.body.username
+router.post('/api/my/updatebase', (req, res) => {
+  let username = req.body.username
   console.log(username)
-  let whereStr = {username:username}
+  let whereStr = { username: username }
   let name = req.body.name
   let sex = req.body.sex
   let birth = req.body.birth
@@ -277,23 +277,23 @@ router.post('/api/my/updatebase',(req,res)=>{
   let school = req.body.school
   let major = req.body.major
   let updateStr = {
-    $set:{
-    "name": name,
-    "sex": sex,
-    "birth": birth,
-    "phone": phone,
-    "school": school,
-    "major": major
+    $set: {
+      "name": name,
+      "sex": sex,
+      "birth": birth,
+      "phone": phone,
+      "school": school,
+      "major": major
     }
   }
-  db.Baseinfor.updateOne(whereStr, updateStr,(err,data)=>{
-      if(err){
-        res.send(err)
-        return
-      }else{
-        // console.log(data)
-        res.send({"code":"0","msg":"更新成功"})
-      }
+  db.Baseinfor.updateOne(whereStr, updateStr, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else {
+      // console.log(data)
+      res.send({ "code": "0", "msg": "更新成功" })
+    }
   })
 
 
