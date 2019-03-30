@@ -45,3 +45,12 @@ export const getJobInfor = (params) => {
     data: params
   })
 }
+//更新求职意向信息
+export const updateJobInfor = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/my/updatejobinfor',
+    dataType: 'json',
+    data: params
+  })
+}

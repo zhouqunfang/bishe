@@ -22,8 +22,8 @@
               <div class="add_info">添加求职意向</div> 
               <span>+</span>
             </div>
-            <div class="job_detail" v-if="ifjob">
-              <div class="job_update" @click="jobAdd"></div>
+            <div class="base_detail" v-if="ifjob">
+              <div class="base_update" @click="jobAdd"></div>
               <h4>求职意向</h4>
               <h3>{{jobinfo}}</h3>
               <div class="base_some">
@@ -66,7 +66,7 @@ export default {
     }
   },
   mounted(){
-    this.getbaseInfor()
+    this.getInfo()
   },
   methods:{
     //增加个人基本信息
@@ -80,34 +80,20 @@ export default {
     //如果已经有基本信息的跳转
     goAdd(){
       this.$router.push({name:'Resume',query:{id:0}})
-      this.$router.go(0)
+      // this.$router.go(0)
     },
    //如果已经有求职意向的跳转
     jobAdd(){
       this.$router.push({name:'Addjob',query:{id:0}})
-      this.$router.go(0)
-    },
-    //获取求职意向信息
-    getjobInfor(){
-      getJobInfor(params).then(res=>{
-          if(res.data.code === "0"){
-              this.cityinfo = res.data.data.city
-              this.jobinfo = res.data.data.salary
-              this.salaryinfo = res.data.data.job
-              this.ifjob = true
-          }else{
-              jobshow:false,      
-          }
-        })
-    }
+      // this.$router.go(0)
     },
     //获取基本信息
-    getbaseInfor(){
-      let username = localStorage.getItem('Username')
-      let params = {
+    getBase(){
+     let username = localStorage.getItem('Username')
+     let params = {
         username:username
       }
-      getBaseInfor(params).then(res=>{
+     getBaseInfor(params).then(res=>{
         console.log(res)
           if(res.data.code === "0"){
               this.ifshow = false 
@@ -121,6 +107,32 @@ export default {
             this.ifshow = true
           }
         })
+    },
+    //获取求职意向信息
+    getjobInfor(){
+      let username = localStorage.getItem('Username')
+      let params = {
+        username:username
+      }      
+      getJobInfor(params).then(res=>{
+          if(res.data.code === "0"){
+            console.log(res.data.data)
+              this.cityinfo = res.data.data.city
+              this.jobinfo = res.data.data.salary
+              this.salaryinfo = res.data.data.job
+              this.ifjob = true
+              this.jobshow=false 
+          }else{
+              this.jobshow=true    
+          }
+        })
+    },
+    //获取基本信息
+    getInfo(){
+      //获取基本信息
+      this.getBase()
+      //获取求职意向信息
+      this.getjobInfor()
     }
   }
 }
@@ -172,6 +184,9 @@ export default {
           height:80px;
           background: url('../../../assets/image/update.svg') center no-repeat;
         }
+      }
+      .job_detail{
+
       }
     }
   }

@@ -302,7 +302,7 @@ router.post('/api/resume/jobinfor', (req, res) => {
   let city = req.body.city
   let salary = req.body.salary
   let job = req.body.job
-  let newDatabase = new db.Baseinfor({
+  let newDatabase = new db.Jobinfor({
     city: city ,
     salary: salary,
     job: job,
@@ -324,9 +324,34 @@ router.post('/api/my/jobinfor', (req, res) => {
       res.send(err)
       return
     } else if (data.length > 0) {
-      res.send({ "code": "0", "msg": "保存成功", "data": data[0] })
+      res.send({ "code": "0", "msg": "编辑成功", "data": data[0] })
     } else {
-      res.send({ "code": "1" })
+      res.send({ "code": "1" ,"msg": "保存成功", "data": data[0]})
+    }
+  })
+})
+//更新求职意向信息
+router.post('/api/my/updatejobinfor', (req, res) => {
+  let username = req.body.username
+  console.log(username)
+  let whereStr = { username: username }
+  let city = req.body.city
+  let salary = req.body.salary
+  let job = req.body.job
+  let updateStr = {
+    $set: {
+      "city ": city ,
+      "salary": salary,
+      "job": job
+    }
+  }
+  db.Jobinfor.updateOne(whereStr, updateStr, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else {
+      console.log(data)
+      res.send({ "code": "0", "msg": "更新成功" })
     }
   })
 })

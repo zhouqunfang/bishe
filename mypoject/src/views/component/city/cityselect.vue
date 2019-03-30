@@ -133,7 +133,7 @@
              */
             selectCity(cityName) {
               console.log(cityName)
-              console.log(this.$parent)
+  
                 this.$parent.cityName = cityName;
                 this.$parent.shouldChangeCity = false;
                 this.$router.go(-1);

@@ -96,6 +96,6 @@ const Models = {
   Chatcontent: mongoose.model('Chatcontent', chatcontentSchema),
   Chatrelation: mongoose.model('Chatrelation', chatrelateSchema),
   Baseinfor:mongoose.model('Baseinfor',baseinforSchema),
-  Jobinfor: mongoose.model('Baseinfor', jobinforSchema)
+  Jobinfor: mongoose.model('Jobinfor', jobinforSchema)
 }
 module.exports = Models

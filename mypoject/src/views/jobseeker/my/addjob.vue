@@ -19,15 +19,15 @@
     </div>    
   </div>
   <div @click="saveInfor" v-if="ifSave">保存</div>
-  <!-- <div @click="updateInfor" v-if="ifUpdate">保存</div> -->
+  <div @click="updateInfor" v-if="ifUpdate">保存</div>
 </div>
 </template>
 <script>
 // import  datepickers from './datePickers.vue';
-import {BaseInfor,getBaseInfor,updateBase,JobInfor} from '@/views/api/resume/resume.js';
+import {getJobInfor,JobInfor,updateJobInfor} from '@/views/api/resume/resume.js';
 import {phonetest,nametest} from '@/assets/js/test.js';
 export default {
-  components:{
+  components:{ 
     // datepickers
 },
   data(){
@@ -44,7 +44,7 @@ export default {
 
   },
   mounted(){
-    // this.updatBase()    
+    this.updatBase()    
   },
   methods:{
     //返回
@@ -53,6 +53,7 @@ export default {
     },
     //保存基本信息
     searchJobInfor(){
+      console.log("gsdfjgsdfjg")
       let username = localStorage.getItem('Username')
       let params = {
           username:username,
@@ -91,64 +92,58 @@ export default {
       this.ifnull() 
       },
     //获取基本信息
-    // getInfor(){
-    //   let username = localStorage.getItem('Username')
-    //   let params = {
-    //     username:username
-    //   }
-    //   getBaseInfor(params).then(res=>{
-    //     console.log(res)
-    //       if(res.data.code === "0"){
-    //           this.cityinfo = res.data.data.city
-    //           this.birthdata = res.data.data.birth
-    //           this.sex = res.data.data.sex
-    //           this.phoneinfo = res.data.data.phone
-    //           this.schoolinfo = res.data.data.school
-    //           this.majorinfo = res.data.data.major
-    //       }else{
-    //         return
-    //       }
-    //     })
-    // },
-      // //获取编辑页
-      // updatBase(){
-      //   if(this.$route.query.id){
-      //     console.log(345235)
-      //     this.getInfor()
-      //     this.ifSave = false
-      //     this.ifUpdate=true
-      //   }
-      // },
+    getjobInfor(){
+      let username = localStorage.getItem('Username')
+      let params = {
+        username:username
+      }
+      getJobInfor(params).then(res=>{
+        console.log(res)
+          if(res.data.code === "0"){
+              this.cityinfo = res.data.data.city
+              this.jobinfo = res.data.data.birth
+              this.salaryinfo = res.data.data.sex
+          }else{
+            return
+          }
+        })
+    },
+      //获取职位意向编辑页
+      updatBase(){
+        if(this.$route.query.id){
+          console.log(345235)
+          this.getjobInfor()
+          this.ifSave = false
+          this.ifUpdate=true
+        }
+      },
       //更新基本信息
-      // updateInfo(){
-      //   let user = localStorage.getItem('Username')
-      //   let params = {
-      //     city : this.cityinfo,
-      //     sex: this.sex,
-      //     birth:this.birthdata,
-      //     phone:this.phoneinfo,
-      //     school:this.schoolinfo,
-      //     major:this.majorinfo,
-      //     username:user
-      //   }
-      // console.log(this.cityinfo)
-      //   updateBase(params).then(res=>{
-      //     if(res.data.code === "0"){
-      //     this.$toast({
-      //       message: '保存成功',
-      //       duration: 1000,
-      //       iconClass: 'licon icon-success',
-      //       className: 'success_toast'
-      //         }
-      //     )
-      //     this.$router.push('/my')
-      //     }
-      //   })
-      // },
-      // //保存编辑页
-      // updateInfor(){
-      //   this.updateInfo()
-      //   }
+      updateInfo(){
+        console.log(464654646)
+        let user = localStorage.getItem('Username')
+        let params = {
+          city : this.cityinfo,
+          salary:this.salaryinfo,
+          job:this.jobinfo,
+          username:user
+        }
+        updateJobInfor(params).then(res=>{
+          if(res.data.code === "0"){
+          this.$toast({
+            message: '保存成功',
+            duration: 1000,
+            iconClass: 'licon icon-success',
+            className: 'success_toast'
+              }
+          )
+          this.$router.push('/my')
+          }
+        })
+      },
+      //保存编辑页
+      updateInfor(){
+        this.updateInfo()
+        }
       }
     }
   
