@@ -15,33 +15,68 @@ const userSchema = new mongoose.Schema({
   username: String,
   password: String
 })
-// 用户的socketid与用户名
+// 用户的socketid与用户名 映射表
 const idtoidSchema = new mongoose.Schema({
   socketid: String,
   username: String
 })
+// 用户信息 
+const userinfoSchema = new mongoose.Schema({
+  username: String,
+  iscompany:{
+    type:Boolean,
+    default:false
+  }
+})
 // 聊天页面内容信息
 // Schema.Type是由Mongoose内定的一些数据类型
 const chatcontentSchema = new mongoose.Schema({
+  //聊天发送用户id
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'Userinfo'
   },
+  //聊天接收用户名id
   chatWith: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'Userinfo'
   },
+  //聊天时间
   addTime: {
     type: Date,
     default: Date.now
   },
+  //聊天内容
   content: {
     type: String
-  },
-  unread: {
-    type: Boolean,
-    default: true
   }
+})
+
+//聊天双方关系表
+const chatrelateSchema = new mongoose.Schema({
+  userA: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Userinfo'
+  },
+  userB: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Userinfo'
+  },
+  chatContent: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ChatContent'
+  }],
+
+});
+//简历模快个人信息
+const baseinforSchema = new mongoose.Schema({
+  username:String,
+  name: String,
+  sex: String,
+  birth:String,
+  phone:String,
+  school:String,
+  major:String,
 })
 // 通过Schema来创建Model
 // Model代表的是数据库中的集合，通过Model才能对数据库进行操作
@@ -50,7 +85,9 @@ const chatcontentSchema = new mongoose.Schema({
 const Models = {
   User: mongoose.model('User', userSchema),
   Idtoid: mongoose.model('Idtoid', idtoidSchema),
-  Chatcontent: mongoose.model('Chatcontent', chatcontentSchema)
+  Userinfo: mongoose.model('Userinfo', userinfoSchema ),
+  Chatcontent: mongoose.model('Chatcontent', chatcontentSchema),
+  Chatrelation: mongoose.model('Chatrelation', chatrelateSchema),
+  Baseinfor:mongoose.model('Baseinfor',baseinforSchema)
 }
-
 module.exports = Models

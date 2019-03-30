@@ -9,10 +9,11 @@ const store = new Vuex.Store({
       message: '',
       duration: 2000,
       iconClass: 'icon icon-success',
-      className: 'success_toast'
+      className: 'success_toast',
     },
-    newSearchList: []
-
+    newSearchList: [],
+    userInfo: {},
+    username:''
   },
   mutations: {
     // 存储token
@@ -37,6 +38,10 @@ const store = new Vuex.Store({
     // 放空职位数据数据
     DELETE_LIST (state) {
       state.newSearchList = []
+    },
+    //username
+    SET_USERNAME(state,setname){
+      state.username = setname
     }
   },
   // actions可以进行异步操作
@@ -49,8 +54,10 @@ const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         SignIn(userInfo).then(res => {
           localStorage.setItem('Token', res.data.token) // 登录成功后将token存储在localstorage之中
+          localStorage.setItem('Username', res.data.username) // 登录成功后将用户名存储在localstorage之中
           commit('SET_TOKEN', res.data.token)
           commit('ADD_TOAST', res.data.msg)
+          commit('SET_USERNAME',res.data.username)
           resolve()
         }).catch(error => {
           reject(error)

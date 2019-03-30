@@ -1,0 +1,263 @@
+<template>
+<div class="base_infor">
+  <div class="infor_title">
+    <span @click="goback"></span>
+    <h4>个人信息</h4>
+  </div>
+  <div class="base_content">
+    <div class="base_name">
+      <h4>姓名<span style="color:red">*</span><b style="color:#84d945" class="name_tip"></b></h4>
+      <input type="text"  v-model="nameinfo">
+    </div>
+    <div class="base_sex">
+      <h4>性别<span style="color:red">*</span></h4>
+      <input type="text" name="" id="" @focus="show_sex" v-model="sexinfo">
+      <mt-popup
+        v-model="popupVisible"
+        position="bottom">
+        <mt-picker
+          :slots="slots" 
+          @change="onValuesChange"
+        >
+         </mt-picker>
+      </mt-popup>
+    </div>
+    <div class="base_birth">
+      <h4>出生日期<span style="color:red">*</span></h4>
+      <datepickers @sendbirth="getbirth"></datepickers>
+    </div>
+    <div class="base_phone">
+      <h4>手机<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
+      <input type="text" name="" id="" v-model="phoneinfo">
+    </div>
+    <div class="base_school">
+      <h4>学校</h4>
+      <input type="text" name="" id="" v-model="schoolinfo">
+    </div>
+    <div class="base_">
+      <h4>专业</h4>
+      <input type="text" name="" id="" v-model="majorinfo">
+    </div>     
+  </div>
+  <div @click="saveInfor" v-if="ifSave">保存</div>
+  <div @click="updateInfor">保存</div>
+</div>
+</template>
+<script>
+import  datepickers from './datePickers.vue';
+import {BaseInfor,getBaseInfor,updateBase} from '@/views/api/resume/resume.js';
+import {phonetest,nametest} from '@/assets/js/test.js';
+export default {
+  components:{
+    datepickers
+},
+  data(){
+    return{
+      popupVisible:false,
+      slots: [
+        {
+          values: ['女', '男'],
+          className: 'slot1'
+        }     
+      ],
+      sex:'',
+      nameinfo:'',
+      phoneinfo:'',
+      schoolinfo:'',
+      majorinfo:'',
+      birthdata:'' ,
+      ifSave:true
+      
+    }
+  },
+  computed:{
+    sexinfo(){
+      return this.sex
+   }
+  },
+  mounted(){
+    this.updatBase()   
+    
+  },
+  methods:{
+    //返回
+    goback(){
+        this.$router.go(-1)
+    },
+    //选择性别弹出
+    show_sex(){
+      this.popupVisible = true
+      },
+    onValuesChange(picker, values){
+       let value =  values.toString()
+        this.sex = value 
+    }, 
+    getbirth(data){
+       this.birthdata = data
+       console.log(data) 
+     },
+    //保存基本信息
+    baseInfor(){
+      console.log(this.nameinfo)
+      let username = localStorage.getItem('Username')
+      let params = {
+          username:username,
+          name : this.nameinfo.trim(),
+          sex: this.sex,
+          birth:this.birthdata,
+          phone:this.phoneinfo.trim(),
+          school:this.schoolinfo.trim(),
+          major:this.majorinfo.trim()
+        }
+      BaseInfor(params).then(res=>{
+         this.$toast({
+            message: '保存成功',
+            duration: 2000,
+            iconClass: 'licon icon-success',
+            className: 'success_toast'
+              }
+          )  
+        })
+    },
+    //判断信息是否为空
+    ifnull(){
+        if(this.nameinfo.trim()==''||this.sexinfo==''||this.birthdata==''||this.phoneinfo.trim()==''){
+          this.$toast({
+            message: '请输入完整信息',
+            duration: 2000,
+            iconClass: 'licon icon-success',
+            className: 'success_toast'
+              }
+          )
+        }else if(phonetest(this.phoneinfo)){
+          document.getElementsByClassName('phone_tip')[0].innerHTML='请输入正确的手机号'
+        }else if(nametest(this.nameinfo)) {
+           document.getElementsByClassName('name_tip')[0].innerHTML='请输入正确的中文姓名'
+        }
+        else{
+          //保存信息
+         this.baseInfor()
+         this.$router.go(-1)
+        }
+    },
+    //保存基本信息
+    saveInfor(){
+      this.ifnull() 
+      },
+    //获取基本信息
+    getInfor(){
+      let username = localStorage.getItem('Username')
+      let params = {
+        username:username
+      }
+      getBaseInfor(params).then(res=>{
+        console.log(res)
+          if(res.data.code === "0"){
+              this.nameinfo = res.data.data.name
+              this.birthdata = res.data.data.birth
+              this.sex = res.data.data.sex
+              this.phoneinfo = res.data.data.phone
+              this.schoolinfo = res.data.data.school
+              this.majorinfo = res.data.data.major
+          }else{
+            return
+          }
+        })
+    },
+      //获取编辑页
+      updatBase(){
+        if(this.$route.query.id){
+          console.log(345235)
+          this.getInfor()
+          this.ifSave = false
+        }
+      },
+      //更新基本信息
+      updateInfo(){
+        let user = localStorage.getItem('Username')
+        let params = {
+          name : this.nameinfo,
+          sex: this.sex,
+          birth:this.birthdata,
+          phone:this.phoneinfo,
+          school:this.schoolinfo,
+          major:this.majorinfo,
+          username:user
+        }
+      console.log(this.nameinfo)
+        updateBase(params).then(res=>{
+          if(res.data.code === "0"){
+          this.$toast({
+            message: '保存成功',
+            duration: 2000,
+            iconClass: 'licon icon-success',
+            className: 'success_toast'
+              }
+          )
+        }
+        })
+      },
+      //保存编辑页
+      updateInfor(){
+        this.updateInfo()
+      
+      }
+    }
+  }
+
+</script>
+<style lang="scss" scoped>
+.base_infor{
+  .infor_title{
+      position: relative;
+      display: flex;
+      align-items: center; 
+      span{
+        position: absolute;
+        display: inline-block;
+        margin-left: 20px;
+        width:40px;
+        height: 40px;
+        background: url('../../../assets/image/triangle.png') center no-repeat;
+      }
+      h4{
+        width: 100%;
+        text-align: center;
+        padding: 20px 0 20px 0;
+        font-weight: bold;
+        font-size: 35px;  
+     }
+  }
+  .base_content{
+    padding: 0 20px;
+    width: 100%;
+    h4{
+        margin-bottom: 10px;
+        font-size: 28px;
+      }
+    input{
+        height: 50px ;
+        width:600px;
+        border: none;
+        outline-style: none;
+        border-bottom: 1px solid black;
+        margin-bottom: 40px;
+        font-size: 28px;
+        padding-left: 20px;
+      }  
+    .base_name{
+
+    }
+    .base_sex{
+ 
+    }
+    .mint-popup-bottom{
+      width:100%;
+    }
+    .base_birth{
+    
+    }
+  }
+}
+</style>
+

@@ -46,39 +46,14 @@ export default {
         this.$toast({
           message: err,
           duration: 2000,
-          iconClass: 'icon icon-success',
+          iconClass: 'licon icon-success',
           className: 'success_toast'
         }
         )
       })
-      // SignIn(params).then(res => {
-      //   console.log(res)
-      //   if (res.data.status === 2) {
-      //     this.$toast({
-      //       message: res.data.msg,
-      //       duration: 2000,
-      //       iconClass: 'icon icon-success',
-      //       className: 'success_toast'
-      //     }
-      //     )
-      //   } else if (res.data.status === 1) {
-      //     this.$toast({
-      //       message: res.data.msg,
-      //       duration: 2000,
-      //       iconClass: 'icon icon-success',
-      //       className: 'success_toast'
-      //     }
-      //     )
-      //   } else {
-      //     this.$toast({
-      //       message: res.data.msg,
-      //       duration: 2000,
-      //       iconClass: 'icon icon-success',
-      //       className: 'success_toast'
-      //     })
-      //   }
-      // })
-    }}
+    }
+    }
+
 }
 // this.$http.post('/api/user/sign',
 //   params
@@ -95,7 +70,7 @@ export default {
 // this.$store.commit('set_token', res.data['token'])
 // if (this.$store.state.token) {
 //   this.$router.push('/index')
-// }
+
 </script>
 <style lang="scss" scoped>
 

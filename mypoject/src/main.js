@@ -15,7 +15,7 @@ import './mock.js'
 // Vue.use(ElementUI);//全部引入
 // import { Message, Button } from 'element-ui'
 // mint ui 按需引入
-import { Toast, Swipe, SwipeItem, Header, Button} from 'mint-ui' // 按需引入
+import { Toast, Swipe, SwipeItem, Header, Button, Popup, Picker} from 'mint-ui' // 按需引入
 import '../node_modules/mint-ui/lib/style.css'
 import 'vue2-animate/dist/vue2-animate.min.css'
 // npm px2rem-loader  lib-flexible --save
@@ -27,6 +27,8 @@ Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
 Vue.component(Header.name, Header)
 Vue.component(Button.name, Button)
+Vue.component(Popup.name, Popup);
+Vue.component(Picker.name, Picker);
 // Vue.prototype.$message = Message
 Vue.prototype.$toast = Toast // 导入样式
 Vue.use(VueRouter)
