@@ -295,7 +295,39 @@ router.post('/api/my/updatebase', (req, res) => {
       res.send({ "code": "0", "msg": "更新成功" })
     }
   })
-
-
+})
+//增加简历求职意向
+router.post('/api/resume/jobinfor', (req, res) => {
+  let username = req.body.username
+  let city = req.body.city
+  let salary = req.body.salary
+  let job = req.body.job
+  let newDatabase = new db.Baseinfor({
+    city: city ,
+    salary: salary,
+    job: job,
+    username: username
+  })
+  newDatabase.save((err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send({ 'code': 0, msg: '保存成功' })
+    }
+  })
+})
+//获取求职意向信息
+router.post('/api/my/jobinfor', (req, res) => {
+  let username = req.body.username
+  db.Jobinfor.find({ username: username }, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else if (data.length > 0) {
+      res.send({ "code": "0", "msg": "保存成功", "data": data[0] })
+    } else {
+      res.send({ "code": "1" })
+    }
+  })
 })
 module.exports = router

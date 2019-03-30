@@ -21,6 +21,9 @@ import 'vue2-animate/dist/vue2-animate.min.css'
 // npm px2rem-loader  lib-flexible --save
 import 'lib-flexible/flexible.js'
 import '../src/assets/js/time.js'
+import fastclick from 'fastclick';
+// 消除手机端点击300ms延迟
+fastclick.attach(document.body);
 // import Mint from 'mint-ui'
 // Vue.use(Mint);
 Vue.component(Swipe.name, Swipe)

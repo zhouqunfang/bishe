@@ -40,7 +40,7 @@
     </div>     
   </div>
   <div @click="saveInfor" v-if="ifSave">保存</div>
-  <div @click="updateInfor">保存</div>
+  <div @click="updateInfor" v-if="ifUpdate">保存</div>
 </div>
 </template>
 <script>
@@ -66,7 +66,8 @@ export default {
       schoolinfo:'',
       majorinfo:'',
       birthdata:'' ,
-      ifSave:true
+      ifSave:true,
+      ifUpdate:false
       
     }
   },
@@ -170,6 +171,7 @@ export default {
           console.log(345235)
           this.getInfor()
           this.ifSave = false
+          this.ifUpdate=true
         }
       },
       //更新基本信息
@@ -189,11 +191,12 @@ export default {
           if(res.data.code === "0"){
           this.$toast({
             message: '保存成功',
-            duration: 2000,
+            duration: 1000,
             iconClass: 'licon icon-success',
             className: 'success_toast'
               }
           )
+          this.$router.push('/my')
           }
         })
       },
