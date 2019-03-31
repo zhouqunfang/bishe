@@ -33,22 +33,42 @@
             </div>            
           </div>
           <div class="job_infor">
-            <div class="ifshow_infor">
+            <div class="ifshow_infor" v-if="experienceshow" @click="addexperience">
               <div class="add_info">添加工作经验</div>
               <span>+</span>
             </div>
+            <div class="base_detail" v-if="ifexperience">
+              <div class="base_update" @click="experienceAdd"></div>
+              <h4>工作经验</h4>
+              <h3>{{expcompany}}</h3>
+              <div class="base_some">
+                <b>{{expjob}}</b>
+                <b>{{extime}}</b>
+                <b>{{expcontent}}</b>
+              </div>
+            </div>
           </div>
           <div class="poject_infor">
-            <div class="ifshow_infor">
+            <div class="ifshow_infor" @click="addpoject" v-if="ifpoject">
               <div class="add_info">添加项目经历</div>
               <span>+</span>
-            </div>    
+            </div> 
+            <div class="base_detail" v-if="showpoject">
+              <div class="base_update" @click="pojectAdd"></div>
+              <h4>项目经历</h4>
+              <h3>{{pojectname}}</h3>
+              <div class="base_some">
+                <b>{{pojectrole}}</b>
+                <b>{{pojecttime}}</b>
+                <b>{{pojectdetail}}</b>
+              </div>
+            </div>   
           </div>
         </section>
     </div>
 </template>
 <script>
-import {getBaseInfor,getJobInfor} from '@/views/api/resume/resume.js';
+import {getBaseInfor,getJobInfor,getExperience,getPoject} from '@/views/api/resume/resume.js';
 export default {
   data () {
     return {
@@ -61,8 +81,19 @@ export default {
       ifjob:false,
       jobshow:true,
       cityinfo:'',
-      jobinfo:'',
-      salaryinfo:'',
+      expjob:'',
+      expcontent:'',
+      expcompany:'',
+      extime:'',
+      experienceshow:true,
+      ifexperience:false,
+      ifpoject:true,
+      showpoject:false,
+      pojectname:'',
+      pojectrole:'',
+      pojecttime:'',
+      pojectdetail:''
+
     }
   },
   mounted(){
@@ -77,15 +108,33 @@ export default {
     addJob(){
       this.$router.push('/my/addjob')
     },
+   //增加工作经验意向
+    addexperience(){
+      this.$router.push('/my/experience')
+    },
+    //增加工作项目经验
+    addpoject(){
+      this.$router.push('/my/poject')
+    },
     //如果已经有基本信息的跳转
     goAdd(){
       this.$router.push({name:'Resume',query:{id:0}})
-      // this.$router.go(0)
+      this.$router.go(0)
     },
    //如果已经有求职意向的跳转
     jobAdd(){
       this.$router.push({name:'Addjob',query:{id:0}})
-      // this.$router.go(0)
+      this.$router.go(0)
+    },
+   //如果已经有工作经验的跳转
+    experienceAdd(){
+      this.$router.push({name:'Experience',query:{id:0}})
+      this.$router.go(0)
+    },
+  //如果已经有项目经验的跳转
+    pojectAdd(){
+      this.$router.push({name:'Poject',query:{id:0}})
+      this.$router.go(0)
     },
     //获取基本信息
     getBase(){
@@ -118,8 +167,8 @@ export default {
           if(res.data.code === "0"){
             console.log(res.data.data)
               this.cityinfo = res.data.data.city
-              this.jobinfo = res.data.data.salary
-              this.salaryinfo = res.data.data.job
+              this.jobinfo = res.data.data.job
+              this.salaryinfo = res.data.data.salary
               this.ifjob = true
               this.jobshow=false 
           }else{
@@ -127,12 +176,56 @@ export default {
           }
         })
     },
+    //获取工作经验信息
+    getexperience(){
+    let username = localStorage.getItem('Username')
+      let params = {
+        username:username
+      }      
+      getExperience(params).then(res=>{
+          if(res.data.code === "0"){
+            console.log(res.data.data)
+              this.expcompany = res.data.data.company
+              this.expjob = res.data.data.job
+              this.extime=res.data.data.time
+              this.expcontent = res.data.data.content
+              this.ifexperience = true
+              this.experienceshow=false
+          }else{
+              this.experienceshow=true
+          }
+        })
+    },
+    //获取项目经验信息
+    getsomepoject(){
+    let username = localStorage.getItem('Username')
+      let params = {
+        username:username
+      }      
+      getPoject(params).then(res=>{
+          if(res.data.code === "0"){
+            console.log(res.data.data)
+              this.pojectname = res.data.data.pojectname
+              this.pojectrole = res.data.data.role 
+              this.pojecttime=res.data.data.time
+              this.pojectdetail = res.data.data.detail
+              this.showpoject = true
+              this.ifpoject=false
+          }else{
+              this.ifpoject=true
+          }
+        })
+    }, 
     //获取基本信息
     getInfo(){
       //获取基本信息
       this.getBase()
       //获取求职意向信息
       this.getjobInfor()
+      //获取工作经验信息
+      this.getexperience()
+      //获取项目经验信息
+      this.getsomepoject()
     }
   }
 }

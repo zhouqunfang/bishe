@@ -54,3 +54,57 @@ export const updateJobInfor = (params) => {
     data: params
   })
 }
+//工作经验信息
+export const Experience = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/resume/experience',
+    dataType: 'json',
+    data: params
+  })
+}
+//获取工作经验信息
+export const getExperience = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/my/experience',
+    dataType: 'json',
+    data: params
+  })
+}
+//更新工作经验信息
+export const updateExperience = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/my/updateexperience',
+    dataType: 'json',
+    data: params
+  })
+}
+//项目经验信息
+export const poject = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/resume/poject',
+    dataType: 'json',
+    data: params
+  })
+}
+//获取项目经验信息
+export const getPoject = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/my/poject',
+    dataType: 'json',
+    data: params
+  })
+}
+//更新项目经验信息
+export const updatePoject= (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/my/updatepoject',
+    dataType: 'json',
+    data: params
+  })
+}

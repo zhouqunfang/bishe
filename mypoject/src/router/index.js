@@ -14,6 +14,8 @@ const Collectjob = r => require.ensure([], () => r(require('@/views/jobseeker/my
 const Setting = r => require.ensure([], () => r(require('@/views/jobseeker/my/setting')), 'chunkname2')
 const Searchlist = r => require.ensure([], () => r(require('@/views/jobseeker/searchlist/searchlist.vue')), 'chunkname2')
 const Addjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/addjob')), 'chunkname2')
+const Experience = r => require.ensure([], () => r(require('@/views/jobseeker/my/experience')), 'chunkname3')
+const Poject = r => require.ensure([], () => r(require('@/views/jobseeker/my/poject')), 'chunkname3')
 const Select = r => require.ensure([], () => r(require('@/views/component/city/city.vue')), 'chunkname3')
 const cityList = r => require.ensure([], () => r(require('@/views/component/city/cityselect.vue')), 'chunkname3')
 const routes = new Router({
@@ -113,6 +115,16 @@ const routes = new Router({
       name: 'Addjob',
       component: Addjob
     },
+    {
+      path: '/my/experience',
+      name: 'Experience',
+      component: Experience
+    },
+    {
+      path: '/my/poject',
+      name: 'Poject',
+      component: Poject
+    }
   ]
 })
 

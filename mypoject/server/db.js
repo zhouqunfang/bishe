@@ -85,6 +85,22 @@ const jobinforSchema = new mongoose.Schema({
   salary: String,
   job: String
 })
+//简历模快工作经验
+const experienceSchema = new mongoose.Schema({
+  username: String,
+  company: String,
+  job: String,
+  time: String,
+  content:String
+})
+//简历模快项目经验
+const pojectSchema = new mongoose.Schema({
+  username: String,
+  pojectname: String,
+  role: String,
+  detail: String,
+  time: String
+})
 // 通过Schema来创建Model
 // Model代表的是数据库中的集合，通过Model才能对数据库进行操作
 // mongoose.model(modelName,schema) (集合名，Schema)
@@ -96,6 +112,8 @@ const Models = {
   Chatcontent: mongoose.model('Chatcontent', chatcontentSchema),
   Chatrelation: mongoose.model('Chatrelation', chatrelateSchema),
   Baseinfor:mongoose.model('Baseinfor',baseinforSchema),
-  Jobinfor: mongoose.model('Jobinfor', jobinforSchema)
+  Jobinfor: mongoose.model('Jobinfor', jobinforSchema),
+  Experience: mongoose.model('Experience', experienceSchema),
+  Poject: mongoose.model('Poject', pojectSchema)
 }
 module.exports = Models

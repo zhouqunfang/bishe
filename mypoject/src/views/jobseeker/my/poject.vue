@@ -2,42 +2,44 @@
 <div class="job_infor">
   <div class="infor_title">
     <span @click="goback"></span>
-    <h4>求职意向</h4>
+    <h4>项目经验</h4>
   </div>
   <div class="job_content">
     <div class="job_city">
-      <h4>城市<span style="color:red">*</span><b style="color:#84d945" class="name_tip"></b></h4>
-      <input type="text"  v-model="cityinfo">
+      <h4>项目名称<span style="color:red">*</span><b style="color:#84d945" class="name_tip"></b></h4>
+      <input type="text"  v-model="pojectname">
     </div>
     <div class="job_select">
-      <h4>职位<span style="color:red">*</span></h4>
-      <input type="text"  v-model="jobinfo">
+      <h4>项目描述</h4><span style="color:red">*</span></h4>
+      <input type="text"  v-model="role">
     </div>
     <div class="job_salary">
       <h4>期望薪资<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
-      <input type="text" name="" id="" v-model="salaryinfo">
-    </div>    
+      <input type="text" name="" id="" v-model="detail">
+    </div>
+    <div class="job_salary">
+      <h4>时间<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
+      <input type="text" name="" id="" v-model="time">
+    </div>       
   </div>
   <div @click="saveInfor" v-if="ifSave">保存</div>
   <div @click="updateInfor" v-if="ifUpdate">保存</div>
 </div>
 </template>
 <script>
-// import  datepickers from './datePickers.vue';
-import {getJobInfor,JobInfor,updateJobInfor} from '@/views/api/resume/resume.js';
-import {phonetest,nametest} from '@/assets/js/test.js';
+import {poject,getPoject,updatePoject} from '@/views/api/resume/resume.js';
 export default {
   components:{ 
     // datepickers
 },
   data(){
     return{
-      cityinfo:'',
-      jobinfo:'',
-      salaryinfo:'',
+      pojectname:'',
+      role:'',
+      detail:'',
       ifSave:true,
-      ifUpdate:false
-      
+      ifUpdate:false,
+      time:''    
     }
   },
   computed:{
@@ -52,16 +54,16 @@ export default {
         this.$router.go(-1)
     },
     //保存基本信息
-    searchJobInfor(){
-      console.log("gsdfjgsdfjg")
+    addpoject(){
       let username = localStorage.getItem('Username')
       let params = {
           username:username,
-          city : this.cityinfo,
-          salary: this.salaryinfo,
-          job:this.jobinfo,
+          pojectname : this.pojectname,
+          detail: this.detail,
+          role:this.role,
+          time:this.time
         }
-      JobInfor(params).then(res=>{
+      poject(params).then(res=>{
          this.$toast({
             message: '保存成功',
             duration: 2000,
@@ -73,7 +75,7 @@ export default {
     },
     //判断信息是否为空
     ifnull(){
-        if(this.cityinfo==''||this.jobinfo==''||this.salaryinfo==''){
+        if(this.pojectname==''||this.role==''||this.detail==''){
           this.$toast({
             message: '请输入完整信息',
             duration: 2000,
@@ -83,7 +85,7 @@ export default {
           )
         }else{
           //保存信息
-         this.searchJobInfor()
+         this.addpoject()
          this.$router.go(-1)
         }
     },
@@ -91,20 +93,21 @@ export default {
     saveInfor(){
       this.ifnull() 
       },
-    //获取基本信息
-    getjobInfor(){
+    //获取项目经验信息
+    getsomePoject(){
       let username = localStorage.getItem('Username')
       let params = {
         username:username
       }
-      getJobInfor(params).then(res=>{
+      getPoject(params).then(res=>{
         console.log(res)
           if(res.data.code === "0"){
-              this.cityinfo = res.data.data.city
-              this.jobinfo = res.data.data.job
-              this.salaryinfo = res.data.data.salary
+              this.pojectname = res.data.data.pojectname
+              this.role = res.data.data.role
+              this.detail = res.data.data.detail
+              this.time=res.data.data.time
           }else{
-            return
+            return 
           }
         })
     },
@@ -112,22 +115,22 @@ export default {
       updatBase(){
         if(this.$route.query.id){
           console.log(345235)
-          this.getjobInfor()
+          this.getsomePoject()
           this.ifSave = false
           this.ifUpdate=true
         }
       },
       //更新基本信息
-      updateInfo(){
-        console.log(464654646)
+      updatesomePoject(){
         let user = localStorage.getItem('Username')
         let params = {
-          city : this.cityinfo,
-          salary:this.salaryinfo,
-          job:this.jobinfo,
+          pojectname : this.pojectname,
+          detail:this.detail,
+          role:this.role,
+          time:this.time,
           username:user
         }
-        updateJobInfor(params).then(res=>{
+       updatePoject(params).then(res=>{
           if(res.data.code === "0"){
           this.$toast({
             message: '保存成功',
@@ -142,7 +145,7 @@ export default {
       },
       //保存编辑页
       updateInfor(){
-        this.updateInfo()
+        this.updatesomePoject()
         }
       }
     }

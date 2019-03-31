@@ -80,7 +80,6 @@ router.post('/api/user/sign', (req, res) => {
               iscompany: false
             })
             setUser.save((err, docs) => {
-              console.log(docs)
               if (err) {
                 res.send(err)
                 return
@@ -115,7 +114,6 @@ router.post('/api/chat/userInfo', (req, res) => {
 // 聊天对象信息 
 router.post('/api/chat/touserInfo', (req, res) => {
   let tousername = req.body.username
-  console.log(req.body.username)
   db.User.find(
     { username: tousername }, (err, docs) => {
       if (err) {
@@ -268,7 +266,6 @@ router.post('/api/my/baseinfor', (req, res) => {
 //更新简历基本信息
 router.post('/api/my/updatebase', (req, res) => {
   let username = req.body.username
-  console.log(username)
   let whereStr = { username: username }
   let name = req.body.name
   let sex = req.body.sex
@@ -291,7 +288,6 @@ router.post('/api/my/updatebase', (req, res) => {
       res.send(err)
       return
     } else {
-      // console.log(data)
       res.send({ "code": "0", "msg": "更新成功" })
     }
   })
@@ -340,7 +336,7 @@ router.post('/api/my/updatejobinfor', (req, res) => {
   let job = req.body.job
   let updateStr = {
     $set: {
-      "city ": city ,
+      "city": city ,
       "salary": salary,
       "job": job
     }
@@ -350,6 +346,132 @@ router.post('/api/my/updatejobinfor', (req, res) => {
       res.send(err)
       return
     } else {
+      console.log(data)
+      res.send({ "code": "0", "msg": "更新成功" })
+    }
+  })
+})
+//增加工作经验
+router.post('/api/resume/experience', (req, res) => {
+  let username = req.body.username
+  let company = req.body.company
+  let job = req.body.job
+  let time = req.body.time
+  let content = req.body.content
+  let newDatabase = new db.Experience({
+    username: username,
+    company: company,
+    job: job,
+    time: time,
+    content: content
+  })
+  newDatabase.save((err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send({ 'code': 0, msg: '保存成功' })
+    }
+  })
+})
+//获取工作经验信息
+router.post('/api/my/experience', (req, res) => {
+  let username = req.body.username
+  db.Experience.find({ username: username }, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else if (data.length > 0) {
+      res.send({ "code": "0", "msg": "编辑成功", "data": data[0] })
+    } else {
+      res.send({ "code": "1", "msg": "保存成功", "data": data[0] })
+    }
+  })
+})
+//更新工作经验信息
+router.post('/api/my/updateexperience', (req, res) => {
+  let username = req.body.username
+  let whereStr = { username: username }
+  let company = req.body.company
+  let job = req.body.job
+  let time = req.body.time
+  let content = req.body.content
+  let updateStr = {
+    $set: {
+      "company":company,
+      "job": job,
+      "time": time,
+      "content": content   
+    }
+  }
+  db.Experience.updateOne(whereStr, updateStr, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else {
+      console.log(423423)
+      console.log(data)
+      res.send({ "code": "0", "msg": "更新成功" })
+    }
+  })
+})
+//增加项目经验
+router.post('/api/resume/poject', (req, res) => {
+  let username = req.body.username
+  let pojectname = req.body.pojectname
+  let role = req.body.role
+  let detail = req.body.detail
+  let time = req.body.time
+  let newDatabase = new db.Poject({
+    username: username,
+    pojectname: pojectname,
+    role: role,
+    detail: detail,
+    time: time
+  })
+  newDatabase.save((err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send({ 'code': 0, msg: '保存成功' })
+    }
+  })
+})
+//获取项目经验信息
+router.post('/api/my/poject', (req, res) => {
+  let username = req.body.username
+  db.Poject.find({ username: username }, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else if (data.length > 0) {
+      res.send({ "code": "0", "msg": "编辑成功", "data": data[0] })
+    } else {
+      res.send({ "code": "1", "msg": "保存成功", "data": data[0] })
+    }
+  })
+})
+//更新工作经验信息
+router.post('/api/my/updatepoject', (req, res) => {
+  let username = req.body.username
+  let whereStr = { username: username }
+  let pojectname = req.body.pojectname
+  let role = req.body.role
+  let detail = req.body.detail
+  let time = req.body.time
+  let updateStr = {
+    $set: {
+      "pojectname": pojectname,
+      "role ": role,
+      "detail": detail,
+      "time": time
+    }
+  }
+  db.Poject.updateOne(whereStr, updateStr, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else {
+      console.log(423423)
       console.log(data)
       res.send({ "code": "0", "msg": "更新成功" })
     }

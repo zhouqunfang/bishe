@@ -2,42 +2,44 @@
 <div class="job_infor">
   <div class="infor_title">
     <span @click="goback"></span>
-    <h4>求职意向</h4>
+    <h4>工作经验</h4>
   </div>
-  <div class="job_content">
+  <div class="experience_content">
     <div class="job_city">
-      <h4>城市<span style="color:red">*</span><b style="color:#84d945" class="name_tip"></b></h4>
-      <input type="text"  v-model="cityinfo">
+      <h4>公司<span style="color:red">*</span><b style="color:#84d945" class="name_tip"></b></h4>
+      <input type="text"  v-model="companyinfo">
     </div>
     <div class="job_select">
-      <h4>职位<span style="color:red">*</span></h4>
+      <h4>工作职位<span style="color:red">*</span></h4>
       <input type="text"  v-model="jobinfo">
     </div>
     <div class="job_salary">
-      <h4>期望薪资<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
-      <input type="text" name="" id="" v-model="salaryinfo">
+      <h4>时间<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
+      <input type="text" name="" id="" v-model="timeinfo">
+    </div>  
+    <div class="job_salary">
+      <h4>工作内容<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
+      <input type="text" name="" id="" v-model="contentinfo">
     </div>    
   </div>
   <div @click="saveInfor" v-if="ifSave">保存</div>
   <div @click="updateInfor" v-if="ifUpdate">保存</div>
+  
 </div>
 </template>
 <script>
-// import  datepickers from './datePickers.vue';
-import {getJobInfor,JobInfor,updateJobInfor} from '@/views/api/resume/resume.js';
-import {phonetest,nametest} from '@/assets/js/test.js';
+import {Experience,getExperience, updateExperience} from '@/views/api/resume/resume.js';
 export default {
   components:{ 
-    // datepickers
 },
   data(){
     return{
-      cityinfo:'',
+      companyinfo:'',
       jobinfo:'',
-      salaryinfo:'',
+      contentinfo:'',
+      timeinfo:'',
       ifSave:true,
-      ifUpdate:false
-      
+      ifUpdate:false    
     }
   },
   computed:{
@@ -51,17 +53,17 @@ export default {
     goback(){
         this.$router.go(-1)
     },
-    //保存基本信息
-    searchJobInfor(){
-      console.log("gsdfjgsdfjg")
+    //保存工作经验信息
+    addExperience(){
       let username = localStorage.getItem('Username')
       let params = {
           username:username,
-          city : this.cityinfo,
-          salary: this.salaryinfo,
-          job:this.jobinfo,
+          job : this.jobinfo,
+          company:this.companyinfo,
+          time: this.timeinfo,
+          content:this.contentinfo
         }
-      JobInfor(params).then(res=>{
+      Experience(params).then(res=>{
          this.$toast({
             message: '保存成功',
             duration: 2000,
@@ -73,7 +75,7 @@ export default {
     },
     //判断信息是否为空
     ifnull(){
-        if(this.cityinfo==''||this.jobinfo==''||this.salaryinfo==''){
+        if(this.companyinfo==''||this.jobinfo==''||this.timeinfo==''){
           this.$toast({
             message: '请输入完整信息',
             duration: 2000,
@@ -83,7 +85,7 @@ export default {
           )
         }else{
           //保存信息
-         this.searchJobInfor()
+         this.addExperience()
          this.$router.go(-1)
         }
     },
@@ -91,44 +93,45 @@ export default {
     saveInfor(){
       this.ifnull() 
       },
-    //获取基本信息
-    getjobInfor(){
+    //获取工作经验信息
+    getexperienceInfor(){
       let username = localStorage.getItem('Username')
       let params = {
         username:username
       }
-      getJobInfor(params).then(res=>{
+      getExperience(params).then(res=>{
         console.log(res)
           if(res.data.code === "0"){
-              this.cityinfo = res.data.data.city
+              this.companyinfo = res.data.data.company
               this.jobinfo = res.data.data.job
-              this.salaryinfo = res.data.data.salary
+              this.timeinfo = res.data.data.time
           }else{
             return
           }
         })
     },
-      //获取职位意向编辑页
+      //获取编辑页
       updatBase(){
         if(this.$route.query.id){
           console.log(345235)
-          this.getjobInfor()
+          this.getexperienceInfor()
           this.ifSave = false
           this.ifUpdate=true
         }
       },
-      //更新基本信息
-      updateInfo(){
-        console.log(464654646)
+      //更新工作经历信息
+      updateinfo(){
         let user = localStorage.getItem('Username')
         let params = {
-          city : this.cityinfo,
-          salary:this.salaryinfo,
+          company : this.companyinfo,
           job:this.jobinfo,
+          content:this.contentinfo,
+          time:this.timeinfo,
           username:user
         }
-        updateJobInfor(params).then(res=>{
+        updateExperience(params).then(res=>{
           if(res.data.code === "0"){
+            console.log(46546546546546)
           this.$toast({
             message: '保存成功',
             duration: 1000,
@@ -142,7 +145,7 @@ export default {
       },
       //保存编辑页
       updateInfor(){
-        this.updateInfo()
+        this.updateinfo()
         }
       }
     }
@@ -171,7 +174,7 @@ export default {
         font-size: 35px;  
      }
   }
-  .job_content{
+  .experience_content{
     padding: 0 20px;
     width: 100%;
     h4{

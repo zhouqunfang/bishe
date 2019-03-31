@@ -12,14 +12,13 @@ const server=require('http').Server(app)
 const io = require('socket.io')(server)
 //socket要实现的具体逻辑
 const socketHandler = require('./socket.js')
-
 io.on('connection', socket => {
   const socketid = socket.id
   socket.on('login',username=>{
     //登录时建立一个username到socketId的映射表
 socketHandler.saveUserSocketId(username,socketid)      
   })
-  socket.on('chat',data=>{
+socket.on('chat',data=>{
     db.Idtoid.findOne({
       username:data.to_user
     }).then(res=>{
@@ -63,7 +62,5 @@ app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type')
   next()
 })
-
-
 server.listen(3000)
 console.log('success listen…………')
