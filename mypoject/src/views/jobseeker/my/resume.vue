@@ -11,20 +11,42 @@
     </div>
     <div class="base_sex">
       <h4>性别<span style="color:red">*</span></h4>
-      <input type="text" name="" id="" @focus="show_sex" v-model="sexinfo">
+      <input type="text" name="" id="" @click="ShouPup" v-model="sexinfo">
       <mt-popup
         v-model="popupVisible"
-        position="bottom">
+        position="bottom"
+        popup-transition="popup-fade" 
+        closeOnClickModal="true">
         <mt-picker
           :slots="slots" 
-          @change="onValuesChange"
-        >
-         </mt-picker>
+          @change="onValuesChange" 
+          class="picker_mt"
+          showToolbar
+          >
+          <div class="picker-toolbar-title">
+             <div class="usi-btn-cancel" 
+             @click="popupVisible = !popupVisible">
+             取消
+             </div>
+             <div class="">请选择性别</div>
+             <div class="usi-btn-sure" 
+                  @click="popupVisible = !popupVisible">
+                  确定
+             </div>
+          </div>
+        </mt-picker>
       </mt-popup>
     </div>
     <div class="base_birth">
       <h4>出生日期<span style="color:red">*</span></h4>
-      <datepickers @sendbirth="getbirth"></datepickers>
+      <datepickers @sendbirth="getbirth"  ref = "show_input">
+        <input 
+        class=""
+        type="text" 
+        v-model="this.birthdata" 
+        @click="showinput"
+        slot>
+      </datepickers>
     </div>
     <div class="base_phone">
       <h4>手机<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
@@ -53,11 +75,11 @@ export default {
 },
   data(){
     return{
+      showToolbar: true,
       popupVisible:false,
       slots: [
         {
-          values: ['女', '男'],
-          className: 'slot1'
+          values: ['女', '男']
         }     
       ],
       sex:'',
@@ -81,17 +103,25 @@ export default {
     
   },
   methods:{
+    //ref 触发子组件的trueDateBox()方法 
+    showinput(){
+        this.$refs.show_input.trueDateBox()
+    },
     //返回
     goback(){
         this.$router.go(-1)
     },
     //选择性别弹出
-    show_sex(){
+    ShouPup(){
       this.popupVisible = true
       },
     onValuesChange(picker, values){
        let value =  values.toString()
         this.sex = value 
+        if(values[0] > values[1]) {
+      picker.setSlotValue(1, values[0]);
+  }
+
     }, 
     getbirth(data){
        this.birthdata = data
@@ -211,6 +241,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .base_infor{
+
   .infor_title{
       position: relative;
       display: flex;
@@ -228,15 +259,30 @@ export default {
         text-align: center;
         padding: 20px 0 20px 0;
         font-weight: bold;
-        font-size: 35px;  
+        font-size: 32px;  
      }
   }
   .base_content{
-    padding: 0 20px;
     width: 100%;
+    padding: 0 20px;
+    .mint-popup{
+       width: 100%;
+    }
+    .picker-toolbar-title{
+      width: 100%;
+      display:flex;
+      flex-direction: row;
+      justify-content: space-around;
+      height: 80px;
+      line-height: 80px;
+      font-size: 32px;
+   .usi-btn-cancel,.usi-btn-sure {
+        color: #FF6600
+     }
+    }
     h4{
         margin-bottom: 10px;
-        font-size: 28px;
+        font-size: 32px;
       }
     input{
         height: 50px ;
@@ -248,19 +294,8 @@ export default {
         font-size: 28px;
         padding-left: 20px;
       }  
-    .base_name{
-
-    }
-    .base_sex{
- 
-    }
-    .mint-popup-bottom{
-      width:100%;
-    }
-    .base_birth{
-    
-    }
   }
+
 }
 </style>
 

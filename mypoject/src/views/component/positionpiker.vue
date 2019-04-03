@@ -8,7 +8,6 @@
                 </div>
                 <a href="javascript:void(0)" @click="hide">取消</a>
             </div>
-            <div class="xin-widget-citys-local ">当前城市：{{localCity.cityName || "无法定位当前城市"}}</div>
             <div class="xin-widget-citys-list" v-if="input == ''">
                 <dl>
                     <template v-for="(item, index) in letterList">
@@ -345,8 +344,8 @@ export default {
                     }
                 }
                 a{
-                    font-size: 14px;
-                    width: 60px;
+                    font-size: 28px;
+                    width: 120px;
                     height: 100%;
                     line-height:60px ;
                     text-align: center;

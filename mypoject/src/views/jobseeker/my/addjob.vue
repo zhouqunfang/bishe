@@ -7,7 +7,15 @@
   <div class="job_content">
     <div class="job_city">
       <h4>城市<span style="color:red">*</span><b style="color:#84d945" class="name_tip"></b></h4>
-      <input type="text"  v-model="cityinfo">
+      <input type="text"  v-model="cityinfo" @click="showcity">
+      <position-piker
+            :is-show.sync='city.isShow'
+            :on-choose='city.onChoose'
+            :city-data='city.cityData'
+            :local-city='city.localCity'
+            :close="close"
+            >
+      </position-piker>
     </div>
     <div class="job_select">
       <h4>职位<span style="color:red">*</span></h4>
@@ -15,7 +23,31 @@
     </div>
     <div class="job_salary">
       <h4>期望薪资<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
-      <input type="text" name="" id="" v-model="salaryinfo">
+      <input type="text" name="" id="" v-model="salaryinfo" @click="ShouPup">
+      <mt-popup
+        v-model="popupVisible"
+        position="bottom"
+        popup-transition="popup-fade" 
+        closeOnClickModal="true">
+        <mt-picker
+          :slots="slots" 
+          @change="onValuesChange" 
+          class="picker_mt"
+          showToolbar
+          >
+          <div class="picker-toolbar-title">
+             <div class="usi-btn-cancel" 
+             @click="popupVisible = !popupVisible">
+             取消
+             </div>
+             <div class="">请选择性别</div>
+             <div class="usi-btn-sure" 
+                  @click="popupVisible = !popupVisible">
+                  确定
+             </div>
+          </div>
+        </mt-picker>
+      </mt-popup>
     </div>    
   </div>
   <div @click="saveInfor" v-if="ifSave">保存</div>
@@ -26,9 +58,10 @@
 // import  datepickers from './datePickers.vue';
 import {getJobInfor,JobInfor,updateJobInfor} from '@/views/api/resume/resume.js';
 import {phonetest,nametest} from '@/assets/js/test.js';
+import PositionPiker from '../../component/PositionPiker'
 export default {
   components:{ 
-    // datepickers
+    PositionPiker,
 },
   data(){
     return{
@@ -36,17 +69,101 @@ export default {
       jobinfo:'',
       salaryinfo:'',
       ifSave:true,
-      ifUpdate:false
-      
+      ifUpdate:false,
+      city: {
+        isShow: false,
+        cityData: [],
+        onChoose: null,
+        localCity: {},
+        searchMessage: '',
+        username:''
+      },
+      youChoiceCityName: '广州',
+      showToolbar: true,
+      popupVisible:false,
+      slots: [
+        { 
+          flex:1,
+          defaultIndex:1,
+          values: ['面议', '1k','2k','3k','4k','5k',
+                    '6k','7k','8k','9k',
+                    '10k','11k','10k','11k','10k','11k',
+                    '12','13k','14k','15k','16k','17k',
+                    '18k','19k','20k','21k','22k','23k'
+                    ],
+          className:'slot1',
+          textAlign:'center'
+        },
+        {
+            divider: true,
+            content: '-',
+            className: 'slot2'
+          }, {
+            flex: 1,
+            values: ['面议','2k','3k','4k','5k',
+                    '6k','7k','8k','9k',
+                    '10k','11k','12k','13k',
+                    '14k','15k','16k','17k',
+                    '18k','19k','20k','21k',
+                    '22k','23k','24k'
+                    ],
+            className: 'slot3',
+            textAlign: 'center'
+          },   
+      ]
     }
   },
   computed:{
 
   },
   mounted(){
+    this.getCityInfo()
+    this.city.onChoose = res => {
+      // ToDo: 选完城市后......
+      // console.log(res)
+      this.city.isShow = false
+      this.youChoiceCityName = res.cityName
+      this.cityinfo = res.cityName
+    }
     this.updatBase()    
   },
   methods:{
+    ShouPup(){
+      this.popupVisible = true
+      },
+    onValuesChange(picker, values){
+       let value =  values
+       let valueArr= []
+       for(var i in value){
+         valueArr.push(value[i])
+       }
+       let valueString = valueArr.join('-')
+        this.salaryinfo = valueString
+        if(values[0] > values[1]) {
+        picker.setSlotValue(1, values[0]);
+       }
+    },
+    showcity(){
+        this.city.isShow = true
+    },
+    getCityInfo () {
+      this.$http.get('./static/data/city.json').then(res =>{
+          this.city.cityData = res.data.city
+      })
+      // this.city.localCity = {
+      //   cityId: 301,
+      //   cityName: '广州',
+      //   citySpell: 'BAOSHAN',
+      //   cityFirstLetter: 'B'
+      // }
+    },
+    choiceCity: function () {
+      this.city.isShow = true
+    },
+    close () {
+      this.city.isShow = false
+      this.city2.isShow = false
+    },
     //返回
     goback(){
         this.$router.go(-1)
@@ -174,6 +291,21 @@ export default {
   .job_content{
     padding: 0 20px;
     width: 100%;
+       .mint-popup{
+       width: 100%;
+    }
+    .picker-toolbar-title{
+      width: 100%;
+      display:flex;
+      flex-direction: row;
+      justify-content: space-around;
+      height: 80px;
+      line-height: 80px;
+      font-size: 32px;
+   .usi-btn-cancel,.usi-btn-sure {
+        color: #FF6600
+     }
+    } 
     h4{
         margin-bottom: 10px;
         font-size: 28px;

@@ -10,27 +10,46 @@
       <input type="text"  v-model="pojectname">
     </div>
     <div class="job_select">
-      <h4>项目描述</h4><span style="color:red">*</span></h4>
+      <h4>担任角色<span style="color:red">*</span></h4>
       <input type="text"  v-model="role">
     </div>
     <div class="job_salary">
-      <h4>期望薪资<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
+      <h4>项目内容<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
       <input type="text" name="" id="" v-model="detail">
     </div>
     <div class="job_salary">
-      <h4>时间<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
-      <input type="text" name="" id="" v-model="time">
-    </div>       
+      <h4>开始时间<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
+      <datepickers @sendbirth="getbirth"  ref = "show_input">
+        <input 
+        class=""
+        type="text" 
+        v-model="time" 
+        @click="showinput"
+        slot>
+      </datepickers>     
+    </div>
+    <div class="job_salary">
+      <h4>结束时间<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
+      <datepickers @sendtime="gettime"  ref = "if_input">
+        <input 
+        class=""
+        type="text" 
+        v-model="timeoutinfo" 
+        @click="ifinput"
+        slot>
+      </datepickers>     
+    </div>              
   </div>
   <div @click="saveInfor" v-if="ifSave">保存</div>
   <div @click="updateInfor" v-if="ifUpdate">保存</div>
 </div>
 </template>
 <script>
+import  datepickers from './datePickers.vue';
 import {poject,getPoject,updatePoject} from '@/views/api/resume/resume.js';
 export default {
   components:{ 
-    // datepickers
+    datepickers
 },
   data(){
     return{
@@ -39,6 +58,7 @@ export default {
       detail:'',
       ifSave:true,
       ifUpdate:false,
+      timeoutinfo:'',
       time:''    
     }
   },
@@ -49,6 +69,21 @@ export default {
     this.updatBase()    
   },
   methods:{
+    //ref 触发子组件的trueDateBox()方法 
+    showinput(){
+        this.$refs.show_input.trueDateBox()
+    },
+    ifinput(){
+      this.$refs.if_input.trueDateBox()
+    },  
+    getbirth(data){
+       this.time = data
+       console.log(data) 
+     },
+     gettime(data){
+       this.timeoutinfo = data
+       console.log(data) 
+     },
     //返回
     goback(){
         this.$router.go(-1)
@@ -61,7 +96,8 @@ export default {
           pojectname : this.pojectname,
           detail: this.detail,
           role:this.role,
-          time:this.time
+          time:this.time,
+          timeout:this.timeoutinfo,
         }
       poject(params).then(res=>{
          this.$toast({
@@ -106,6 +142,7 @@ export default {
               this.role = res.data.data.role
               this.detail = res.data.data.detail
               this.time=res.data.data.time
+              this.timeoutinfo = res.data.data.timeout
           }else{
             return 
           }
@@ -128,6 +165,7 @@ export default {
           detail:this.detail,
           role:this.role,
           time:this.time,
+          timeout:this.timeoutinfo,
           username:user
         }
        updatePoject(params).then(res=>{

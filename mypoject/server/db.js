@@ -91,6 +91,7 @@ const experienceSchema = new mongoose.Schema({
   company: String,
   job: String,
   time: String,
+  timeout:String,
   content:String
 })
 //简历模快项目经验
@@ -99,7 +100,8 @@ const pojectSchema = new mongoose.Schema({
   pojectname: String,
   role: String,
   detail: String,
-  time: String
+  time: String,
+  timeout:String
 })
 // 通过Schema来创建Model
 // Model代表的是数据库中的集合，通过Model才能对数据库进行操作

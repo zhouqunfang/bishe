@@ -357,12 +357,14 @@ router.post('/api/resume/experience', (req, res) => {
   let company = req.body.company
   let job = req.body.job
   let time = req.body.time
+  let timeout = req.body.timeout
   let content = req.body.content
   let newDatabase = new db.Experience({
     username: username,
     company: company,
     job: job,
     time: time,
+    timeout: timeout,
     content: content
   })
   newDatabase.save((err, data) => {
@@ -394,13 +396,15 @@ router.post('/api/my/updateexperience', (req, res) => {
   let company = req.body.company
   let job = req.body.job
   let time = req.body.time
+  let timeout = req.body.timeout 
   let content = req.body.content
   let updateStr = {
     $set: {
       "company":company,
       "job": job,
       "time": time,
-      "content": content   
+      "content": content,
+      "timeout": timeout   
     }
   }
   db.Experience.updateOne(whereStr, updateStr, (err, data) => {
@@ -408,8 +412,6 @@ router.post('/api/my/updateexperience', (req, res) => {
       res.send(err)
       return
     } else {
-      console.log(423423)
-      console.log(data)
       res.send({ "code": "0", "msg": "更新成功" })
     }
   })
@@ -421,12 +423,14 @@ router.post('/api/resume/poject', (req, res) => {
   let role = req.body.role
   let detail = req.body.detail
   let time = req.body.time
+  let timeout = req.body.timeout 
   let newDatabase = new db.Poject({
     username: username,
     pojectname: pojectname,
     role: role,
     detail: detail,
-    time: time
+    time: time,
+    timeout:timeout
   })
   newDatabase.save((err, data) => {
     if (err) {
@@ -458,12 +462,14 @@ router.post('/api/my/updatepoject', (req, res) => {
   let role = req.body.role
   let detail = req.body.detail
   let time = req.body.time
+  let timeout = req.body.timeout
   let updateStr = {
     $set: {
       "pojectname": pojectname,
       "role ": role,
       "detail": detail,
-      "time": time
+      "time": time,
+      "timeout":timeout
     }
   }
   db.Poject.updateOne(whereStr, updateStr, (err, data) => {
@@ -471,8 +477,6 @@ router.post('/api/my/updatepoject', (req, res) => {
       res.send(err)
       return
     } else {
-      console.log(423423)
-      console.log(data)
       res.send({ "code": "0", "msg": "更新成功" })
     }
   })

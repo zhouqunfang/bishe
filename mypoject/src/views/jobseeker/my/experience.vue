@@ -14,9 +14,27 @@
       <input type="text"  v-model="jobinfo">
     </div>
     <div class="job_salary">
-      <h4>时间<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
-      <input type="text" name="" id="" v-model="timeinfo">
-    </div>  
+      <h4>开始时间<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
+      <datepickers @sendbirth="getbirth"  ref = "show_input">
+        <input 
+        class=""
+        type="text" 
+        v-model="timeinfo" 
+        @click="showinput"
+        slot>
+      </datepickers>     
+    </div> 
+    <div class="job_salary">
+      <h4>结束时间<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
+      <datepickers @sendtime="gettime"  ref = "if_input">
+        <input 
+        class=""
+        type="text" 
+        v-model="timeoutinfo" 
+        @click="ifinput"
+        slot>
+      </datepickers>     
+    </div>   
     <div class="job_salary">
       <h4>工作内容<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
       <input type="text" name="" id="" v-model="contentinfo">
@@ -28,9 +46,11 @@
 </div>
 </template>
 <script>
+import  datepickers from './datePickers.vue';
 import {Experience,getExperience, updateExperience} from '@/views/api/resume/resume.js';
 export default {
   components:{ 
+    datepickers
 },
   data(){
     return{
@@ -38,6 +58,7 @@ export default {
       jobinfo:'',
       contentinfo:'',
       timeinfo:'',
+      timeoutinfo:'',
       ifSave:true,
       ifUpdate:false    
     }
@@ -49,10 +70,25 @@ export default {
     this.updatBase()    
   },
   methods:{
+    //ref 触发子组件的trueDateBox()方法 
+    showinput(){
+        this.$refs.show_input.trueDateBox()
+    },
+    ifinput(){
+      this.$refs.if_input.trueDateBox()
+    },
     //返回
     goback(){
         this.$router.go(-1)
     },
+    getbirth(data){
+       this.timeinfo = data
+       console.log(data) 
+     },
+     gettime(data){
+       this.timeoutinfo = data
+       console.log(data) 
+     },
     //保存工作经验信息
     addExperience(){
       let username = localStorage.getItem('Username')
@@ -61,6 +97,7 @@ export default {
           job : this.jobinfo,
           company:this.companyinfo,
           time: this.timeinfo,
+          timeout:this.timeoutinfo,
           content:this.contentinfo
         }
       Experience(params).then(res=>{
@@ -75,7 +112,7 @@ export default {
     },
     //判断信息是否为空
     ifnull(){
-        if(this.companyinfo==''||this.jobinfo==''||this.timeinfo==''){
+        if(this.companyinfo==''||this.jobinfo==''||this.timeinfo==''||this.timeoutinfo==''){
           this.$toast({
             message: '请输入完整信息',
             duration: 2000,
@@ -105,6 +142,7 @@ export default {
               this.companyinfo = res.data.data.company
               this.jobinfo = res.data.data.job
               this.timeinfo = res.data.data.time
+              this.timeoutinfo = res.data.data.timeout
           }else{
             return
           }
@@ -113,7 +151,6 @@ export default {
       //获取编辑页
       updatBase(){
         if(this.$route.query.id){
-          console.log(345235)
           this.getexperienceInfor()
           this.ifSave = false
           this.ifUpdate=true
@@ -127,6 +164,7 @@ export default {
           job:this.jobinfo,
           content:this.contentinfo,
           time:this.timeinfo,
+          timeout:this.timeoutinfo,
           username:user
         }
         updateExperience(params).then(res=>{

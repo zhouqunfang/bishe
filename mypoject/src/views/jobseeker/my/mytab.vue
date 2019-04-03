@@ -44,6 +44,8 @@
               <div class="base_some">
                 <b>{{expjob}}</b>
                 <b>{{extime}}</b>
+                <i>—</i>
+                <b>{{extimeout}}</b>
                 <b>{{expcontent}}</b>
               </div>
             </div>
@@ -60,6 +62,8 @@
               <div class="base_some">
                 <b>{{pojectrole}}</b>
                 <b>{{pojecttime}}</b>
+                <i>—</i>
+                <b>{{pojecttimeout}}</b>
                 <b>{{pojectdetail}}</b>
               </div>
             </div>   
@@ -85,6 +89,7 @@ export default {
       expcontent:'',
       expcompany:'',
       extime:'',
+      extimeout:'',
       experienceshow:true,
       ifexperience:false,
       ifpoject:true,
@@ -92,6 +97,7 @@ export default {
       pojectname:'',
       pojectrole:'',
       pojecttime:'',
+      pojecttimeout:'',
       pojectdetail:''
 
     }
@@ -119,22 +125,18 @@ export default {
     //如果已经有基本信息的跳转
     goAdd(){
       this.$router.push({name:'Resume',query:{id:0}})
-      this.$router.go(0)
     },
    //如果已经有求职意向的跳转
     jobAdd(){
       this.$router.push({name:'Addjob',query:{id:0}})
-      this.$router.go(0)
     },
    //如果已经有工作经验的跳转
     experienceAdd(){
       this.$router.push({name:'Experience',query:{id:0}})
-      this.$router.go(0)
     },
   //如果已经有项目经验的跳转
     pojectAdd(){
       this.$router.push({name:'Poject',query:{id:0}})
-      this.$router.go(0)
     },
     //获取基本信息
     getBase(){
@@ -188,6 +190,7 @@ export default {
               this.expcompany = res.data.data.company
               this.expjob = res.data.data.job
               this.extime=res.data.data.time
+              this.extimeout = res.data.data.timeout
               this.expcontent = res.data.data.content
               this.ifexperience = true
               this.experienceshow=false
@@ -208,6 +211,7 @@ export default {
               this.pojectname = res.data.data.pojectname
               this.pojectrole = res.data.data.role 
               this.pojecttime=res.data.data.time
+              this.pojecttimeout=res.data.data.timeout
               this.pojectdetail = res.data.data.detail
               this.showpoject = true
               this.ifpoject=false

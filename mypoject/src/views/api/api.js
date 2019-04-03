@@ -29,3 +29,4 @@ export const NewList = () => {
     url: '/api/index/news'
   })
 }
+

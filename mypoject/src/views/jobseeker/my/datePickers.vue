@@ -1,6 +1,8 @@
 <template>
     <div class="date-pickers">
-        <input type="text"  @focus="trueDateBox" :value="date" readonly />
+        <slot></slot>
+        <!-- <input t
+        ype="text"   :value="date"  class="none_input" readonly /> -->
         <transition name="fade">
             <div class="date-box" v-if="dateBoxFlag">
                 <div class="day-select">
@@ -26,6 +28,7 @@
                         <span v-for="day in monthDay[month - 1]" v-bind:class="isActive(day)" class="currentMonth">{{ day }}</span>
                         <span v-for="day in nextMonth" class="nextMonth">{{ day }}</span>
                     </div>
+                    <!-- {{date}} -->
                 </div>
             </div>
         </transition>
@@ -45,12 +48,18 @@
                 nextMonth: [],
                 week: ['日', '一', '二', '三', '四', '五', '六'],
                 monthDay: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-           }
+      }
         },
         mounted(){
             // this.changebirth()
         },
         created(){
+        },
+        props:{
+            show:{
+                type:Boolean,
+                default:false
+            }
         },
         computed: {
             date () {
@@ -102,19 +111,21 @@
             },
             // 显示日期盒子并初始化
             trueDateBox () {
-                if (this.date === '') {
-                    let date = new Date();
-                    this.year = date.getFullYear();
-                    if (this.isLeapYear(this.year)) {
-                        this.monthDay[1] = 29;
-                    } else {
-                        this.monthDay[1] = 28;
+        
+                    if (this.date === '') {
+                        let date = new Date();
+                        this.year = date.getFullYear();
+                        if (this.isLeapYear(this.year)) {
+                            this.monthDay[1] = 29;
+                        } else {
+                            this.monthDay[1] = 28;
+                        }
+                        this.month = date.getMonth() + 1;
+                        this.day = date.getDate();
                     }
-                    this.month = date.getMonth() + 1;
-                    this.day = date.getDate();
-                }
-                this.dayScreen();
-                this.dateBoxFlag = true;
+                    this.dayScreen();
+                    this.dateBoxFlag = true;
+    
             },
             // 增减年份
             addYear () {
@@ -176,6 +187,7 @@
                     this.day = parseInt(e.target.innerText);
                 }
                this.getbirth()
+               this.gettime()
                 this.dateBoxFlag = false;
             },
             // 日期显示
@@ -222,7 +234,11 @@
             //发送日期数据
             getbirth(){
                 this.$emit('sendbirth',this.date)
-            }
+            },
+            //发送日期数据
+            gettime(){
+                this.$emit('sendtime',this.date)
+            }     
         }
     }
 
