@@ -12,30 +12,14 @@ const Resume = r => require.ensure([], () => r(require('@/views/jobseeker/my/res
 const Findjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/findjob')), 'chunkname2')
 const Collectjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/collectjob')), 'chunkname2')
 const Setting = r => require.ensure([], () => r(require('@/views/jobseeker/my/setting')), 'chunkname2')
-const Searchlist = r => require.ensure([], () => r(require('@/views/jobseeker/searchlist/searchlist.vue')), 'chunkname2')
+const Searchlist = r => require.ensure([], () => r(require('@/views/jobseeker/searchlist/searchlist')), 'chunkname2')
 const Addjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/addjob')), 'chunkname2')
 const Experience = r => require.ensure([], () => r(require('@/views/jobseeker/my/experience')), 'chunkname3')
 const Poject = r => require.ensure([], () => r(require('@/views/jobseeker/my/poject')), 'chunkname3')
-const Select = r => require.ensure([], () => r(require('@/views/component/city/city.vue')), 'chunkname3')
-const cityList = r => require.ensure([], () => r(require('@/views/component/city/cityselect.vue')), 'chunkname3')
+// const Companydetail = r => require.ensure([], () => r(require('@/views/jobseeker/company/companydetail')), 'chunkname4')
+const Companylist = r => require.ensure([], () => r(require('@/views/jobseeker/company/searchlist')), 'chunkname4')
 const routes = new Router({
   routes: [
-    {
-      path: '/cityList',
-      name: 'cityList',
-      meta: {
-        hasBack: true
-      },
-      component: cityList
-    },
-    {
-      path: '/select',
-      name: 'Select',
-      meta: {
-        hasBack: false
-      },
-      component: Select
-    },
     {
       path: '/',
       name: 'Login',
@@ -124,6 +108,16 @@ const routes = new Router({
       path: '/my/poject',
       name: 'Poject',
       component: Poject
+    },
+    //公司跳转路由
+    // {
+    //   path: '/company/:title',
+    //   component: Companydetail
+    // },
+    //公司搜素后跳转路由
+    {
+      path: '/company/list',
+      component: Companylist
     }
   ]
 })

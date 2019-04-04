@@ -62,6 +62,8 @@ export default {
       _this.city.isShow = false
       _this.youChoiceCityName = res.cityName
       _this.city.localCity.cityName = res.cityName
+     //选择到的城市
+     this.$store.dispatch('searchcity',res.cityName)
     }
   },
   methods: {

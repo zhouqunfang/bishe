@@ -19,16 +19,22 @@ const JobData = () => {
     jobdataList: jobdataList
   }
 }
-// const NewsData = () => {
-//   Random.extend({filmname: function (date) {
-//     var filmname = ['青春无敌', '杀破狼',
-//       '前任2', '少林寺', '神探狄仁杰',
-//       '头号玩家', '我不是药神', '赌侠1999',
-//       '碟中谍', '环太平洋', '后来的我们',
-//       '命运速递', '幕后玩家', '侏罗纪公园', '死神来了']
-//     return this.pick(filmname)
-//   } })
-// }
+// mock一组公司数据
+const CompanyData = () => {
+  let companyList = []
+  for (let i = 0; i < 6; i++) {
+    let companydata = {
+      companyImg: Random.dataImage('56x56', 'mock的图片'), // Random.dataImage( size, text ) 生成一段随机的 Base64 图片编码
+      companyTitle: Random.cword('零一二三四五六七八九十', 6, 8), //  Random.csentence( min, max )
+      cityName: Random.city(),
+      companyJob: Random.cword(3,5)
+    }
+    companyList.push(companydata)
+  }
+  return {
+    companyList: companyList
+  }
+}
 
 const NewsData = Mock.mock({
   'newslist|2':
@@ -55,3 +61,4 @@ const NewsData = Mock.mock({
 // Mock.mock( url, post/get , 返回的数据)；
 Mock.mock('/api/index/job', 'get', JobData)
 Mock.mock('/api/index/news', 'get', NewsData)
+Mock.mock('/api/company/list', 'get', CompanyData)

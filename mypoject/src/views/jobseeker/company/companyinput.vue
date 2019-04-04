@@ -1,18 +1,18 @@
 <template>
   <div class="input_search">
-    <input type="text" placeholder="公司/职业" v-model="keyword">
-    <span class="search_img"  @click="searchJob" ><img src="@/assets/image/search.svg"/></span>
+    <input type="text" placeholder="公司" v-model="keyword">
+    <span class="search_img"  @click="searchCompany" ><img src="@/assets/image/search.svg"/></span>
   </div>
 </template>
 <script>
-import {JobList} from '../../api/api.js'
+import {Searchcompany} from '@/views/api/company/company.js'
 export default {
   name: 'InputSearch',
   data () {
     return {
       keyword: '',
-      searchjobList: [],
-      newSearchList: []
+      searchcompany: [],
+      newcompanyList: []
     }
   },
   methods: {
@@ -21,30 +21,31 @@ export default {
     //   this.keyword = ''
     // },
     // 获取公司职位列表数据
-    searchJob  () {
+    searchCompany() {
       // 获取职位数据
-      JobList().then(res => {
-        let jobdataList = res.data.jobdataList
-        jobdataList.forEach(element => {
-          this.searchjobList.push(element)
+      Searchcompany().then(res => {
+        let searchcityList = res.data.companyList
+        searchcityList.forEach(element => {
+          this.searchcompany.push(element)
         })
         let keyword = this.keyword
         let searchcity = this.$store.state.choicecity
         if (keyword) {
-          this.searchjobList.filter(item => {
+          this.searchcompany.filter(item => {
             // 匹配到数据
-            if (item.jobTitle.indexOf(keyword) !== -1) {
-              this.newSearchList.push(item)
-              this.$store.dispatch('searchlist', this.newSearchList)
-            } else {
+            if (item.companyTitle.indexOf(keyword) !== -1) {
+              this.newcompanyList.push(item)
+              this.$store.dispatch('searchcompany',  this.newcompanyList)
+              console.log(this.$store.state.newcompanyList)
+           } else {
               // 如果没有匹配到数据 放空数组
-              this.$store.dispatch('delete_list')
+              this.$store.dispatch('deletecompany')
             }
           })
         }
         this.keyword = ''
       })
-      this.$router.push('/searchlist')
+      this.$router.push('/company/list')
     }
 
   }
