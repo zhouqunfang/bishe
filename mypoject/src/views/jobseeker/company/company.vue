@@ -43,7 +43,6 @@ export default {
     searchcompany(){
      Searchcompany().then(res =>{
           this.companylist = res.data.companyList
-          console.log(this.companylist)
       })
 
       }

@@ -51,7 +51,7 @@ export default {
       // 请求数据
       JobList().then(res => {
         this.jobdataList = res.data.jobdataList
-        // console.log(res)
+        
       })
     },
     NewsList () {

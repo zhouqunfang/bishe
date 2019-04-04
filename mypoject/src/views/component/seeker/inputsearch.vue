@@ -22,6 +22,7 @@ export default {
     // },
     // 获取公司职位列表数据
     searchJob  () {
+      this.$store.dispatch('delete_list')
       // 获取职位数据
       JobList().then(res => {
         let jobdataList = res.data.jobdataList
@@ -29,18 +30,16 @@ export default {
           this.searchjobList.push(element)
         })
         let keyword = this.keyword
-        let searchcity = this.$store.state.choicecity
+        // let searchcity = this.$store.state.choicecity
         if (keyword) {
           this.searchjobList.filter(item => {
             // 匹配到数据
             if (item.jobTitle.indexOf(keyword) !== -1) {
-              this.newSearchList.push(item)
-              this.$store.dispatch('searchlist', this.newSearchList)
-            } else {
-              // 如果没有匹配到数据 放空数组
-              this.$store.dispatch('delete_list')
-            }
-          })
+              this.newSearchList.push(item)           
+            } 
+          })  
+            this.$store.dispatch('searchlist', this.newSearchList)
+            this.searchjobList=[]
         }
         this.keyword = ''
       })

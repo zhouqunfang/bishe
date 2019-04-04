@@ -30,12 +30,16 @@ export default {
   },
   data () {
     return {
+     
     }
+  },
+  created(){
+ 
   },
   computed: {
     companylist () {
-      return this.$store.state.newcompanyList
-    }
+      return  this.$store.state.newcompanyList 
+   }
   }
 }
 </script>

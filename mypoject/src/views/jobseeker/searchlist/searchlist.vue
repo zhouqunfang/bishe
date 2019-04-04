@@ -44,6 +44,7 @@ export default {
 // @import '../first/firstjoblist';
   .joblist_content{
     ul{
+      padding: 0 20px; 
       li{
         width: 100%;
         height: 150px;
@@ -62,12 +63,12 @@ export default {
         height: 100px;
         .joblist_right_top{
           // color: $jobtitle-color;
-          font-size: 30px;
+          font-size: 32px;
           font-weight: bold;
         }
         .joplist_right_bottom{
-          margin-top: 15px;
-          font-size: 22px;
+          font-size: 28px;
+          margin-top: 15px;  
         }
       }
     }

@@ -45,10 +45,10 @@ const store = new Vuex.Store({
     SET_USERNAME(state,setname){
       state.username = setname
     },
-    //获取选择的城市
-    SEARCH_LIST(state, searchcity) {
-      state.choicecity = searchcity
-    },
+    // //获取选择的城市
+    // SEARCH_LIST(state, searchcity) {
+    //   state.choicecity = searchcity
+    // },
     //搜索框搜索公司数据
     SEARCH_COMPANY(state, company) {
       state.newcompanyList = company
@@ -85,10 +85,10 @@ const store = new Vuex.Store({
     delete_list ({commit}) {
       commit('DELETE_LIST')
     },
-    //获取选择的城市
-    searchcity ({commit},searchcity) {
-      commit('SEARCH_LIST',searchcity)
-    },
+    // //获取选择的城市
+    // searchcity ({commit},searchcity) {
+    //   commit('SEARCH_LIST',searchcity)
+    // },
     //搜索公司
     searchcompany ({ commit }, searchcity) {
       commit('SEARCH_COMPANY', searchcity)

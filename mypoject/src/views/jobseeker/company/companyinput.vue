@@ -20,28 +20,29 @@ export default {
     // searchJob () {
     //   this.keyword = ''
     // },
-    // 获取公司职位列表数据
+    // 获取公司职位列表数据 
     searchCompany() {
+       this.$store.dispatch('deletecompany')
       // 获取职位数据
       Searchcompany().then(res => {
         let searchcityList = res.data.companyList
+        console.log(searchcityList)
         searchcityList.forEach(element => {
           this.searchcompany.push(element)
         })
+        console.log(this.searchcompany)
         let keyword = this.keyword
-        let searchcity = this.$store.state.choicecity
+        // let searchcity = this.$store.state.choicecity
         if (keyword) {
-          this.searchcompany.filter(item => {
+          this.searchcompany.filter( item => {
             // 匹配到数据
             if (item.companyTitle.indexOf(keyword) !== -1) {
-              this.newcompanyList.push(item)
-              this.$store.dispatch('searchcompany',  this.newcompanyList)
-              console.log(this.$store.state.newcompanyList)
-           } else {
-              // 如果没有匹配到数据 放空数组
-              this.$store.dispatch('deletecompany')
-            }
-          })
+              this.newcompanyList.push(item)                                         
+               } 
+           })
+          this.$store.dispatch('searchcompany', this.newcompanyList)
+          this.searchcompany= [] 
+          console.log(this.$store.state.newcompanyList)
         }
         this.keyword = ''
       })
