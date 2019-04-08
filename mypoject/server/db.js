@@ -103,6 +103,14 @@ const pojectSchema = new mongoose.Schema({
   time: String,
   timeout:String
 })
+//todo页面
+const todolistSchema = new mongoose.Schema({
+  username:String,
+  content:String,
+  time:String,
+  id:Number,
+  completed:Boolean
+})
 // 通过Schema来创建Model
 // Model代表的是数据库中的集合，通过Model才能对数据库进行操作
 // mongoose.model(modelName,schema) (集合名，Schema)
@@ -116,6 +124,7 @@ const Models = {
   Baseinfor:mongoose.model('Baseinfor',baseinforSchema),
   Jobinfor: mongoose.model('Jobinfor', jobinforSchema),
   Experience: mongoose.model('Experience', experienceSchema),
-  Poject: mongoose.model('Poject', pojectSchema)
+  Poject: mongoose.model('Poject', pojectSchema),
+  Todolist: mongoose.model('Todolist', todolistSchema)
 }
 module.exports = Models

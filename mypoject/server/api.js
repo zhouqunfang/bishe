@@ -481,4 +481,69 @@ router.post('/api/my/updatepoject', (req, res) => {
     }
   })
 })
+//todo列表增加数据
+router.post('/api/todo/addlist',(req,res)=>{
+  let username = req.body.username  
+  let content = req.body.content
+  let time = req.body.time
+  let id = req.body.id
+
+  let newDatabase = new db.Todolist({
+    username: username,
+    content:content,
+    time :time,
+    id:id,
+    completed: false
+  })
+  newDatabase.save((err,data)=>{
+    if(err){
+      res.send(err)
+      return
+    }else{
+      res.send({ "code": "0", "msg": "添加成功" })
+    }
+  })
+})
+//获取todo列表
+router.post('/api/todo/gettodolist',(req,res)=>{
+  let username = req.body.username
+  db.Todolist.find({ username: username },(err,data)=>{
+    if (err) {
+      res.send(err)
+      return
+    } else  {
+      let datalength = data.length 
+      res.send({ "code": "0", "msg": "获取成功", "data": data, "datalength": datalength})
+    }     
+  })
+})
+//删除todo数据 
+router.post('/api/todo/deletetodolist',(req,res)=>{
+  let id= req.body.id
+  db.Todolist.deleteMany({ id: id}, (err,data)=>{
+    if(err){
+      res.send(err)
+    }else{
+      res.send({"code":"0","msg":"删除成功"})
+    }
+  });
+})
+//更新todo状态 
+router.post('/api/todo/updatetodolist', (req, res) => {
+  let completed = req.body.completed
+  let content = req.body.content
+  let updateStr = {
+    $set: {
+      "completed": completed
+    }
+  }
+  db.Todolist.updateOne({ content: content }, updateStr,(err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      console.log(data)
+      res.send({ "code": "0", "msg": "更新成功"})
+    }
+  });
+})
 module.exports = router

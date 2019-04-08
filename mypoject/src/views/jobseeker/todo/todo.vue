@@ -1,13 +1,6 @@
 <template>
     <div class="todo">
-      <!-- <mt-header>
-          <router-link to="/index" slot="left">
-             <mt-button icon="back"></mt-button>
-         </router-link>
-      </mt-header> -->
-      <mt-button type="primary" @click="showInput">add</address></mt-button>
-    <!-- <footer-bar></footer-bar> -->
-
+      <mt-button type="primary" @click="showInput">Add</mt-button>
     <div class="add_div" v-show="show"></div>
     <!-- 用transition注意key -->
     <transition-group
@@ -29,11 +22,10 @@
             <b class="addTodo" @click="addTodo"></b>
           </div>
      </transition-group>
-
         <Item
             :todo="todo"
             v-for="todo in filteredTodos"
-            :key="todo.id"
+            :key="todo.content"
             @del="deleteTodo"
         >
         </Item>
@@ -46,12 +38,12 @@
         </Tabs>
         <div class="goback" @click="goback"></div>
     </div>
-    <!-- @clearAllCompleted="clearAllCompleted" -->
 </template>
 <script>
 // import FooterBar from '../component/seeker/FooterBar'
-import Tabs from './tab'
-import Item from './item'
+import Tabs from './tab';
+import Item from './item';
+import {  Addtodolist,Gettodolist,Deletetodolist } from "@/views/api/todo/todo.js";
 let id = 0
 export default {
   name: 'Todo',
@@ -66,11 +58,13 @@ export default {
       filter: 'all',
       time: '',
       show: false.filter,
-      todoValue: ''
+      todoValue: '',
+      _id:''
     }
   },
   mounted () {
     this.newTime()
+    this.gettodolist()
   },
   computed: {
     filteredTodos () {
@@ -101,11 +95,53 @@ export default {
         time: this.time,
         completed: false
       })
-      this.todoValue = ''
+      this.addtodolist()
+      this.todoValue = ''  
+    },
+    //获取增加todo列表接口 
+    addtodolist(){
+      this._id = id
+      let params = {
+        username:localStorage.getItem('Username'),
+        content:this.todoValue,
+        time:this.time,
+        id:this._id,
+        completed: false,
+      }
+      Addtodolist(params).then(res=>{
+          console.log(res)
+      })
+    },
+    //获取todo列表数据接口
+    gettodolist(){
+      let username = localStorage.getItem('Username')
+      let params = {
+          username:username
+      }
+      Gettodolist(params).then(res =>{
+        let length =  res.data.datalength
+        if(length){
+          for(var i=0;i<length;i++){
+            this.todos.unshift({
+                    content: res.data.data[i].content,
+                    time: res.data.data[i].time,
+                    completed: res.data.data[i].completed,
+                    id:res.data.data[i].id,
+            })
+          }
+        }
+      })
     },
     deleteTodo (id) {
       this.todos.splice(this.todos.findIndex(todo => todo.id == id), 1)
-    },
+          //删除todo数据接口
+        let idindex = id 
+        Deletetodolist({id:idindex}).then(res=>{
+          if(res.data.code === "0"){
+           console.log(res.data.msg)
+          }
+        })
+   },
     togoleFilter (state) {
       this.filter = state
     },
