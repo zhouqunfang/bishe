@@ -5,6 +5,7 @@ const Login = r => require.ensure([], () => r(require('@/views/login')), 'chunkn
 const Register = r => require.ensure([], () => r(require('@/views/register')), 'chunkname1')
 const Index = r => require.ensure([], () => r(require('@/views/jobseeker/first/index')), 'chunkname1')
 const Company = r => require.ensure([], () => r(require('@/views/jobseeker/company/company')), 'chunkname1')
+const Companydetail = r => require.ensure([], () => r(require('@/views/jobseeker/company/companydetail')), 'chunkname1')
 const Message = r => require.ensure([], () => r(require('@/views/jobseeker/message/message')), 'chunkname1')
 const My = r => require.ensure([], () => r(require('@/views/jobseeker/my/my')), 'chunkname1')
 const Todo = r => require.ensure([], () => r(require('@/views/jobseeker/todo/todo')), 'chunkname1')
@@ -16,10 +17,14 @@ const Searchlist = r => require.ensure([], () => r(require('@/views/jobseeker/se
 const Addjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/addjob')), 'chunkname2')
 const Experience = r => require.ensure([], () => r(require('@/views/jobseeker/my/experience')), 'chunkname3')
 const Poject = r => require.ensure([], () => r(require('@/views/jobseeker/my/poject')), 'chunkname3')
-// const Companydetail = r => require.ensure([], () => r(require('@/views/jobseeker/company/companydetail')), 'chunkname4')
 const Companylist = r => require.ensure([], () => r(require('@/views/jobseeker/company/searchlist')), 'chunkname4')
-const routes = new Router({
-  routes: [
+import { Firstjob, sendJob, companyInfo, companyMsg,companyinfo} from './route.js'
+const routes =  [
+    Firstjob,
+    sendJob,
+    companyInfo,
+    companyMsg,
+    companyinfo,
     {
       path: '/',
       name: 'Login',
@@ -109,39 +114,39 @@ const routes = new Router({
       name: 'Poject',
       component: Poject
     },
-    //公司跳转路由
-    // {
-    //   path: '/company/:title',
-    //   component: Companydetail
-    // },
+    // 公司跳转路由
+    {
+      path: '/companydetail',
+      component: Companydetail
+    },
     //公司搜素后跳转路由
     {
       path: '/company/list',
       component: Companylist
     }
   ]
-})
 
-routes.beforeEach((to, from, next) => {
-  // console.log(to.fullPath)
-  // console.log(routes)
-  if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
-    //  console.log(routes)
-    //  console.log(routes.app.$options.store.state.token)
-    const token = routes.app.$options.store.state.token
-    // console.log(token)
-    if (token) { // 通过vuex state获取当前的token是否存在
-      next()
-    } else {
-      next(
-        {
-          path: '/',
-          query: {redirect: to.fullPath} // 将跳转的路由path作为参数，登录成功后跳转到该路由 $route.fullPath: 完成解析后的 URL，包含查询参数和 hash 的完整路径
-        }
-      )
-    }
-  } else {
-    next()
-  }
-})
-export default routes
+
+// routes.beforeEach((to, from, next) => {
+//   // console.log(to.fullPath)
+//   // console.log(routes)
+//   if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
+//     //  console.log(routes)
+//     //  console.log(routes.app.$options.store.state.token)
+//     const token = routes.app.$options.store.state.token
+//     // console.log(token)
+//     if (token) { // 通过vuex state获取当前的token是否存在
+//       next()
+//     } else {
+//       next(
+//         {
+//           path: '/',
+//           query: {redirect: to.fullPath} // 将跳转的路由path作为参数，登录成功后跳转到该路由 $route.fullPath: 完成解析后的 URL，包含查询参数和 hash 的完整路径
+//         }
+//       )
+//     }
+//   } else {
+//     next()
+//   }
+// })
+export default new Router({routes})

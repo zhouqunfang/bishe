@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import {JobList} from '../../api/api.js'
+import {JobList} from '@/views/api/api.js'
 export default {
   name: 'InputSearch',
   data () {

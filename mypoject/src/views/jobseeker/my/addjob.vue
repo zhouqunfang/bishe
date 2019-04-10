@@ -21,6 +21,10 @@
       <h4>职位<span style="color:red">*</span></h4>
       <input type="text"  v-model="jobinfo">
     </div>
+    <div class="job_aim">
+      <h4>工作性质<span style="color:red">*</span></h4>
+      <input type="text"  v-model="jobaim">
+    </div>
     <div class="job_salary">
       <h4>期望薪资<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
       <input type="text" name="" id="" v-model="salaryinfo" @click="ShouPup">
@@ -68,6 +72,7 @@ export default {
       cityinfo:'',
       jobinfo:'',
       salaryinfo:'',
+      jobaim:'',
       ifSave:true,
       ifUpdate:false,
       city: {
@@ -177,6 +182,7 @@ export default {
           city : this.cityinfo,
           salary: this.salaryinfo,
           job:this.jobinfo,
+          jobaim:this.jobaim
         }
       JobInfor(params).then(res=>{
          this.$toast({
@@ -220,6 +226,7 @@ export default {
               this.cityinfo = res.data.data.city
               this.jobinfo = res.data.data.job
               this.salaryinfo = res.data.data.salary
+              this.jobaim = res.data.data.jobaim
           }else{
             return
           }
@@ -242,6 +249,7 @@ export default {
           city : this.cityinfo,
           salary:this.salaryinfo,
           job:this.jobinfo,
+          jobaim:this.jobaim,
           username:user
         }
         updateJobInfor(params).then(res=>{

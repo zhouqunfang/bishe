@@ -23,10 +23,10 @@
 
 </template>
 <script>
-import FooterBar from '@/views/component/seeker/footerbar'
+import FooterBar from '@/views/component/footerbar'
 import PositionPiker from '../../component/PositionPiker'
 import JobList from './firstjoblist'
-import InputSearch from '@/views/component/seeker/inputsearch'
+import InputSearch from '@/views/component/inputsearch'
 import {SetUserInfo} from '../../api/message/message.js'
 export default {
   name: 'Index',

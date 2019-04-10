@@ -13,7 +13,7 @@ module.exports = {
     // webpack的端口是8083 存在跨域
     proxyTable: {
       '/api': {
-        target: 'http://localhost:3000/api', // 代理路径
+        target: 'http://0.0.0.0:3000/api', // 代理路径
         changeOrigin: true, // 是否存在跨域
         pathRewrite: {
           '^/api': ''
@@ -24,7 +24,7 @@ module.exports = {
 
     // Various Dev Server settings
     /* 服务器相关配置项 */
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '0.0.0.0', // can be overwritten by process.env.HOST
     port: 8083, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

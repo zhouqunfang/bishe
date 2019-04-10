@@ -5,7 +5,7 @@
     <ul class="company_content">
         <li v-for="(item,index) in companylist" :key=index>
           <router-link 
-          :to="'/company/'+item.companyTitle"     
+          :to="{path:'/companydetail',params:{companyTitle:item.companyTitle}}"   
           >
             <div class="company_list">
               <img :src="item.companyImg" alt="">
@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import FooterBar from '../../component/seeker/footerbar'
+import FooterBar from '../../component/footerbar'
 import InputSearch from './companyinput'
 import {Searchcompany} from '@/views/api/company/company.js'
 export default {

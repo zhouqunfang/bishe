@@ -27,7 +27,13 @@ const CompanyData = () => {
       companyImg: Random.dataImage('56x56', 'mock的图片'), // Random.dataImage( size, text ) 生成一段随机的 Base64 图片编码
       companyTitle: Random.cword('零一二三四五六七八九十', 6, 8), //  Random.csentence( min, max )
       cityName: Random.city(),
-      companyJob: Random.cword(3,5)
+      companyJob: Random.cword(3,5),
+      companyContent: Random.csentence(10, 30),
+      companyPic: Random.dataImage('80x80', '公司的图片'),
+      companyFullname: Random.cword('零一二三四五六七八九十', 8, 10),
+      companyPerson:Random.cname(),
+      companyTime:Random.date(),
+      companyMoney:Random.cword(4,6)
     }
     companyList.push(companydata)
   }

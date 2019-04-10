@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import InputSearch from '@/views/component/seeker/inputsearch'
+import InputSearch from '@/views/component/inputsearch'
 export default {
   components: {
     InputSearch

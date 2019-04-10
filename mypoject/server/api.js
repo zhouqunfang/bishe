@@ -298,10 +298,12 @@ router.post('/api/resume/jobinfor', (req, res) => {
   let city = req.body.city
   let salary = req.body.salary
   let job = req.body.job
+  let jobaim = req.body.jobaim
   let newDatabase = new db.Jobinfor({
     city: city ,
     salary: salary,
     job: job,
+    jobaim: jobaim,
     username: username
   })
   newDatabase.save((err, data) => {
@@ -334,11 +336,13 @@ router.post('/api/my/updatejobinfor', (req, res) => {
   let city = req.body.city
   let salary = req.body.salary
   let job = req.body.job
+  let jobaim = req.body.jobaim
   let updateStr = {
     $set: {
       "city": city ,
       "salary": salary,
-      "job": job
+      "job": job,
+      "jobaim": jobaim
     }
   }
   db.Jobinfor.updateOne(whereStr, updateStr, (err, data) => {
@@ -545,5 +549,37 @@ router.post('/api/todo/updatetodolist', (req, res) => {
       res.send({ "code": "0", "msg": "更新成功"})
     }
   });
+})
+//企业招聘
+//首页模块
+router.post('/api/first/resumeinfor', (req, res) => {
+  db.Jobinfor.find({}, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else {
+      res.send({ "code": "0", "msg": "获取成功", "data": data })
+    }
+  })
+})
+//公司
+router.post('/api/company/addinfor', (req, res) => {
+  let newDatabase = new db.AddInfo({
+    username: req.body.username,
+    companyTitle: req.body.companyTitle,
+    companyContent: req.body.companyContent,
+    companyFullname: req.body.companyFullname,
+    companyPerson: req.body.companyPerson,
+    companyTime: req.body.companyTime,
+    companyMoney: req.body.companyMoney,
+  })
+  newDatabase.save((err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else {
+      res.send({ "code": "0", "msg": "保存成功" })
+    }
+  })
 })
 module.exports = router

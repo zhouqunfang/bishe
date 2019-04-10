@@ -39,5 +39,5 @@ export default{
 }
 </script>
 <style lang="css" scoped>
-@import '../../../assets/css/seeker/footerbar.css';
+@import '../../assets/css/seeker/footerbar.css';
 </style>

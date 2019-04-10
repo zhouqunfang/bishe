@@ -9,7 +9,7 @@
     </div>
 </template>
 <script>
-import FooterBar from '../../component/seeker/footerbar'
+import FooterBar from '../../component/footerbar'
 import MyTab from './mytab'
 
 export default {
