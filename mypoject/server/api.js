@@ -562,7 +562,7 @@ router.post('/api/first/resumeinfor', (req, res) => {
     }
   })
 })
-//公司
+//保存公司
 router.post('/api/company/addinfor', (req, res) => {
   let newDatabase = new db.AddInfo({
     username: req.body.username,
@@ -579,6 +579,49 @@ router.post('/api/company/addinfor', (req, res) => {
       return
     } else {
       res.send({ "code": "0", "msg": "保存成功" })
+    }
+  })
+})
+//获取公司信息
+router.post('/api/company/getinfor', (req, res) => {
+  let username = req.body.username
+  db.AddInfo.find({ username: username }, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else if (data.length > 0) {
+      res.send({ "code": "0", "msg": "编辑成功", "data": data[0] })
+    } else {
+      res.send({ "code": "1", "msg": "保存成功", "data": data[0] })
+    }
+  })
+})
+//更新公司信息
+router.post('/api/company/updateinfor', (req, res) => {
+  let username = req.body.username
+  let whereStr = { username: username }
+  let companyTitle = req.body.companyTitle
+  let companyContent = req.body.companyContent
+  let companyFullname = req.body.companyFullname
+  let companyPerson = req.body.companyPerson
+  let companyTime = req.body.companyTime
+  let companyMoney = req.body.companyMoney
+  let updateStr = {
+    $set: {
+      "companyTitle": companyTitle,
+      "companyContent": companyContent,
+      "companyFullname": companyFullname,
+      "companyPerson": companyPerson,
+      "companyTime": companyTime,
+      "companyMoney": companyMoney
+    }
+  }
+  db.AddInfo.updateOne(whereStr, updateStr, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else {
+      res.send({ "code": "0", "msg": "更新成功" })
     }
   })
 })

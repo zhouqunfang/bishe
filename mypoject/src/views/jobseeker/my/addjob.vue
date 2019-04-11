@@ -235,7 +235,6 @@ export default {
       //获取职位意向编辑页
       updatBase(){
         if(this.$route.query.id){
-          console.log(345235)
           this.getjobInfor()
           this.ifSave = false
           this.ifUpdate=true

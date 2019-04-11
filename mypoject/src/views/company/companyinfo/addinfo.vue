@@ -33,10 +33,11 @@
         上传公司照片
       </li>
     </ul>
+    <div class="save_btn" @click="save">保存</div>
   </div>
 </template>
 <script>
-import { Addinfor } from '@/views/api/recruiter/first.js';
+import { Addinfor,Getinfor,Updateinfor } from '@/views/api/recruiter/first.js';
 export default {
   name:'AddInfo',
   components:{
@@ -49,17 +50,69 @@ export default {
       companyFullname: '',
       companyPerson: '',
       companyTime: '',
-      companyMoney: ''
+      companyMoney: '',
+      router:''
+    }
+  },
+  // beforeRouterEnter(){
+  //     this.router=to.$route.query.id
+  //     next()
+  // },
+  mounted(){
+    console.log(this.router)
+    if(this.$route.query.id){
+       this.getinfor()
     }
   },
   methods:{
+    //保存公司信息
     addinfor(){
-      // let params = {
-
-      // }
-      Addinfor().then(res=>{
-
+      let username = localStorage.getItem('Username')
+      let params = {
+        username:username,
+        companyTitle: this.companyTitle,
+        companyContent: this.companyContent,
+        companyFullname: this.companyFullname,
+        companyPerson: this.companyPerson,
+        companyTime: this.companyTime,
+        companyMoney: this.companyMoney
+      }
+      Addinfor(params).then(res=>{
+          console.log(res)
+          if(res.data.code==='0'){
+              this.$toast({
+                message: res.data.msg,
+                duration: 2000,
+                iconClass: 'icon icon-success',
+                className: 'success_toast'
+              }
+            )
+          }
       })
+    },
+    //获取公司信息
+    getinfor(){
+      let username = localStorage.getItem('Username')
+      let params = {
+        username:username
+      }
+        Getinfor(params).then(res=>{
+          console.log(res)
+          if(res.data.code === "0"){
+              this.companyTitle = res.data.data.companyTitle
+              this.companyContent = res.data.data.companyContent
+              this.companyFullname = res.data.data.companyFullname
+              this.companyPerson = res.data.data.companyPerson
+              this.companyTime = res.data.data.companyTime
+              this.companyMoney = res.data.data.companyMoney
+          }else{
+            return
+          }
+        })
+    },
+    //保存公司信息
+    save(){
+      this.addinfor()
     }
   }
 

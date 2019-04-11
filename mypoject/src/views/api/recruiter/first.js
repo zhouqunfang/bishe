@@ -7,9 +7,29 @@ export const Resumeinfor = () => {
   })
 }
 //增加公司信息
-export const Addinfor = () => {
+export const Addinfor = (params) => {
   return axios({
     method: 'post',
-    url: '/api/company/addinfor'
+    url: '/api/company/addinfor',
+    data:params,
+    dataType:'json'
+  })
+}
+//获取公司信息
+export const Getinfor = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/company/getinfor',
+    data:params,
+    dataType:'json'
+  })
+}
+//更新公司信息
+export const Updateinfor = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/company/updateinfor',
+    data:params,
+    dataType:'json'
   })
 }
