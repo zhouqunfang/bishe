@@ -1,5 +1,6 @@
 <template>
   <div class="add_info">
+    <go-back></go-back>
     <h4>公司信息</h4>
     <ul>
       <li>
@@ -38,10 +39,10 @@
 </template>
 <script>
 import { Addinfor,Getinfor,Updateinfor } from '@/views/api/recruiter/first.js';
+import GoBack from '../component/goback.vue'
 export default {
-  name:'AddInfo',
   components:{
-
+    GoBack 
   },
   data(){
     return{
@@ -54,15 +55,13 @@ export default {
       router:''
     }
   },
-  // beforeRouterEnter(){
-  //     this.router=to.$route.query.id
-  //     next()
-  // },
-  mounted(){
-    console.log(this.router)
-    if(this.$route.query.id){
-       this.getinfor()
-    }
+  beforeRouteEnter(to,from,next){
+    next(vm=>{
+      vm.router = to.query.id
+      console.log(vm)
+      vm.getinfor()
+     }
+    )
   },
   methods:{
     //保存公司信息
@@ -78,7 +77,6 @@ export default {
         companyMoney: this.companyMoney
       }
       Addinfor(params).then(res=>{
-          console.log(res)
           if(res.data.code==='0'){
               this.$toast({
                 message: res.data.msg,
@@ -97,7 +95,6 @@ export default {
         username:username
       }
         Getinfor(params).then(res=>{
-          console.log(res)
           if(res.data.code === "0"){
               this.companyTitle = res.data.data.companyTitle
               this.companyContent = res.data.data.companyContent
@@ -110,9 +107,41 @@ export default {
           }
         })
     },
+    //更新公司信息
+    updateinfor(){
+      let username = localStorage.getItem('Username')
+      let params = {
+        username:username,
+        companyTitle: this.companyTitle,
+        companyContent: this.companyContent,
+        companyFullname: this.companyFullname,
+        companyPerson: this.companyPerson,
+        companyTime: this.companyTime,
+        companyMoney: this.companyMoney
+      }
+      Updateinfor (params).then(res=>{
+        if(res.data.code==='0'){
+              this.$toast({
+                message: res.data.msg,
+                duration: 2000,
+                iconClass: 'icon icon-success',
+                className: 'success_toast'
+              }
+            )
+          }
+      })
+    } ,
     //保存公司信息
     save(){
+      console.log(this.router)
+      if(this.router===0){
+        console.log(35434)
+        this.updateinfor()
+        this.$router.go(-1)
+      }else{
       this.addinfor()
+      this.$router.go(-1)
+      }
     }
   }
 

@@ -5,14 +5,14 @@
     <ul class="company_content">
         <li v-for="(item,index) in companylist" :key=index>
           <router-link 
-          :to="{path:'/companydetail',params:{companyTitle:item.companyTitle}}"   
+          :to="{name:'Companydetail',params:{companyTitle:item.companyTitle}}"   
           >
             <div class="company_list">
               <img :src="item.companyImg" alt="">
               <div class="content_left">
                 <h4>{{item.companyTitle}}</h4>
-                <span>{{item.cityName}}</span>
-                <span>{{item.companyJob}}</span>
+                <span>{{item.companyFullname}}</span>
+                <span>{{item.companyPerson}}</span>
               </div>
             </div>
            </router-link>  
@@ -42,7 +42,7 @@ export default {
     //请求公司列表数据
     searchcompany(){
      Searchcompany().then(res =>{
-          this.companylist = res.data.companyList
+          this.companylist = res.data.data
       })
 
       }

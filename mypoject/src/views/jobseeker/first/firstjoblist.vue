@@ -1,6 +1,6 @@
 <template>
   <div class="first_joblist">
-        <h3 class="recommen_job">推荐职位</h3>
+        <h3 class="recommen_job">职位</h3>
         <div class="joblist_content">
             <ul>
               <li v-for="(item,index) in jobdataList" :key="index">
@@ -50,7 +50,9 @@ export default {
     JobList () {
       // 请求数据
       JobList().then(res => {
-        this.jobdataList = res.data.jobdataList
+        this.jobdataList = res.data.data
+        console.log(this.jobdataList)
+
         
       })
     },

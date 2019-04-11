@@ -25,21 +25,23 @@ export default {
       this.$store.dispatch('delete_list')
       // 获取职位数据
       JobList().then(res => {
-        let jobdataList = res.data.jobdataList
+        let jobdataList = res.data.data
         jobdataList.forEach(element => {
           this.searchjobList.push(element)
+          
         })
         let keyword = this.keyword
         // let searchcity = this.$store.state.choicecity
         if (keyword) {
           this.searchjobList.filter(item => {
             // 匹配到数据
+          
             if (item.jobTitle.indexOf(keyword) !== -1) {
-              this.newSearchList.push(item)           
+              this.newSearchList.push(item)   
+            this.$store.dispatch('searchlist', this.newSearchList)
+            console.log(this.newSearchList )    
             } 
           })  
-            this.$store.dispatch('searchlist', this.newSearchList)
-            this.searchjobList=[]
         }
         this.keyword = ''
       })

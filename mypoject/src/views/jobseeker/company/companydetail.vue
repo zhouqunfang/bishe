@@ -1,12 +1,12 @@
 <template>
   <div class="companydetail">
     <div class="company_top">
-       <span class="company_title">{{companylist[0].companyTitle}}</span>
+       <span class="company_title">{{companylist.companyTitle}}</span>
        <img src="" alt="">
     </div>
     <div class="company_infor">
       <h4>公司介绍</h4>
-      <p></p>
+      <p>{{companylist.companyContent}}</p>
     </div>
     <div class="company_img">
       <h4>公司照片</h4>
@@ -16,39 +16,44 @@
       <h4>工商信息</h4>
         <div>
           <span>公司全称</span>
-          <b></b>
+          <b>{{companylist.companyFullname}}</b>
         </div>
         <div>
           <span>企业法人</span>
-          <b></b>
+          <b>{{companylist.companyPerson}}</b>
         </div>
         <div>
           <span>注册时间</span>
-          <b></b>
+          <b>{{companylist.companyTime}}</b>
         </div>
         <div>
           <span>注册资本</span>
-          <b></b>
+          <b>{{companylist.companyMoney}}</b>
         </div>
     </div>
   </div>
 </template>
 <script>
-import {Searchcompany} from '@/views/api/company/company.js'
+import {Companydetail} from '@/views/api/company/company.js'
     export default{
       name:'Companydetail',
       data(){
         return{
-          companylist:[]
+          companylist:[]        
         }
       },
       mounted(){
         this.companydetail()
+        
       },
       methods:{
         companydetail(){
-          Searchcompany().then(res =>{
-           this.companylist = res.data.companyList
+          let router = this.$route.params.companyTitle
+          let params ={
+            companyTitle: router
+          }
+          Companydetail(params).then(res =>{
+           this.companylist = res.data.data[0]
             console.log(res)
          })
         }

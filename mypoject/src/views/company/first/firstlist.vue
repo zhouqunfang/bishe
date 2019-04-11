@@ -1,16 +1,21 @@
 <template>
   <div class="first_list">
-     <div class="resume_info" v-for="(item,index) in resumelist" :key=index>
+     <div 
+          class="resume_info" 
+          v-for="(item,index) in resumelist" 
+          :key=index 
+          @click="getresume(item.username)"
+          >
        <div>
-         <h2>{{resumelist[index].job}}</h2>
-         <span>{{resumelist[index].username}}</span>
+         <h2>{{item.job}}</h2>
+         <span>{{item.username}}</span>
        </div>
        <div>
          <span>
-           {{resumelist[index].salary}}
+           {{item.salary}}
          </span>
-         <span> {{resumelist[index].city}}</span>
-         <span>{{resumelist[index].jobaim}}</span>
+         <span> {{item.city}}</span>
+         <span>{{item.jobaim}}</span>
        </div>
      </div>
   </div>
@@ -38,6 +43,10 @@ export default {
             return
           }
         })
+    },
+    getresume(value){
+        console.log(value)
+        this.$router.push({path:'/resume',query:{username:value}})
     }
   }
 }

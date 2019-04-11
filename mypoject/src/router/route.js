@@ -6,8 +6,10 @@ const SendJob = r => require.ensure([], () => r(require('@/views/company/sendjob
 const CompanyInfo = r => require.ensure([], () => r(require('@/views/company/companyinfo/companyinfo')), 'chunkname1')
 const CompanyMsg = r => require.ensure([], () => r(require('@/views/company/companymsg/companymsg')), 'chunkname1')
 const AddInfo = r => require.ensure([], () => r(require('@/views/company/companyinfo/addinfo')), 'chunkname1')
+const AddJobInfo = r => require.ensure([], () => r(require('@/views/company/sendjob/addjob')), 'chunkname1')
+const Resume = r => require.ensure([], () => r(require('@/views/company/first/resume')), 'chunkname1')
 
-export const Firstjob = 
+export const firstjob = 
   {
       path: '/first',
       name: 'First',
@@ -32,10 +34,22 @@ export const companyMsg =
   name: 'Companymsg',
   component: CompanyMsg
 }
-export const companyinfo =
+export const addInfo=
 {
   path: '/addinfo',
   name: 'Addinfo',
   component: AddInfo
+}
+export const addJobInfo  =
+{
+  path: '/addjob',
+  name: 'AddJobInfo',
+  component: AddJobInfo 
+}
+export const resumeInfo =
+{
+  path: '/resume',
+  name: 'Resume',
+  component: Resume
 }
 

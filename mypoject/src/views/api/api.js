@@ -18,8 +18,8 @@ export const SignIn = params => {
 // 首页职位数据
 export const JobList = () => {
   return axios({
-    method: 'get',
-    url: '/api/index/job'
+    method: 'post',
+    url: '/api/index/getjob'
   })
 }
 // 首页新闻展示

@@ -18,13 +18,17 @@ const Addjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/add
 const Experience = r => require.ensure([], () => r(require('@/views/jobseeker/my/experience')), 'chunkname3')
 const Poject = r => require.ensure([], () => r(require('@/views/jobseeker/my/poject')), 'chunkname3')
 const Companylist = r => require.ensure([], () => r(require('@/views/jobseeker/company/searchlist')), 'chunkname4')
-import { Firstjob, sendJob, companyInfo, companyMsg,companyinfo} from './route.js'
+import { firstjob, sendJob, 
+        companyInfo, companyMsg, 
+  addInfo, addJobInfo , resumeInfo} from './route.js'
 const routes =  [
-    Firstjob,
+    firstjob,
     sendJob,
     companyInfo,
     companyMsg,
-    companyinfo,
+    addInfo,
+    addJobInfo ,
+    resumeInfo,
     {
       path: '/',
       name: 'Login',
@@ -117,7 +121,8 @@ const routes =  [
     // 公司跳转路由
     {
       path: '/companydetail',
-      component: Companydetail
+      component: Companydetail,
+      name: 'Companydetail'
     },
     //公司搜素后跳转路由
     {

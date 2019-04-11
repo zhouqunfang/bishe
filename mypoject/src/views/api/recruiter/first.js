@@ -33,3 +33,30 @@ export const Updateinfor = (params) => {
     dataType:'json'
   })
 }
+//公司发布职位信息
+export const Addjob = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/sendjob/addjob',
+    data: params,
+    dataType: 'json'
+  })
+}
+//获取公司发布职位信息
+export const Getjob = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/sendjob/getjob',
+    data: params,
+    dataType: 'json'
+  })
+}
+//删除公司发布职位信息
+export const Deletejob = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/sendjob/deletejob',
+    data: params,
+    dataType: 'json'
+  })
+}

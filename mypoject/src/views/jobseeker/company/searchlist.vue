@@ -36,6 +36,9 @@ export default {
   created(){
  
   },
+  mounted(){
+console.log(this.$store.state.newcompanyList )
+  },
   computed: {
     companylist () {
       return  this.$store.state.newcompanyList 

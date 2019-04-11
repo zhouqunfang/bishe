@@ -366,7 +366,7 @@ router.post('/api/resume/experience', (req, res) => {
   let newDatabase = new db.Experience({
     username: username,
     company: company,
-    job: job,
+    job: jobjob,
     time: time,
     timeout: timeout,
     content: content
@@ -550,6 +550,40 @@ router.post('/api/todo/updatetodolist', (req, res) => {
     }
   });
 })
+//首页获取职位数据
+router.post('/api/index/getjob', (req, res) => {
+  db.AddJob.find({}, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else {
+      res.send({ "code": "0", "msg": "获取成功", "data": data })
+    }
+  })
+})
+//公司数据获取
+router.post('/api/company/list', (req, res) => {
+  db.AddInfo.find({}, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else {
+      res.send({ "code": "0", "msg": "获取成功", "data": data })
+    }
+  })
+})
+//公司详情数据获取
+router.post('/api/company/detail', (req, res) => {
+  let companyTitle = req.body.companyTitle
+  db.AddInfo.find({ companyTitle: companyTitle}, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else {
+      res.send({ "code": "0", "msg": "获取成功", "data": data })
+    }
+  })
+})
 //企业招聘
 //首页模块
 router.post('/api/first/resumeinfor', (req, res) => {
@@ -562,7 +596,7 @@ router.post('/api/first/resumeinfor', (req, res) => {
     }
   })
 })
-//保存公司
+//增加公司信息
 router.post('/api/company/addinfor', (req, res) => {
   let newDatabase = new db.AddInfo({
     username: req.body.username,
@@ -624,5 +658,51 @@ router.post('/api/company/updateinfor', (req, res) => {
       res.send({ "code": "0", "msg": "更新成功" })
     }
   })
+})
+//公司发布职位信息
+router.post('/api/sendjob/addjob', (req, res) => {
+  console.log(req.body.id)
+  let newDatabase = new db.AddJob({
+    username: req.body.username,
+    cityName: req.body.cityName, 
+    jobSalary: req.body.jobSalary,
+    jobCompany: req.body.jobCompany,
+    jobTitle: req.body.jobTitle,
+    jobImg: req.body.jobImg,
+    id:req.body.id
+  })
+  newDatabase.save((err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else {
+      res.send({ "code": "0", "msg": "保存成功" })
+    }
+  })
+})
+//获取公司发布职位信息
+router.post('/api/sendjob/getjob', (req, res) => {
+  let username = req.body.username
+  db.AddJob.find({ username: username }, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    } else if (data.length > 0) {
+      res.send({ "code": "0", "msg": "编辑成功", "data": data })
+    } else {
+      res.send({ "code": "1", "msg": "保存成功", "data": data})
+    }
+  })
+})
+//删除公司职位发布信息数据 
+router.post('/api/sendjob/deletejob', (req, res) => {
+  let id = req.body.id
+  db.AddJob.deleteMany({ id: id }, (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send({ "code": "0", "msg": "删除成功" })
+    }
+  });
 })
 module.exports = router
