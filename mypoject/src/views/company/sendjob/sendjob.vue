@@ -4,7 +4,7 @@
           <p @click="addjob">发布职位+</p>
       </div>
       <div class="job_content" v-for="(item,index) in getjoblist" :key=index >
-        <span @click="deletejob(item.id,index)">删除</span>
+        <span @click="deletejob(item._id,index)">删除</span>
         <ul>
           <li>
             <span>公司姓名</span>
@@ -21,6 +21,10 @@
           <li>
             <span>城市</span>
             <span>{{item.cityName}}</span>
+          </li>
+          <li>
+            <span>职位描述</span>
+            <span>{{item.jobcontent}}</span>
           </li>
           <li>
              <img src="" alt="">
@@ -65,7 +69,7 @@ export default {
         console.log(id)
         this.getjoblist.splice(index,1)
         let params={
-          id:id
+          _id:id
         }
         Deletejob(params).then(res=>{
             console.log(res.data)

@@ -1,15 +1,15 @@
 <template>
     <div id="register">
-        <div class="top_title">
-            <p>Your Job</p>
-            <p>JOB</p>
+        <div class="login_content">
+          <p class="login_title">Sign UP</p>
+          <div class="inputbox">
+              <input type="text" placeholder="Username" class="input_one" v-model="username">
+              <input type="text" placeholder="Password" v-model="inputpassword">
+          </div>
+          <span class="login_botton" @click="register()">
+            注册
+          </span>
         </div>
-        <div class="inputbox">
-            <p>注册</p>
-            <input type="text" placeholder="Username" class="input_one" v-model="username">
-            <input type="text" placeholder="Password" v-model="inputpassword">
-        </div>
-    <span class="register_botton" @click="register()">Register</span>
     </div>
 </template>
 <script>
@@ -22,6 +22,7 @@ export default {
   },
   methods: {
     register () {
+      console.log(4234234)
       let params = {
         password: this.inputpassword,
         username: this.username
@@ -30,31 +31,28 @@ export default {
         // console.log(res)
         this.$store.dispatch('add_toast', res.data.msg)
         if (res.data.status === 1) {
+           this.$toast({
+            message: res.data.msg,
+            duration: 800,
+            iconClass: 'icon icon-success',
+            className: 'success_toast'
+          })
           this.$router.push('/')
+        }else if (res.data.status === 0) {
+          this.$toast({
+            message: res.data.msg,
+            duration: 2000,
+            iconClass: 'icon icon-success',
+            className: 'success_toast'
+          })
+        } else if (res.data.status === 2) {
+          this.$toast({
+            message: res.data.msg,
+            duration: 2000,
+            iconClass: 'icon icon-success',
+            className: 'success_toast'
+          })
         }
-        // if (res.data.status === 1) {
-        //   this.$toast({
-        //     message: res.data.msg,
-        //     duration: 2000,
-        //     iconClass: 'icon icon-success',
-        //     className: 'success_toast'
-        //   })
-        //   this.$router.push('/')
-        // } else if (res.data.status === 0) {
-        //   this.$toast({
-        //     message: res.data.msg,
-        //     duration: 2000,
-        //     iconClass: 'icon icon-success',
-        //     className: 'success_toast'
-        //   })
-        // } else if (res.data.status === 2) {
-        //   this.$toast({
-        //     message: res.data.msg,
-        //     duration: 2000,
-        //     iconClass: 'icon icon-success',
-        //     className: 'success_toast'
-        //   })
-        // }
       }
       )
     }
@@ -63,55 +61,38 @@ export default {
 </script>
 <style lang="scss" scoped>
     #register{
-   position: relative;
-        text-align: center;
-        .top_title{
-            width: 100%;
-            height: 650px;
-            padding-top: 100px;
-            background: #858fe9;
-        p{
-                line-height: 30px;
-                font-size: 20px;
-            }
-        }
-        .inputbox{
-            position: absolute;
-            top: 600px;
-            left: 50%;
-            right: 50%;
-            padding: 101px 0 100px;
-            width: 650px;
-            transform: translate(-50%, 0);
-            border: 2px solid #e8e8e893;
-            border-radius: 5px;
-            background: #fff;
-          input{
-              padding: 30px 30px;
-              width: 530px;
-              border: none;
-              outline: none;
-              border-radius: 5px;
-              background: #f6f6f6;
-              text-align: center;
+      padding:300px 60px;
+      text-align: center;
+      .login_content{
 
+          .login_title{ 
+            font-size: 50px;
+       }
+          .inputbox{
+            display: flex;
+            flex-direction: column;
+            input{
+              flex:1;
+              margin-top:60px;
+              outline: none;
+              border: none;
+              height: 50px;
+              font-size: 34px;
+              padding: 20px 10px;
+              border-bottom: 2px solid #CDCDCD;
+            }         
           }
-          .input_one{
-              margin:30px 0 40px;
-          }
+        .login_botton{
+          position: relative;
+          display: inline-block;
+          margin-top: 80px;
+          padding: 24px 0;
+          width: 100%;
+          font-size: 34px;
+          text-align: center;
+          background: #9B89ED;
+          border-radius: 50px;
         }
-     .register_botton{
-        display: block;
-        position: relative;
-        width: 650px;
-        left: 50%;
-        right: 50%;
-        top: 430px;
-        transform: translate(-50%, 0);
-        padding: 30px 0;
-        color: #fff;
-        border-radius: 5px;
-        background: #5c82e3;
-     }
+      }
     }
 </style>

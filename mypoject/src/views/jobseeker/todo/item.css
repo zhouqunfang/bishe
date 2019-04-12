@@ -28,7 +28,7 @@
         margin-top: -20px;
         cursor: pointer;
         margin-left: 20px;
-        background: url('../../image/unchecked.svg') no-repeat;
+        background: url('../../../assets/image/unchecked.svg') no-repeat;
 }   
 .todo-item .destory{
 display: inline-block;
@@ -39,6 +39,6 @@ bottom: 0;
 width: 25px;
 height: 25px;
 margin: auto 0;
-background: url('../../image/delete.svg') center no-repeat; 
+background: url('../../../assets/image/delete.svg') center no-repeat; 
 
 }

@@ -19,6 +19,10 @@
             <input type="text" v-model="cityName">
           </li>
           <li>
+            <span>工作内容</span>
+            <input type="text" v-model="jobcontent">
+          </li>
+          <li>
              <img :src="jobImg" alt="">
           </li>
         </ul>
@@ -28,7 +32,6 @@
 <script>
 import {Addjob} from  '@/views/api/recruiter/first.js';
 import GoBack from '../component/goback.vue'
-let id =0
 export default {
   name:"Addjob",
   components:{
@@ -40,11 +43,13 @@ export default {
       jobTitle:'',
       jobSalary:'',
       cityName:'',
-      jobImg:''
+      jobImg:'',
+      jobcontent:'',
+      idindex:0
     }
   },
   methods:{
-    addjob(){
+    addjob(){   
       let username = localStorage.getItem('Username')
       let params = {
           username:username,
@@ -52,8 +57,8 @@ export default {
           jobTitle:this.jobTitle,
           jobSalary: this.jobSalary,
           cityName:this.cityName,
+          jobcontent:this.jobcontent,
           jobImg:'',
-          id:id++
         }
       Addjob(params).then(res=>{
         if (res.data.code==="0") {

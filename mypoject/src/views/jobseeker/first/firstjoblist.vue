@@ -1,26 +1,35 @@
 <template>
   <div class="first_joblist">
-        <h3 class="recommen_job">职位</h3>
+        <h3 class="recommen_job">
+          <img src="../../../assets/image/job.svg" alt="">
+          <span>职位</span>
+        </h3>
         <div class="joblist_content">
             <ul>
-              <li v-for="(item,index) in jobdataList" :key="index">
-                <div class="joblist_left">
-                    <img :src="item.jobImg" alt="" job_img>
-               </div>
-               <div class="joblist_right">
-                  <div class="joblist_right_top">
-                        {{item.jobTitle}}
-                  </div>
-                  <div class="joplist_right_bottom">
-                      <span class="company_name">{{item.jobCompany}}|</span>
-                      <span class="job_salary">{{item.jobSalary}}|</span>
-                      <span class="city_name">{{item.cityName}}</span>
-                  </div>
-                </div>
+              <li v-for="(item,index) in jobdataList" :key="index" >
+                <router-link :to="{name:'Jobdetail',params:{_id:item._id}}">
+                    <div class="joblist_left">
+                        <img :src="item.jobImg" alt="" job_img>
+                    </div>
+                    <div class="joblist_right">
+                        <div class="joblist_right_top">
+                              {{item.jobTitle}}
+                        </div>
+                        <div class="joplist_right_bottom">
+                            <span class="company_name">{{item.jobCompany}}|</span>
+                            <span class="job_salary">{{item.jobSalary}}|</span>
+                            <span class="city_name">{{item.cityName}}</span>
+                        </div>
+                    </div>
+                </router-link>
               </li>
             </ul>
         </div>
         <div class="new_content">
+          <h3 class="recommen_new">
+            <img src="../../../assets/image/new.svg" alt="">
+            <span>新闻</span>
+          </h3>         
           <ul>
             <li v-for="(item,index) in newsdata" :key="index">
               <span>{{item}}</span>

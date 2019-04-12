@@ -1,27 +1,19 @@
 <template>
     <div class="todo">
-      <mt-button type="primary" @click="showInput">Add</mt-button>
     <div class="add_div" v-show="show"></div>
-    <!-- 用transition注意key -->
-    <transition-group
-        tag="div"
-        name="bounce"
-        enter-active-class="bounceInLeft"
-        leave-active-class="bounceOutRight"
-      >
-          <div class="show_input"  v-show="show" key="div">
+          <div class="show_input">
             <span @click = no_show key="span"></span>
             <input
                 key="input"
                 type="text"
                 class="add-input"
                 autofocus="autofocus"
-                placeholder="接下去要做什么?"
+                placeholder="待办事件"
                 v-model="todoValue"
             >
             <b class="addTodo" @click="addTodo"></b>
           </div>
-     </transition-group>
+     <div class="all_item">
         <Item
             :todo="todo"
             v-for="todo in filteredTodos"
@@ -29,14 +21,13 @@
             @del="deleteTodo"
         >
         </Item>
-
+     </div>
         <Tabs
             :filter="filter"
             :todos="todos"
             @togole="togoleFilter"
         >
         </Tabs>
-        <div class="goback" @click="goback"></div>
     </div>
 </template>
 <script>
@@ -144,14 +135,7 @@ export default {
    },
     togoleFilter (state) {
       this.filter = state
-    },
-    // 返回上一层
-    goback () {
-      this.$router.push('/index')
     }
-    // clearAllCompleted () {
-    //   this.todos = this.todos.filter(todo => !todo.completed)
-    // }
   }
 }
 </script>

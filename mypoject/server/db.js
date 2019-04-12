@@ -131,6 +131,7 @@ const addJobSchema = new mongoose.Schema({
   jobCompany: String,
   jobTitle: String,
   jobImg: String,
+  jobcontent:String,
   id: Number
 })
 // 通过Schema来创建Model

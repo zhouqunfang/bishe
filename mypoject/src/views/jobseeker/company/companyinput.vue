@@ -57,25 +57,28 @@ export default {
 <style scoped>
 .input_search{
    position: relative;
-    padding: 20px 14px;
+    padding: 20px 24px;
     height: 60px;
     overflow: hidden;
+    background: #E1E1E1;
  }
     input{
-      padding: 10px 0 10px 60px;
+      padding: 15px 0 15px 70px;
       width: 91%;
       text-decoration: none;
       outline: none;
+      line-height: 30px;
+      background: #F7F7F7;
       border: none;
-      border: 4px solid #7E89EB;
-      border-radius: 40px;
+      border: 2px solid  #CDCDCD;
+      border-radius: 10px;
     }
     .search_img{
       position: absolute;
-      top: 30px;
+      top: 32px;
       left: 34px;
       display: inline-block;
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
     }
 </style>

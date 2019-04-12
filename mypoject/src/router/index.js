@@ -9,7 +9,7 @@ const Companydetail = r => require.ensure([], () => r(require('@/views/jobseeker
 const Message = r => require.ensure([], () => r(require('@/views/jobseeker/message/message')), 'chunkname1')
 const My = r => require.ensure([], () => r(require('@/views/jobseeker/my/my')), 'chunkname1')
 const Todo = r => require.ensure([], () => r(require('@/views/jobseeker/todo/todo')), 'chunkname1')
-const Resume = r => require.ensure([], () => r(require('@/views/jobseeker/my/resume')), 'chunkname2')
+const Resumemy = r => require.ensure([], () => r(require('@/views/jobseeker/my/resume')), 'chunkname2')
 const Findjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/findjob')), 'chunkname2')
 const Collectjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/collectjob')), 'chunkname2')
 const Setting = r => require.ensure([], () => r(require('@/views/jobseeker/my/setting')), 'chunkname2')
@@ -18,6 +18,7 @@ const Addjob = r => require.ensure([], () => r(require('@/views/jobseeker/my/add
 const Experience = r => require.ensure([], () => r(require('@/views/jobseeker/my/experience')), 'chunkname3')
 const Poject = r => require.ensure([], () => r(require('@/views/jobseeker/my/poject')), 'chunkname3')
 const Companylist = r => require.ensure([], () => r(require('@/views/jobseeker/company/searchlist')), 'chunkname4')
+const Jobdetail = r => require.ensure([], () => r(require('@/views/jobseeker/first/jobdetail')), 'chunkname4')
 import { firstjob, sendJob, 
         companyInfo, companyMsg, 
   addInfo, addJobInfo , resumeInfo} from './route.js'
@@ -75,8 +76,8 @@ const routes =  [
     },
     {
       path: '/my/resume',
-      name: 'Resume',
-      component: Resume
+      name: 'Resumemy',
+      component: Resumemy
     },
     {
       path: '/findjob',
@@ -118,7 +119,7 @@ const routes =  [
       name: 'Poject',
       component: Poject
     },
-    // 公司跳转路由
+    // 公司详情跳转路由
     {
       path: '/companydetail',
       component: Companydetail,
@@ -128,6 +129,12 @@ const routes =  [
     {
       path: '/company/list',
       component: Companylist
+    },
+    //职位详情跳转
+    {
+      path:'/index/jobdetail',
+      component: Jobdetail,
+      name:'Jobdetail'
     }
   ]
 

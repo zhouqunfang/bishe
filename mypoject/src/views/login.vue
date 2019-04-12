@@ -1,15 +1,15 @@
 <template>
     <div id="login">
-        <div class="top_title">
-            <p>Your Job</p>
-            <p>JOB</p>
+        <div class="login_content">
+          <p class="login_title">Sign In</p>
+          <div class="inputbox">
+              <input type="text" placeholder="Username" class="input_one" v-model="username">
+              <input type="text" placeholder="Password" v-model="inputpassword">
+          </div>
+          <span class="login_botton" @click="login()">
+            登录
+          </span>
         </div>
-        <div class="inputbox">
-            <p>请登录</p>
-            <input type="text" placeholder="Username" class="input_one" v-model="username">
-            <input type="text" placeholder="Password" v-model="inputpassword">
-        </div>
-        <span class="login_botton" @click="login()">Login</span>
     </div>
 </template>
 <script>
@@ -73,58 +73,59 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-
     #login{
-        position: relative;
-        text-align: center;
-        .top_title{
-            width: 100%;
-            height: 650px;
-            padding-top: 100px;
-            background: #858fe9;
-        p{
-                line-height: 30px;
-                font-size: 20px;
-            }
-        }
-        .inputbox{
-            position: absolute;
-            top: 600px;
-            left: 50%;
-            right: 50%;
-            padding: 101px 0 100px;
-            width: 650px;
-            transform: translate(-50%, 0);
-            border: 2px solid #e8e8e893;
-            border-radius: 5px;
-            background: #fff;
-          input{
-              padding: 30px 30px;
-              width: 530px;
-              border: none;
+      padding:300px 60px;
+      text-align: center;
+      .login_content{
+
+          .login_title{ 
+            font-size: 50px;
+       }
+          .inputbox{
+            display: flex;
+            flex-direction: column;
+            input{
+              flex:1;
+              margin-top:60px;
               outline: none;
-              border-radius: 5px;
-              background: #f6f6f6;
-              text-align: center;
-
+              border: none;
+              height: 50px;
+              font-size: 34px;
+              padding: 20px 10px;
+              border-bottom: 2px solid #CDCDCD;
+            }         
           }
-          .input_one{
-              margin:30px 0 40px;
-          }
+        .login_botton{
+          position: relative;
+          display: inline-block;
+          margin-top: 80px;
+          padding: 24px 0;
+          width: 100%;
+          font-size: 34px;
+          text-align: center;
+          background: #9B89ED;
+          border-radius: 50px;
         }
-     .login_botton{
-        display: block;
-        position: relative;
-        width: 650px;
-        left: 50%;
-        right: 50%;
-        top: 430px;
-        transform: translate(-50%, 0);
-        padding: 30px 0;
-        color: #fff;
-        border-radius: 5px;
-        background: #5c82e3;
-     }
-
+        // .btn_left{
+        //     position: absolute;
+        //     // display: inline-block;
+        //     width: 96px;
+        //     height: 96px;
+        //     border-radius: 50%;
+        //     background: #9B89ED; 
+        //     bottom: -2px;
+        //     left: -42px;
+        //   } 
+        // .btn_right{
+        //     position: absolute;
+        //     // display: inline-block;
+        //     width: 96px;
+        //     height: 96px;
+        //     border-radius: 50%;
+        //     background: #9B89ED; 
+        //     bottom: 0;
+        //     right: -40px;
+        //   } 
+      }
     }
 </style>

@@ -3,18 +3,33 @@ $little-color:#999;
 $border:2px solid #e5e5e5;
 .first_joblist{
   padding: 18px 37.5px 150px 37.5px;
-  .recommen_job{
-    margin-top: 20px;
+  .recommen_job,.recommen_new{
+    position: relative;
+    margin-top: 10px;
     text-align: center;
-    color: $jobtitle-color;
-    font-size: 30px;
-    font-weight: bold;
+    height: 80px;
+    img{ 
+      position: absolute;
+      top: 50%;
+      left:240px;
+      margin-top: -26px;
+    }
+    span{
+      // display: inline-block;
+      line-height: 80px;
+      color: $jobtitle-color;
+      font-size: 32px;
+      font-weight: bold;
+    }
   }
   .joblist_content{
     ul{ 
       li{
         width: 100%;
         height: 150px;
+        a{
+          color: #9B89ED;
+        }
       }
       .joblist_left{
         float: left;
@@ -30,12 +45,12 @@ $border:2px solid #e5e5e5;
         height: 100px;
         .joblist_right_top{
           color: $jobtitle-color;
-          font-size: 30px;
+          font-size: 32px;
           font-weight: bold;
         }
         .joplist_right_bottom{
           margin-top: 15px;
-          font-size: 22px;
+          font-size: 26px;
         }
       }
     }
@@ -43,6 +58,14 @@ $border:2px solid #e5e5e5;
   .new_content{
     font-size: 28px;
     color: $jobtitle-color;
+    .recommen_new{
+      img{ 
+        position: absolute;
+        top: 50%;
+        left:240px;
+        margin-top: -28px;
+      }
+    }
     ul{
       width: 100%;
       li{
@@ -50,7 +73,9 @@ $border:2px solid #e5e5e5;
         padding: 16px 0;
         border-bottom: $border;
         overflow: hidden;
-        pad
+        font-size: 28px;
+        color: #212529;
+        font-weight: bold;
         span{
           float: left;
         }

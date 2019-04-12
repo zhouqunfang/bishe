@@ -17,7 +17,7 @@
           <mt-swipe-item><img src="@/assets/image/lunbo(1).jpg" /></mt-swipe-item>
           <mt-swipe-item><img src="@/assets/image/lunbo.jpg"  /></mt-swipe-item>
       </mt-swipe>
-      <job-list></job-list>
+       <job-list></job-list>
        <footer-bar></footer-bar>
     </div>
 

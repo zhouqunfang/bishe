@@ -124,7 +124,7 @@ export default {
     },
     //如果已经有基本信息的跳转
     goAdd(){
-      this.$router.push({name:'Resume',query:{id:0}})
+      this.$router.push({name:'Resumemy',query:{id:0}})
     },
    //如果已经有求职意向的跳转
     jobAdd(){

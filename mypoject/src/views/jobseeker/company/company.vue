@@ -8,7 +8,9 @@
           :to="{name:'Companydetail',params:{companyTitle:item.companyTitle}}"   
           >
             <div class="company_list">
-              <img :src="item.companyImg" alt="">
+              <div class="content_right">
+                 <img :src="item.companyImg" alt="">
+              </div>
               <div class="content_left">
                 <h4>{{item.companyTitle}}</h4>
                 <span>{{item.companyFullname}}</span>
@@ -60,16 +62,23 @@ export default {
             .company_list{
               display: flex;
               margin: 40px 0;
-            img{
-              margin-right: 30px;
-              }
+            .content_right{
+                  float: left;
+                  width: 112px;
+                  height: 112px;
+                  margin-top: 20px;
+                  margin-right: 40px;
+                }
               .content_left{
                 h4{
                   font-size: 36px;
-                  margin-bottom: 20px;
+                  color: #3D3D3D;
+                  font-weight: bold;
+                  margin-bottom: 10px;
                 }
                 span{
-                  font-size: 32px;
+                  font-size: 28px;
+                  color:#9B89ED;
                 }
               }
 

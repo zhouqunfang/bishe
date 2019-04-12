@@ -56,5 +56,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@import '../../../assets/css/seeker/item.css';
+@import './item.css';
 </style>

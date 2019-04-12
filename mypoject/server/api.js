@@ -561,6 +561,18 @@ router.post('/api/index/getjob', (req, res) => {
     }
   })
 })
+//获取职位详情
+router.post('/api/index/jobdetail', (req, res) => {
+  let id= req.body._id
+  db.AddJob.find({ _id: id }, (err, data) => {
+    if (err) {
+      res.send(err)
+      return
+    }  else {
+      res.send({ "code": "0", "msg": "获取成功", "data": data })
+    }
+  })
+})
 //公司数据获取
 router.post('/api/company/list', (req, res) => {
   db.AddInfo.find({}, (err, data) => {
@@ -669,6 +681,7 @@ router.post('/api/sendjob/addjob', (req, res) => {
     jobCompany: req.body.jobCompany,
     jobTitle: req.body.jobTitle,
     jobImg: req.body.jobImg,
+    jobcontent: req.body.jobcontent,
     id:req.body.id
   })
   newDatabase.save((err, data) => {
@@ -696,8 +709,8 @@ router.post('/api/sendjob/getjob', (req, res) => {
 })
 //删除公司职位发布信息数据 
 router.post('/api/sendjob/deletejob', (req, res) => {
-  let id = req.body.id
-  db.AddJob.deleteMany({ id: id }, (err, data) => {
+  let _id = req.body._id
+  db.AddJob.deleteMany({ _id: _id }, (err, data) => {
     if (err) {
       res.send(err)
     } else {

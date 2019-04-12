@@ -22,6 +22,15 @@ export const JobList = () => {
     url: '/api/index/getjob'
   })
 }
+// 首页职位数据详情
+export const JobDetail = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/index/jobdetail',
+    dataType:'json',
+    data:params
+  })
+}
 // 首页新闻展示
 export const NewList = () => {
   return axios({
