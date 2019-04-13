@@ -54,8 +54,8 @@
       </mt-popup>
     </div>    
   </div>
-  <div @click="saveInfor" v-if="ifSave">保存</div>
-  <div @click="updateInfor" v-if="ifUpdate">保存</div>
+  <div @click="saveInfor" v-if="ifSave" class="btn_save"><span>保存</span></div>
+  <div @click="updateInfor" v-if="ifUpdate" class="btn_save"><span>保存</span></div>
 </div>
 </template>
 <script>
@@ -331,6 +331,25 @@ export default {
       width:100%;
     }
 
+  }
+  .btn_save{
+    position: relative;
+    height: 80px;
+    span{
+    position: absolute;
+    width: 700px;
+    height: 100px;
+    line-height: 100px;
+    top: 50%;
+    margin-top: -25px;
+    left: 50%;
+    margin-left: -350px;
+    text-align: center;
+    background: #613CEB;
+    border-radius: 10px;
+    color: #ffff;
+    font-size: 32px;
+    }
   }
 }
 </style>

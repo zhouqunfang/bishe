@@ -15,7 +15,7 @@
     </div>
     <div class="job_salary">
       <h4>项目内容<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
-      <input type="text" name="" id="" v-model="detail">
+      <textarea name="" class="tex_poject" ></textarea>
     </div>
     <div class="job_salary">
       <h4>开始时间<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
@@ -40,8 +40,8 @@
       </datepickers>     
     </div>              
   </div>
-  <div @click="saveInfor" v-if="ifSave">保存</div>
-  <div @click="updateInfor" v-if="ifUpdate">保存</div>
+  <div @click="saveInfor" v-if="ifSave" class="btn_save"><span>保存</span></div>
+  <div @click="updateInfor" v-if="ifUpdate"  class="btn_save"><span>保存</span></div>
 </div>
 </template>
 <script>
@@ -214,7 +214,15 @@ export default {
   }
   .job_content{
     padding: 0 20px;
-    width: 100%;
+      .tex_poject{
+        border: none;
+        outline: none;
+        border: 1px solid black;
+        font-size: 28px;
+        margin-bottom: 20px;
+        width: 90%;
+        height: 200px;
+      }
     h4{
         margin-bottom: 10px;
         font-size: 28px;
@@ -232,7 +240,25 @@ export default {
     .mint-popup-bottom{
       width:100%;
     }
-
+  }
+    .btn_save{
+    position: relative;
+    height: 80px;
+    span{
+    position: absolute;
+    width: 700px;
+    height: 100px;
+    line-height: 100px;
+    top: 50%;
+    margin-top: -25px;
+    left: 50%;
+    margin-left: -350px;
+    text-align: center;
+    background: #613CEB;
+    border-radius: 10px;
+    color: #ffff;
+    font-size: 32px;
+    }
   }
 }
 </style>

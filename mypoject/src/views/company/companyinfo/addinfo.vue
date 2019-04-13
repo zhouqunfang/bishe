@@ -9,24 +9,24 @@
       </li>
       <li>
         <p>公司介绍</p>
-        <input type="text" name="" id="" v-model="companyContent">
+        <textarea name="" class="text_info" v-model="companyContent"></textarea>
       </li>
-      <li>
+      <li class="info_busy">
         <p>工商信息</p>
         <div>
-          <span>公司全称</span>
+          <span class="info_name">公司全称</span>
           <input type="text" name="" id="" v-model="companyFullname">
         </div>
         <div>
-          <span>企业法人</span>
+          <span class="info_name">企业法人</span>
           <input type="text" name="" id="" v-model="companyPerson">
         </div>
         <div>
-          <span>注册时间</span>
+          <span class="info_name">注册时间</span>
           <input type="text" name="" id="" v-model="companyTime">
         </div>
         <div>
-          <span>注册资本</span>
+          <span class="info_name">注册资本</span>
           <input type="text" name="" id="" v-model="companyMoney">
         </div>
       </li>
@@ -34,7 +34,7 @@
         上传公司照片
       </li>
     </ul>
-    <div class="save_btn" @click="save">保存</div>
+    <div class="btn_save" @click="save"><span>保存</span></div>
   </div>
 </template>
 <script>
@@ -143,9 +143,78 @@ export default {
       this.$router.go(-1)
       }
     }
-  }
-
-  
+  } 
 }
 </script>
+<style lang="scss" scoped>
+    .add_info{
+      padding: 20px 40px;
+      h4{
+        text-align: center;
+        font-size: 34px;
+        font-weight:bold;
+        margin-bottom: 40px;
+      }
+      ul{
+        li{
+          margin-bottom: 40px;
+          p{
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 30px;
+          }
+          input{
+            margin-bottom: 20px;
+            width: 100%;
+            font-size: 34px;
+            border: none;
+            outline: none;
+            border-bottom: 2px solid black;
+          }
+        }
+        .info_busy{
+            .info_name{
+              display: inline-block;
+              font-size: 32px;
+              font-weight: bold;
+              margin-bottom: 20px;
+              margin-left: 30px;
+            }
+            input{
+              font-size: 32px;
+              margin-left: 30px;
+            }
+          }
+      }
+      .btn_save{
+        position: relative;
+        height: 80px;
+        span{
+        position: absolute;
+        width: 700px;
+        height: 100px;
+        line-height: 100px;
+        top: 50%;
+        margin-top: -25px;
+        left: 50%;
+        margin-left: -350px;
+        text-align: center;
+        background: #613CEB;
+        border-radius: 10px;
+        color: #ffff;
+        font-size: 32px;
+        }
+      }
+      .text_info{
+        outline: none;
+        border:none;
+        font-size: 32px;
+        width:100%;
+        height:200px;
+        border: 2px solid black;
+      }
+    }
+
+</style>
+
 

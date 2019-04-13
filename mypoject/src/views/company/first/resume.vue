@@ -1,6 +1,9 @@
 <template>
   <div class="resume_info">
-    <h4>{{name}}个人简历</h4>
+    <h4>
+      <span>{{name}}</span>
+      <b>个人简历</b>
+    </h4>
     <div class="base_info">
         <p>基本信息</p>
         <ul>
@@ -88,6 +91,7 @@
   </div>
 </template>
 <script>
+import GoBack from '../component/goback.vue'
 import {getBaseInfor,getJobInfor,getExperience,getPoject} from '@/views/api/resume/resume.js'
 export default {
     name:'Resume',
@@ -115,6 +119,7 @@ export default {
         username:''
       }
     },
+
     beforeRouteEnter(to, from, next){  
       let username= to.query.username
       // 因为当钩子执行前，组件实例还没被创建
@@ -204,8 +209,37 @@ export default {
     }
 }
 </script>
-
-<style>
-
+<style lang="scss" scoped>
+      .resume_info{
+        padding: 30px;
+        h4{
+          height: 80px;
+          text-align: center;
+          span{
+            display: inline-block;
+            font-size: 34px;
+            font-weight: bold;
+            margin-right: 20px;
+          }  
+          b{
+            font-size: 30px;
+          }
+        }
+        .base_info,.job_aim,.job_experience,.job_poject{
+           margin-bottom: 50px;
+           p{
+              font-size: 34px;
+              font-weight: bold;
+              margin-bottom: 10px;
+            }
+            ul{
+              li{
+                font-size: 32px;
+                margin-bottom: 20px;
+              }
+            }
+        }
+      }
 </style>
+
 

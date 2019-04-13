@@ -1,6 +1,6 @@
 <template>
     <div class="myTab">
-        <section class="resume_content">
+        <div class="resume_content">
           <div class="base_infor">
             <div class="ifshow_infor"  v-if="ifshow" @click="addBase">
               <div class="add_info">添加基本信息</div>
@@ -68,7 +68,7 @@
               </div>
             </div>   
           </div>
-        </section>
+        </div>
     </div>
 </template>
 <script>
@@ -238,14 +238,13 @@ export default {
 /* @import '../../../assets/css/seeker/mytab.css'; */
 .myTab{
   .resume_content{
-    padding: 20px 40px;
+    padding: 10px 40px;
     div{
       margin-bottom: 50px;
     }
     .base_infor,.search_infor,.job_infor,.poject_infor{
       position: relative;
-      width: 100%;
-      padding:20px 0 ;
+      padding:20px 20px 10px 20px ;
       border: 1px solid black;
       font-size: 28px;
       .add_info{
@@ -281,9 +280,22 @@ export default {
           height:80px;
           background: url('../../../assets/image/update.svg') center no-repeat;
         }
+        h4{
+          font-size: 32px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          color: #613CEB;
+        }
+        h3{
+          font-size: 36px;
+          font-weight: bolder;
+          margin-bottom: 10px;
+        }
       }
-      .job_detail{
-
+      .base_some{
+           b{
+             font-size: 28px;
+           } 
       }
     }
   }

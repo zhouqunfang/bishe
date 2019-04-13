@@ -1,30 +1,31 @@
 <template>
   <div class="send_job">
+      <go-back></go-back>
       <div class="add_job">
           <p @click="addjob">发布职位+</p>
       </div>
       <div class="job_content" v-for="(item,index) in getjoblist" :key=index >
-        <span @click="deletejob(item._id,index)">删除</span>
+        <span @click="deletejob(item._id,index)" class="delete"></span>
         <ul>
           <li>
-            <span>公司姓名</span>
+            <span class="job_mintitle">公司姓名:</span>
             <span>{{item.jobCompany}}</span>
           </li>
           <li>
-            <span>职位</span>
+            <span class="job_mintitle">职位:</span>
             <span>{{item.jobTitle}}</span>
           </li>
           <li>
-            <span>职位薪资</span>
+            <span class="job_mintitle">职位薪资:</span>
             <span>{{item.jobSalary}}</span>
           </li>
           <li>
-            <span>城市</span>
+            <span class="job_mintitle">城市:</span>
             <span>{{item.cityName}}</span>
           </li>
           <li>
-            <span>职位描述</span>
-            <span>{{item.jobcontent}}</span>
+            <span class="job_mintitle">职位描述:</span><br>
+            <span class="job_info">{{item.jobcontent}}</span>
           </li>
           <li>
              <img src="" alt="">
@@ -35,11 +36,13 @@
   </div>
 </template>
 <script>
+import GoBack from '../component/goback.vue'
 import {Getjob,Deletejob} from '@/views/api/recruiter/first.js'
 import FooterBar from '../component/tab.vue'
 export default {
   components:{
-    FooterBar
+    FooterBar,
+    GoBack 
   },
   data(){
     return{
@@ -78,3 +81,43 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+        .send_job{
+          padding: 0 30px;
+          .add_job{
+          text-align: center;
+            p{
+              font-size: 34px;
+              font-weight: bolder;
+              line-height: 70px;
+            }
+          }
+          .job_content{
+            position: relative;
+            .delete{
+              position: absolute;
+              right: 0;
+              top: -5px;
+              width: 100px;
+              height: 60px;
+              background: url('../../../assets/image/delete(2).svg') center no-repeat;
+           
+            }
+            li{
+              margin-bottom: 20px;
+              font-size: 32px;
+              .job_mintitle{
+                font-size: 34px;
+                margin-right: 10px;
+                font-weight: bold;
+              }
+              .job_info{
+                display: inline-block;
+                margin-top: 20px;
+                font-size: 32px;
+              }
+            }
+          }
+        }
+</style>
+

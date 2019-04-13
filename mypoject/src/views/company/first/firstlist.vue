@@ -1,5 +1,9 @@
 <template>
   <div class="first_list">
+    <div class="first_list_top">
+      <img src="../../../assets/image/resume.svg" alt="">
+      <span>个人简历</span>
+    </div>
      <div 
           class="resume_info" 
           v-for="(item,index) in resumelist" 
@@ -51,4 +55,36 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+    .first_list{
+      padding: 20px 20px;
+      .first_list_top{
+        text-align: center;
+        height: 70px;
+        line-height: 70px;
+      span{
+        font-size: 34px;
+        font-weight: bolder;
+      }
+      img{
+        margin-right: 10px;
+        margin-bottom: -5px;
+      }
+      }
+      .resume_info{
+         margin-bottom: 40px;
+        h2{
+          margin-bottom: 20px;
+          font-size: 34px;
+          font-weight: bolder;
+        }
+        span{
+          margin-bottom: 10px;
+          font-size: 28px;
+          margin-right: 20px;
+        }
+      }
+    }
+</style>
+
 

@@ -61,8 +61,12 @@
       <input type="text" name="" id="" v-model="majorinfo">
     </div>     
   </div>
-  <div @click="saveInfor" v-if="ifSave">保存</div>
-  <div @click="updateInfor" v-if="ifUpdate">保存</div>
+  <div @click="saveInfor" v-if="ifSave" class="btn_save">
+      <span>保存</span>
+  </div>
+  <div @click="updateInfor" v-if="ifUpdate" class="btn_save">
+    <span>保存</span>
+  </div>
 </div>
 </template>
 <script>
@@ -241,7 +245,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .base_infor{
-
   .infor_title{
       position: relative;
       display: flex;
@@ -263,7 +266,7 @@ export default {
      }
   }
   .base_content{
-    width: 100%;
+    // width: 100%;
     padding: 0 20px;
     .mint-popup{
        width: 100%;
@@ -286,7 +289,7 @@ export default {
       }
     input{
         height: 50px ;
-        width:600px;
+        width:680px;
         border: none;
         outline-style: none;
         border-bottom: 1px solid black;
@@ -295,7 +298,25 @@ export default {
         padding-left: 20px;
       }  
   }
-
+  .btn_save{
+    position: relative;
+    height: 80px;
+    span{
+    position: absolute;
+    width: 700px;
+    height: 100px;
+    line-height: 100px;
+    top: 50%;
+    margin-top: -25px;
+    left: 50%;
+    margin-left: -350px;
+    text-align: center;
+    background: #613CEB;
+    border-radius: 10px;
+    color: #ffff;
+    font-size: 32px;
+    }
+  }
 }
 </style>
 

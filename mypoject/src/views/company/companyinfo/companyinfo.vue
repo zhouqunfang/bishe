@@ -1,5 +1,6 @@
 <template>
   <div class="company_info">
+    <go-back></go-back>
     <div class="add_info" v-if="ifshow">
         <h4 @click=addDetail>请完善公司信息+</h4>
     </div>
@@ -7,33 +8,33 @@
         <div class="base_update" @click="infoAdd"></div>
       <ul>
           <li>
-            <p>公司姓名</p>
-            <p>{{companyTitle}}</p>
+            <p class="info_name">公司姓名</p>
+            <p class="info_content">{{companyTitle}}</p>
           </li>
           <li>
-            <p>公司介绍</p>
-            <p>{{companyContent}}</p>
+            <p class="info_name">公司介绍</p>
+            <p class="info_content">{{companyContent}}</p>
           </li>
           <li>
-            <p>工商信息</p>
+            <p class="info_name">工商信息</p>
             <div>
-              <span>公司全称</span>
-              <p>{{companyFullname}}</p>
+              <span class="min_title">公司全称</span>
+              <p class="info_min">{{companyFullname}}</p>
             </div>
             <div>
-              <span>企业法人</span>
-              <p>{{companyPerson}}</p>
+              <span class="min_title">企业法人</span>
+              <p class="info_min">{{companyPerson}}</p>
             </div>
             <div>
-              <span>注册时间</span>
-              <p>{{companyTime}}</p>
+              <span class="min_title">注册时间</span>
+              <p class="info_min">{{companyTime}}</p>
             </div>
             <div>
-              <span>注册资本</span>
-              <p>{{companyMoney}}</p>
+              <span class="min_title">注册资本</span>
+              <p class="info_min">{{companyMoney}}</p>
             </div>
           </li>
-          <li>
+          <li class="info_name">
             上传公司照片
           </li>
       </ul>
@@ -44,10 +45,13 @@
 <script>
 import FooterBar from '../component/tab.vue'
 import { Getinfor } from '@/views/api/recruiter/first.js';
+import GoBack from '../component/goback.vue'
 export default {
   name:'Companyinfo',
   components:{
-    FooterBar
+    FooterBar,
+    GoBack 
+
   },
   data(){
     return{
@@ -98,16 +102,47 @@ export default {
   }
 </script>
 <style lang="scss" scoped>
+    .company_info{
+      padding: 20px 40px;
      .base_detail{
         .base_update{
           position: absolute;
           display: inline-block;
           right:20px;
-          top:0;
+          top:80px;
           width:80px;
           height:80px; 
           background: url('../../../assets/image/update.svg') center no-repeat;
         }
       }
+      ul{
+        li{
+          margin-bottom: 40px;
+          .info_name{
+            font-size: 36px;
+            font-weight:bolder;
+            margin-bottom: 20px;
+          }
+          .info_content{
+            font-size: 32px;
+            line-height: 50px;
+            margin-bottom: 30px;
+          }
+          .min_title{
+              display: inline-block;
+              font-size: 32px;
+              font-weight: bold;
+              margin-bottom: 10px;
+              margin-left: 30px;
+            }
+            .info_min{
+              margin-left: 30px;
+              margin-bottom: 30px;
+              font-size: 32px;
+            }
+        }
+      }
+    }
+
 </style>
 

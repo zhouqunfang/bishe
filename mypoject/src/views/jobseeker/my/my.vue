@@ -1,7 +1,7 @@
 <template>
     <div class="myList">
       <div class="my_title">
-        <span></span>
+        <span @click="goback"></span>
         <h1>我的简历</h1>
       </div>
         <my-tab></my-tab>
@@ -24,6 +24,9 @@ export default {
   },
 
   methods: {
+    goback(){
+      this.$router.push('/index')
+    }
   }
 }
 </script>
