@@ -16,10 +16,11 @@
           <p>{{jobdetail.jobcontent}}</p>      
         </div>
       </div>
+      <button @click="sendMsg">发送简历</button>
   </div>
 </template>
 <script>
-import { JobDetail } from "@/views/api/api.js";
+import { JobDetail,resumeMsg } from "@/views/api/api.js";
 import GoBack from '@/views/company/component/goback'
 export default {
   name:"Jobdetail",
@@ -49,6 +50,24 @@ export default {
       console.log(res)
       this.jobdetail = res.data.data[0]
      })
+    },
+    sendMsg(){
+      let username = localStorage.getItem('Username')
+      let companyUsername = this.jobdetail.username
+      let params ={
+          username:username,
+          jobCompany:companyUsername
+        }
+        resumeMsg(params).then(res=>{
+          if (res.data.code==='0') {
+             this.$toast({
+                message: res.data.msg,
+                duration: 2000,
+                iconClass: 'icon icon-success',
+                className: 'success_toast'
+             })
+          }
+        })
     }
   }
 }

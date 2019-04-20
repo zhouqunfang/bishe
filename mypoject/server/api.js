@@ -2,6 +2,18 @@
 // 引入数据库文件
 const db = require('./db')
 const express = require('express')
+var multer = require("multer");
+// 设置图片存储路径
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public');
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}-${file.originalname}`)
+  }
+})
+// 添加配置文件到muler对象。
+var upload = multer({ storage: storage });
 // 引入解析post请求的模块
 const bodyParser = require('body-parser')
 const app = express()
@@ -366,7 +378,7 @@ router.post('/api/resume/experience', (req, res) => {
   let newDatabase = new db.Experience({
     username: username,
     company: company,
-    job: jobjob,
+    job: job,
     time: time,
     timeout: timeout,
     content: content
@@ -618,6 +630,7 @@ router.post('/api/company/addinfor', (req, res) => {
     companyPerson: req.body.companyPerson,
     companyTime: req.body.companyTime,
     companyMoney: req.body.companyMoney,
+    companySrc: req.body.companySrc
   })
   newDatabase.save((err, data) => {
     if (err) {
@@ -652,6 +665,7 @@ router.post('/api/company/updateinfor', (req, res) => {
   let companyPerson = req.body.companyPerson
   let companyTime = req.body.companyTime
   let companyMoney = req.body.companyMoney
+  let companySrc = req.body.companySrc
   let updateStr = {
     $set: {
       "companyTitle": companyTitle,
@@ -659,7 +673,8 @@ router.post('/api/company/updateinfor', (req, res) => {
       "companyFullname": companyFullname,
       "companyPerson": companyPerson,
       "companyTime": companyTime,
-      "companyMoney": companyMoney
+      "companyMoney": companyMoney,
+      "companySrc": companySrc
     }
   }
   db.AddInfo.updateOne(whereStr, updateStr, (err, data) => {
@@ -718,4 +733,107 @@ router.post('/api/sendjob/deletejob', (req, res) => {
     }
   });
 })
+//消息简历发送
+router.post('/api/message/resume', (req, res) => {
+  let username = req.body.username
+  let jobCompany = req.body.jobCompany
+  let newDatabase = new db.Resumemsg({
+    username:username,
+    jobCompany: jobCompany
+  })
+  newDatabase.save((err,data)=>{
+    if(err){
+      res.send(err)
+    }else{
+      res.send({
+        "code": "0", "msg": "发送成功"
+      })
+    }
+  })
+})
+//消息简历接收
+router.post('/api/message/getresume', (req, res) => {
+  let jobCompany = req.body.jobCompany
+  db.Resumemsg.find({ jobCompany: jobCompany},(err,data)=>{
+      if(err){
+        return res.send(err)
+      }else{
+        res.send({'code':'0','data':data})
+      }
+      })
+    }
+  )
+//消息简历删除
+router.post('/api/message/deleteresume',(req,res)=>{
+        let _id = req.body._id
+    db.Resumemsg.deleteMany({ _id: _id }, (err, data) => {
+          if (err) {
+            res.send(err)
+          } else {
+            res.send({ "code": "0", "msg": "删除成功" })
+          }
+        })
+      })
+//公司消息发送
+router.post('/api/message/company', (req, res) => {
+  let personusername = req.body.personusername
+  let jobCompany = req.body.jobCompany
+  let companyTitle = req.body.companyTitle
+  let newDatabase = new db.Companymsg({
+    personusername: personusername,
+    jobCompany: jobCompany,
+    companyTitle: companyTitle
+  })
+  newDatabase.save((err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send({
+        "code": "0", "msg": "发送成功"
+      })
+    }
+  })
+})
+//个人消息接收
+router.post('/api/message/getmessage', (req, res) => {
+  let personusername = req.body.personusername
+  db.Companymsg.find({ personusername: personusername }, (err, data) => {
+    if (err) {
+      return res.send(err)
+    } else {
+      res.send({ 'code': '0', 'data': data })
+    }
+  })
+}
+)
+//个人消息删除
+router.post('/api/message/deletemsg', (req, res) => {
+  let _id = req.body._id
+  db.Companymsg.deleteMany({ _id: _id }, (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send({ "code": "0", "msg": "删除成功" })
+    }
+  })
+})
+// 文件上传请求处理，upload.array 支持多文件上传，第二个参数是上传文件数目
+router.post('/api/company/imglist', upload.array('myphoto', 2), function (req, res) {
+  // 读取上传的图片信息
+  var files = req.files;
+  // 设置返回结果
+  var result = {};
+  if (!files[0]) {
+    result.code = 1;
+    result.errMsg = '上传失败';
+  } else {
+    result.code = 0;
+    result.data = {
+      url: files[0].filename
+    }
+    result.errMsg = '上传成功';
+  }
+  res.send(result);
+});
+
 module.exports = router

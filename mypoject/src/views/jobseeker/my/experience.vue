@@ -63,12 +63,24 @@ export default {
       ifUpdate:false    
     }
   },
-  computed:{
-
-  },
-  mounted(){
-    this.updatBase()    
-  },
+    mounted(){
+    this.updatBase()  
+    },
+   beforeRouteEnter(to, from, next){  
+      let route= to.query.id
+      console.log(route)
+      // 因为当钩子执行前，组件实例还没被创建
+      // vm 就是当前组件的实例相当于上面的 this，在next方法里可以把vm当this来用。
+      next(vm=>{
+        if(route === 0){
+         vm.getexperienceInfor() 
+          console.log(route)
+          console.log(34234234)
+          vm.ifSave = false
+          vm.ifUpdate=true         
+          }
+        })
+    },
   methods:{
     //ref 触发子组件的trueDateBox()方法 
     showinput(){
@@ -122,6 +134,7 @@ export default {
           )
         }else{
           //保存信息
+          console.log('保存')
          this.addExperience()
          this.$router.go(-1)
         }
@@ -143,12 +156,13 @@ export default {
               this.jobinfo = res.data.data.job
               this.timeinfo = res.data.data.time
               this.timeoutinfo = res.data.data.timeout
+              this.contentinfo=res.data.data.content
           }else{
             return
           }
         })
     },
-      //获取编辑页
+          //获取编辑页
       updatBase(){
         if(this.$route.query.id){
           this.getexperienceInfor()
@@ -183,6 +197,7 @@ export default {
       },
       //保存编辑页
       updateInfor(){
+        console.log('编辑页')
         this.updateinfo()
         }
       }

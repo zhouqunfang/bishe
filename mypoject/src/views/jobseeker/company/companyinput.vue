@@ -23,28 +23,26 @@ export default {
     // 获取公司职位列表数据 
     searchCompany() {
        this.$store.dispatch('deletecompany')
-       console.log(434354)
       // 获取职位数据
       Searchcompany().then(res => {
-        let searchcityList = res.data.data
-        console.log(searchcityList)
-        
-        // searchcityList.forEach(element => {
-        //   this.searchcompany.push(element)
-        // })
-        console.log(searchcityList)
+        this.searchcompany = res.data.data
+        console.log(this.searchcompany)
         let keyword = this.keyword
         // let searchcity = this.$store.state.choicecity
         if (keyword) {
           this.searchcompany.filter( item => {
+             console.log(item)
             // 匹配到数据
+              console.log(item.companyTitle)
             if (item.companyTitle.indexOf(keyword) !== -1) {
+             
               this.newcompanyList.push(item)                                         
                } 
            })
+          console.log( this.newcompanyList)
           this.$store.dispatch('searchcompany', this.newcompanyList)
           this.searchcompany= [] 
-          console.log(this.$store.state.newcompanyList)
+
         }
         this.keyword = ''
       })

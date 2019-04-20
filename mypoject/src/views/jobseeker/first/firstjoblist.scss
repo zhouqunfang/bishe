@@ -2,21 +2,23 @@ $jobtitle-color:#3D3D3D;
 $little-color:#999;
 $border:2px solid #e5e5e5;
 .first_joblist{
-  padding: 18px 37.5px 150px 37.5px;
+      // background: #E1E1E1;
+  padding: 18px 0 150px 0;
   .recommen_job,.recommen_new{
     position: relative;
     margin-top: 10px;
+    margin-bottom: 10px;
     text-align: center;
-    height: 80px;
+    height: 50px;
     img{ 
       position: absolute;
       top: 50%;
-      left:240px;
-      margin-top: -26px;
+      left:280px;
+      margin-top: -24px;
     }
     span{
       // display: inline-block;
-      line-height: 80px;
+      line-height: 50px;
       color: $jobtitle-color;
       font-size: 32px;
       font-weight: bold;
@@ -26,22 +28,31 @@ $border:2px solid #e5e5e5;
     ul{ 
       li{
         width: 100%;
-        height: 150px;
+        height: 160px;
+        margin-bottom: 20px;
+        background: #fff;
+        border-top: 8px solid #E1E1E1;
+
         a{
           color: #9B89ED;
         }
       }
       .joblist_left{
         float: left;
-        width: 112px;
-        height: 112px;
+        width: 150px;
+        height: 150px;
         margin-top: 20px;
-        margin-right: 40px;
+        margin-left: 20px;
+        .job_img{
+          width:150px;
+          height:150px;
+
+        }
       }
       .joblist_right{
         margin-top: 28px;
         float: left;
-        width: 520px;
+        width: 540px;
         height: 100px;
         .joblist_right_top{
           color: $jobtitle-color;
@@ -51,32 +62,39 @@ $border:2px solid #e5e5e5;
         .joplist_right_bottom{
           margin-top: 15px;
           font-size: 26px;
+          line-height: 40px;
+          color: #888888;
         }
       }
     }
   }
   .new_content{
-    margin-top: 50px;
+    margin-top: 30px;
     font-size: 28px;
     color: $jobtitle-color;
     .recommen_new{
+       margin-top: 0px;
+        // border-top: 8px solid #E1E1E1;
       img{ 
         position: absolute;
         top: 50%;
-        left:240px;
-        margin-top: -28px;
+        left:280px;
+        margin-top: -25px;
       }
     }
     ul{
       width: 100%;
       li{
+         border-top: 8px solid #E1E1E1;
         width: 100%;
-        padding: 16px 0;
-        border-bottom: $border;
+        padding: 16px 20px;
         overflow: hidden;
         font-size: 28px;
         color: #212529;
         font-weight: bold;
+        background: #fff;
+        margin-bottom: 10px;
+        border-radius: 10px;
         span{
           float: left;
         }

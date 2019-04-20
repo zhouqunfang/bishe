@@ -1,6 +1,6 @@
 <template>
   <div class="add_job">
-       <go-back></go-back>
+        <go-back></go-back>
         <ul>
           <li>
             <span>公司姓名</span><br>
@@ -33,10 +33,11 @@
 </template>
 <script>
 import {Addjob} from  '@/views/api/recruiter/first.js';
+import GoBack from '../component/goback.vue'
 export default {
   name:"Addjob",
   components:{
-    GoBack 
+    GoBack
   },
   data(){
     return {
@@ -77,7 +78,7 @@ export default {
 </script>
 <style lang="scss" scoped>
       .add_job{
-        padding: 0 30px;
+        padding: 30px 40px;
         ul{
           li{
             font-size: 32px;

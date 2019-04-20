@@ -1,6 +1,5 @@
 <template>
   <div class="send_job">
-      <go-back></go-back>
       <div class="add_job">
           <p @click="addjob">发布职位+</p>
       </div>
@@ -36,13 +35,11 @@
   </div>
 </template>
 <script>
-import GoBack from '../component/goback.vue'
 import {Getjob,Deletejob} from '@/views/api/recruiter/first.js'
 import FooterBar from '../component/tab.vue'
 export default {
   components:{
-    FooterBar,
-    GoBack 
+    FooterBar
   },
   data(){
     return{
@@ -51,6 +48,11 @@ export default {
   },
   mounted(){
       this.getjob()
+  },
+  beforeRouterEnter(to,from,next){
+    next(vm=>{
+      vm.getjob()
+    })
   },
   methods:{
     addjob(){
@@ -97,9 +99,8 @@ export default {
             .delete{
               position: absolute;
               right: 0;
-              top: -5px;
               width: 100px;
-              height: 60px;
+              height: 50px;
               background: url('../../../assets/image/delete(2).svg') center no-repeat;
            
             }

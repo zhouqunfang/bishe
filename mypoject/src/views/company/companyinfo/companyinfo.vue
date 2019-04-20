@@ -35,7 +35,9 @@
             </div>
           </li>
           <li class="info_name">
-            上传公司照片
+            <div class="imgsrc" 
+                 :style="{backgroundImage: 'url(' + coverImgUrl + ')'}"
+            >fsdf</div>
           </li>
       </ul>
     </div>
@@ -62,7 +64,8 @@ export default {
       companyPerson :'',
       companyTime :'',
       companyMoney :'',
-      ifappear :false
+      ifappear :false,
+      coverImgUrl:''
     }
   },
   mounted(){
@@ -89,6 +92,7 @@ export default {
               this.companyTime = res.data.data.companyTime
               this.companyMoney = res.data.data.companyMoney
               this.ifappear = true
+              this.coverImgUrl = res.data.data.companySrc
           }else{
             this.ifshow = true
           }
@@ -139,6 +143,10 @@ export default {
               margin-left: 30px;
               margin-bottom: 30px;
               font-size: 32px;
+            }
+            .imgsrc{
+              width: 200px;
+              height: 200px;
             }
         }
       }

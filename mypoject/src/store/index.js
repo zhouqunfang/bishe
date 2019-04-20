@@ -15,7 +15,8 @@ const store = new Vuex.Store({
     userInfo: {},
     username:'',
     choicecity:'',
-    newcompanyList:[]
+    newcompanyList:[],
+    imgSrc:''
   },
   mutations: {
     // 存储token
@@ -34,7 +35,6 @@ const store = new Vuex.Store({
     },
     // 搜索框搜索职位数据
     SEARCH_LIST (state, searchlist) {
-      console.log(this.state.newSearchList)
       state.newSearchList = searchlist
     },
     // 放空职位数据数据
@@ -46,7 +46,7 @@ const store = new Vuex.Store({
       state.username = setname
     },
     //获取选择的城市
-    SEARCH_LIST(state, searchcity) {
+    SEARCH_CITY(state, searchcity) {
       state.choicecity = searchcity
     },
     //搜索框搜索公司数据
@@ -55,7 +55,7 @@ const store = new Vuex.Store({
     },
     DELETE_COMPANY (state) {
       state.newcompanyList = []
-    },
+    }
   },
   // actions可以进行异步操作
   actions: {
@@ -78,8 +78,8 @@ const store = new Vuex.Store({
       })
     },
     //搜索职位 
-    searchlist ({commit}, searchlists) {
-      commit('SEARCH_LIST', searchlists)
+    searchlist ({commit}, searchlist) {
+      commit('SEARCH_LIST', searchlist)
     },
     //放空搜索职位
     delete_list ({commit}) {
@@ -87,7 +87,7 @@ const store = new Vuex.Store({
     },
     // //获取选择的城市
     searchcity ({commit},searchcity) {
-      commit('SEARCH_LIST',searchcity)
+      commit(' SEARCH_CITY',searchcity)
     },
     //搜索公司
     searchcompany ({ commit }, searchcity) {

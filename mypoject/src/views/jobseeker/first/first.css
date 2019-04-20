@@ -10,9 +10,11 @@
     }
     .index .mint-swipe {
       background: #ebebeb;
+
     }
     .mint-swipe-items-wrap {
       padding-bottom: 40%; 
+      margin-top: 50px;
     }
     .index .mint-swipe-item img{
       width: 100%;

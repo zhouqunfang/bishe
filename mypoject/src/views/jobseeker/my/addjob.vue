@@ -118,9 +118,20 @@ export default {
       ]
     }
   },
-  computed:{
-
-  },
+    beforeRouteEnter(to, from, next){  
+      let route= to.query.id
+      console.log(route)
+      // 因为当钩子执行前，组件实例还没被创建
+      // vm 就是当前组件的实例相当于上面的 this，在next方法里可以把vm当this来用。
+      next(vm=>{
+        if(route===0){
+          console.log(4864646)
+            vm.getjobInfor()
+            vm.ifSave = false
+            vm.ifUpdate=true
+          }
+        })
+    },
   mounted(){
     this.getCityInfo()
     this.city.onChoose = res => {
@@ -133,6 +144,14 @@ export default {
     this.updatBase()    
   },
   methods:{
+  //获取职位意向编辑页
+      updatBase(){
+        if(this.$route.query.id){
+          this.getjobInfor()
+          this.ifSave = false
+          this.ifUpdate=true
+        }
+      },
     ShouPup(){
       this.popupVisible = true
       },
@@ -232,14 +251,6 @@ export default {
           }
         })
     },
-      //获取职位意向编辑页
-      updatBase(){
-        if(this.$route.query.id){
-          this.getjobInfor()
-          this.ifSave = false
-          this.ifUpdate=true
-        }
-      },
       //更新基本信息
       updateInfo(){
         console.log(464654646)

@@ -60,3 +60,40 @@ export const Deletejob = (params) => {
     dataType: 'json'
   })
 }
+//存放图片接口
+export const imgList = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/company/imglist',
+    data: params,
+    dataType: 'json',
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
+}
+//消息简历接收
+export const getresumeMsg = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/message/getresume',
+    data: params,
+    dataType: 'json'
+  })
+}
+//消息简历删除
+export const deleteresumeMsg = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/message/deleteresume',
+    data: params,
+    dataType: 'json'
+  })
+}
+//公司消息发送
+export const getcompanyMsg = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/message/company',
+    data: params,
+    dataType: 'json'
+  })
+}

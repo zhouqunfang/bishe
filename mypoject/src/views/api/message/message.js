@@ -26,3 +26,21 @@ export const ChatWith= params => {
     data: params
   })
 }
+//个人消息接收
+export const getMessage = params => {
+  return axios({
+    method: 'post',
+    url: '/api/message/getmessage',
+    dataType: 'json',
+    data: params
+  })
+}
+//个人消息删除
+export const  deleteMsg = params => {
+  return axios({
+    method: 'post',
+    url: '/api/message/deletemsg',
+    dataType: 'json',
+    data: params
+  })
+}

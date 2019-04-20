@@ -9,7 +9,7 @@
               <li v-for="(item,index) in jobdataList" :key="index" >
                 <router-link :to="{name:'Jobdetail',params:{_id:item._id}}">
                     <div class="joblist_left">
-                        <img :src="item.jobImg" alt="" job_img>
+                        <img src="@/assets/image/biguiyuan.jpg" alt="" class="job_img">
                     </div>
                     <div class="joblist_right">
                         <div class="joblist_right_top">
@@ -60,9 +60,7 @@ export default {
       // 请求数据
       JobList().then(res => {
         this.jobdataList = res.data.data
-        console.log(this.jobdataList)
-
-        
+        console.log(this.jobdataList)   
       })
     },
     NewsList () {

@@ -4,6 +4,7 @@
     <div class="joblist_content">
         <ul>
           <li v-for="(item,index) in searchList" :key="index">
+     <router-link :to="{name:'Jobdetail',params:{_id:item._id}}">       
             <div class="joblist_left">
                 <img :src="item.jobImg" alt="" job_img>
             </div>
@@ -17,6 +18,7 @@
                   <span class="city_name">{{item.cityName}}</span>
               </div>
             </div>
+    </router-link>         
           </li>
         </ul>
     </div>
@@ -35,12 +37,13 @@ export default {
   },
   computed: {
     searchList () {
+      console.log( this.$store.state.newSearchList)
       return this.$store.state.newSearchList
     }
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 // @import '../first/firstjoblist';
   .joblist_content{
     ul{

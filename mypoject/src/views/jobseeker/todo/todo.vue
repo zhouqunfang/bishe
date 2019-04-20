@@ -2,7 +2,7 @@
     <div class="todo">
     <div class="add_div" v-show="show"></div>
           <div class="show_input">
-            <span @click = no_show key="span"></span>
+            <span @click ="no_show" key="span"></span>
             <input
                 key="input"
                 type="text"
@@ -71,7 +71,7 @@ export default {
       this.show = true
     },
     no_show () {
-      this.show = false
+    this.$router.push('/index')
     },
     newTime () {
       var time1 = new Date().format('yyyy-MM-dd hh:mm')

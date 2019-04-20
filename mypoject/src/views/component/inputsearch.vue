@@ -22,26 +22,25 @@ export default {
     // },
     // 获取公司职位列表数据
     searchJob  () {
-      this.$store.dispatch('delete_list')
+        this.$store.dispatch('delete_list')
       // 获取职位数据
       JobList().then(res => {
         let jobdataList = res.data.data
         jobdataList.forEach(element => {
-          this.searchjobList.push(element)
-          
+          console.log(element.jobTitle)
+          this.searchjobList.push(element)     
         })
+        console.log(this.searchjobList)
         let keyword = this.keyword
         // let searchcity = this.$store.state.choicecity
         if (keyword) {
           this.searchjobList.filter(item => {
-            // 匹配到数据
-          
-            if (item.jobTitle.indexOf(keyword) !== -1) {
-              this.newSearchList.push(item)   
-            this.$store.dispatch('searchlist', this.newSearchList)
-            console.log(this.newSearchList )    
+            // 匹配到数据    
+            if (item.jobTitle.indexOf(keyword) !== -1) {     
+              this.newSearchList.push(item)  
             } 
           })  
+            this.$store.dispatch('searchlist', this.newSearchList)
         }
         this.keyword = ''
       })
@@ -53,16 +52,18 @@ export default {
 </script>
 <style scoped>
 .input_search{
-   position: relative;
-    padding: 20px 24px;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+    padding: 18px 20px;
     height: 60px;
     overflow: hidden;
     background: #E1E1E1;
  }
     input{
       padding: 15px 0 15px 70px;
-      width: 91%;
-      text-decoration: none;
+      width: 85%;
+      /* text-decoration: none; */
       outline: none;
       line-height: 30px;
       background: #F7F7F7;

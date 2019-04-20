@@ -15,7 +15,7 @@
     </div>
     <div class="job_salary">
       <h4>项目内容<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
-      <textarea name="" class="tex_poject" ></textarea>
+      <textarea name="" class="tex_poject" v-model='detail'></textarea>
     </div>
     <div class="job_salary">
       <h4>开始时间<span style="color:red">*</span><b style="color:#84d945" class="phone_tip"></b></h4>
@@ -62,12 +62,22 @@ export default {
       time:''    
     }
   },
-  computed:{
-
-  },
-  mounted(){
-    this.updatBase()    
-  },
+    mounted(){
+    this.updatBase()
+     },
+   beforeRouteEnter(to, from, next){  
+      let route= to.query.id
+      console.log(route)
+      // 因为当钩子执行前，组件实例还没被创建
+      // vm 就是当前组件的实例相当于上面的 this，在next方法里可以把vm当this来用。
+      next(vm=>{
+        if(route===0){
+         vm.getsomePoject()
+         vm.ifSave = false
+         vm.ifUpdate=true
+          }
+        })
+    },
   methods:{
     //ref 触发子组件的trueDateBox()方法 
     showinput(){
@@ -147,8 +157,16 @@ export default {
             return 
           }
         })
-    },
-      //获取职位意向编辑页
+    },      //获取职位意向编辑页
+      updatBase(){
+        if(this.$route.query.id){
+          console.log(345235)
+          this.getsomePoject()
+          this.ifSave = false
+          this.ifUpdate=true
+        }
+      },
+          //获取职位意向编辑页
       updatBase(){
         if(this.$route.query.id){
           console.log(345235)

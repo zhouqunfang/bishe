@@ -13,6 +13,5 @@ export const Companydetail = params => {
     url: '/api/company/detail',
     dataType:'json',
     data:params
-
   })
 }

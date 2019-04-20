@@ -38,4 +38,15 @@ export const NewList = () => {
     url: '/api/index/news'
   })
 }
+//消息简历发送
+export const resumeMsg = (params) => {
+  return axios({
+    method: 'post',
+    url: '/api/message/resume',
+    data: params,
+    dataType: 'json'
+  })
+}
+
+
 

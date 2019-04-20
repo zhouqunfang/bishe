@@ -3,6 +3,7 @@
     <h4>
       <span>{{name}}</span>
       <b>个人简历</b>
+      <i @click="send()">感兴趣</i>
     </h4>
     <div class="base_info">
         <p>基本信息</p>
@@ -93,6 +94,7 @@
 <script>
 import GoBack from '../component/goback.vue'
 import {getBaseInfor,getJobInfor,getExperience,getPoject} from '@/views/api/resume/resume.js'
+import {getcompanyMsg,Getinfor} from '@/views/api/recruiter/first.js'
 export default {
     name:'Resume',
     data(){
@@ -135,10 +137,43 @@ export default {
           )
     },
     mounted(){
-      // this.getInfor()
+      this.getcompanyinfor()
     },
     methods:{
-        getInfor(){
+    //获取公司信息
+    getcompanyinfor(){
+        let username = localStorage.getItem('Username')
+        let params = {
+         username:username
+        }
+        Getinfor(params).then(res=>{
+            this.companyTitle=res.data.data.companyTitle
+            console.log(res.data.data)
+        })
+    },
+      //发送消息
+      send(){
+        let personusername = this.username
+        let jobCompany = localStorage.getItem('Username')
+        let companyTitle = this.companyTitle
+        let params={
+            personusername:personusername,
+            jobCompany: jobCompany,
+            companyTitle:companyTitle
+        }
+      getcompanyMsg(params).then(res=>{
+          console.log(res)
+        if (res.data.code==='0') {
+            this.$toast({
+              message: res.data.msg,
+              duration: 2000,
+              iconClass: 'icon icon-success',
+              className: 'success_toast'
+              })
+              }
+          })
+        },
+      getInfor(){
           let params = {
             username:this.username
           }

@@ -121,7 +121,8 @@ const addInfoSchema = new mongoose.Schema({
   companyFullname: String,
   companyPerson: String,
   companyTime: String,
-  companyMoney: String
+  companyMoney: String,
+  companySrc: String
 })
 //企业职位发布
 const addJobSchema = new mongoose.Schema({
@@ -133,6 +134,17 @@ const addJobSchema = new mongoose.Schema({
   jobImg: String,
   jobcontent:String,
   id: Number
+})
+//企业消息简历库
+const resumeMsgSchema = new mongoose.Schema({
+  username: String,
+  jobCompany:String
+})
+//个人消息
+const companyMsgSchema = new mongoose.Schema({
+  personusername: String,
+  jobCompany: String,
+  companyTitle: String
 })
 // 通过Schema来创建Model
 // Model代表的是数据库中的集合，通过Model才能对数据库进行操作
@@ -150,6 +162,8 @@ const Models = {
   Poject: mongoose.model('Poject', pojectSchema),
   Todolist: mongoose.model('Todolist', todolistSchema),
   AddInfo: mongoose.model('AddInfo', addInfoSchema),
-  AddJob: mongoose.model('AddJob', addJobSchema)
+  AddJob: mongoose.model('AddJob', addJobSchema),
+  Resumemsg: mongoose.model('Resumemsg', resumeMsgSchema),
+  Companymsg: mongoose.model('Companymsg', companyMsgSchema)
 }
 module.exports = Models
