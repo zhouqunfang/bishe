@@ -8,7 +8,7 @@
             :to="'/company/'+item.companyTitle"     
             >
               <div class="company_list">
-                <img :src="item.companyImg" alt="">
+                <img src="" alt="">
                 <div class="content_left">
                   <h4>{{item.companyTitle}}</h4>
                   <span>{{item.cityName}}</span>

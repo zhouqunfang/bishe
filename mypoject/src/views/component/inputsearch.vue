@@ -68,7 +68,7 @@ export default {
       border: none;
       border-bottom: 2px solid  #CDCDCD;
       font-size: 32px;
-      padding-left: 60px;
+      padding-left: 60 px;
     }
     .search_img{
       position: absolute;
