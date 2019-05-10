@@ -8,15 +8,7 @@
   <body>
     <div id="app">
     </div>
-    <!-- //客户端引入socket -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
     <script>
-      // 与服务端通讯
-      var io = io.connect('http://localhost:3000/')
-      io.on('news', function (data) {
-        console.log(data);
-        io.emit('my other event', { my: 'data' })
-      })
     </script>
   </body>
 </html>

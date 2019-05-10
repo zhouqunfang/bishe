@@ -6,9 +6,11 @@
         :key="index"
         @click.stop="getdetail(item.username)"
         >
-        <span>{{item.username}}</span>
-        <span>发来简历</span>
-        <span @click.stop="deletereRumeMsg(item._id,index)">删除</span>
+        <span class="job_personname">{{item.username}}</span>
+        <span class="send_resume">发来简历</span>
+        <span @click.stop="deletereRumeMsg(item._id,index)" class="delete_item">
+          <img src="@/assets/image/delete.svg" alt="">
+        </span>
       </div>
       <footer-bar></footer-bar>
     </div>
@@ -61,3 +63,7 @@ export default {
   
 }
 </script>
+<style lang="scss" scoped>
+@import './companymsg.scss'
+</style>
+

@@ -9,10 +9,6 @@
       <h4>公司介绍</h4>
       <p>{{companylist.companyContent}}</p>
     </div>
-    <div class="company_img">
-      <h4>公司照片</h4>
-      <img src="" alt="">
-    </div>
     <div class="company_msg">
       <h4>工商信息</h4>
         <div>

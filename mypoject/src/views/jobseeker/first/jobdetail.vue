@@ -16,7 +16,7 @@
           <p>{{jobdetail.jobcontent}}</p>      
         </div>
       </div>
-      <button @click="sendMsg">发送简历</button>
+      <button @click="sendMsg" class="send_msg">发送简历</button>
   </div>
 </template>
 <script>
@@ -103,6 +103,18 @@ export default {
          }
        }
        
+    }
+    .send_msg{
+      background: none;
+      border: none;
+      padding: 12px;
+      background: #613CEB;
+      border-radius: 10px;
+      color: #ffff;
+      font-size: 14px;
+      position: absolute;
+      left: 50%;
+      margin-left: -30px;
     }
   }
 </style>

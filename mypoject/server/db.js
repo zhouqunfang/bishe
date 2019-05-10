@@ -13,13 +13,14 @@ db.once('close', function () {}) // 数据库断开的事件
 // 登录注册
 const userSchema = new mongoose.Schema({
   username: String,
-  password: String
+  password: String,
+  role: Number
 })
-// 用户的socketid与用户名 映射表
-const idtoidSchema = new mongoose.Schema({
-  socketid: String,
-  username: String
-})
+// // 用户的socketid与用户名 映射表
+// const idtoidSchema = new mongoose.Schema({
+//   socketid: String,
+//   username: String
+// })
 // 用户信息 
 const userinfoSchema = new mongoose.Schema({
   username: String,
@@ -30,44 +31,44 @@ const userinfoSchema = new mongoose.Schema({
 })
 // 聊天页面内容信息
 // Schema.Type是由Mongoose内定的一些数据类型
-const chatcontentSchema = new mongoose.Schema({
-  //聊天发送用户id
-  user_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Userinfo'
-  },
-  //聊天接收用户名id
-  chatWith: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Userinfo'
-  },
-  //聊天时间
-  addTime: {
-    type: Date,
-    default: Date.now
-  },
-  //聊天内容
-  content: {
-    type: String
-  }
-})
+// const chatcontentSchema = new mongoose.Schema({
+//   //聊天发送用户id
+//   user_id: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'Userinfo'
+//   },
+//   //聊天接收用户名id
+//   chatWith: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'Userinfo'
+//   },
+//   //聊天时间
+//   addTime: {
+//     type: Date,
+//     default: Date.now
+//   },
+//   //聊天内容
+//   content: {
+//     type: String
+//   }
+// })
 
-//聊天双方关系表
-const chatrelateSchema = new mongoose.Schema({
-  userA: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Userinfo'
-  },
-  userB: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Userinfo'
-  },
-  chatContent: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'ChatContent'
-  }],
+// //聊天双方关系表
+// const chatrelateSchema = new mongoose.Schema({
+//   userA: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'Userinfo'
+//   },
+//   userB: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'Userinfo'
+//   },
+//   chatContent: [{
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'ChatContent'
+//   }],
 
-});
+// });
 //简历模快个人信息
 const baseinforSchema = new mongoose.Schema({
   username:String,
@@ -152,10 +153,10 @@ const companyMsgSchema = new mongoose.Schema({
 // modelName 就是要映射的集合名，mongoose会自动将集合名变成复数
 const Models = {
   User: mongoose.model('User', userSchema),
-  Idtoid: mongoose.model('Idtoid', idtoidSchema),
+  // Idtoid: mongoose.model('Idtoid', idtoidSchema),
   Userinfo: mongoose.model('Userinfo', userinfoSchema ),
-  Chatcontent: mongoose.model('Chatcontent', chatcontentSchema),
-  Chatrelation: mongoose.model('Chatrelation', chatrelateSchema),
+  // Chatcontent: mongoose.model('Chatcontent', chatcontentSchema),
+  // Chatrelation: mongoose.model('Chatrelation', chatrelateSchema),
   Baseinfor:mongoose.model('Baseinfor',baseinforSchema),
   Jobinfor: mongoose.model('Jobinfor', jobinforSchema),
   Experience: mongoose.model('Experience', experienceSchema),

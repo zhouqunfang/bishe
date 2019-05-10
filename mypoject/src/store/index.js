@@ -1,37 +1,36 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { SignIn } from '@/views/api/api.js'
 Vue.use(Vuex)
+import { asyncRouterMap, constantRouterMap } from '../router';
 const store = new Vuex.Store({
   state: {
     token: '',
-    toast: {
-      message: '',
-      duration: 2000,
-      iconClass: 'icon icon-success',
-      className: 'success_toast',
-    },
     newSearchList: [],
     userInfo: {},
     username:'',
     choicecity:'',
     newcompanyList:[],
-    imgSrc:''
+    imgSrc:'',
+    role:'',
+    routers: constantRouterMap,
+    addRouters: []
   },
   mutations: {
+    //配置路由
+    SET_ROUTERS(state,routers){
+      state.addRouters = routers
+      state.routers = constantRouterMap.concat(routers)
+    },
+    SET_ROLE (state, role) {
+      state.role = role
+    },
     // 存储token
     SET_TOKEN (state, token) {
       state.token = token
-      // localStorage.setItem('token', token)
     },
     // 删除token
     DEL_TOKEN (state) {
       state.token = ''
-      // localStorage.removeItem('token')
-    },
-    // 在vuex使用minui toast方法
-    ADD_TOAST (state, toast) {
-      state.toast.message = toast
     },
     // 搜索框搜索职位数据
     SEARCH_LIST (state, searchlist) {
@@ -59,23 +58,22 @@ const store = new Vuex.Store({
   },
   // actions可以进行异步操作
   actions: {
-    add_toast ({commit}, toastInfo) {
-      commit('ADD_TOAST', toastInfo)
-    },
-    set_token ({commit}, userInfo) {
-      // const username = userInfo.username
-      return new Promise((resolve, reject) => {
-        SignIn(userInfo).then(res => {
-          localStorage.setItem('Token', res.data.token) // 登录成功后将token存储在localstorage之中
-          localStorage.setItem('Username', res.data.username) // 登录成功后将用户名存储在localstorage之中
-          commit('SET_TOKEN', res.data.token)
-          commit('ADD_TOAST', res.data.msg)
-          commit('SET_USERNAME',res.data.username)
-          resolve()
-        }).catch(error => {
-          reject(error)
+    //设置角色权限
+    set_role({commit},role){
+      return new Promise(resolve =>{
+        var accessedRouters = asyncRouterMap.filter(item => {
+          console.log(item.meta.role)
+          return item.meta.role == role?item:''
         })
+        commit('SET_ROUTERS', accessedRouters)
+        console.log(accessedRouters, 98083)
+        commit('SET_ROLE', role)
+        resolve()
       })
+    },
+    //设置路由
+    setrouters({commit},data){
+      
     },
     //搜索职位 
     searchlist ({commit}, searchlist) {

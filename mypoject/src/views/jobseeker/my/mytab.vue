@@ -4,7 +4,7 @@
           <div class="base_infor">
             <div class="ifshow_infor"  v-if="ifshow" @click="addBase">
               <div class="add_info">添加基本信息</div>
-              <span>+</span>
+              <span><img src="@/assets/image/add.svg" alt="" class="add_img"></span>
             </div>
             <div class="base_detail" v-if="ifappear">
               <div class="base_update" @click="goAdd"></div>
@@ -20,7 +20,7 @@
           <div class="search_infor">
             <div class="ifshow_infor" @click="addJob" v-if="jobshow">
               <div class="add_info">添加求职意向</div> 
-              <span>+</span>
+              <span><img src="@/assets/image/add.svg" alt="" class="add_img"></span>
             </div>
             <div class="base_detail" v-if="ifjob">
               <div class="base_update" @click="jobAdd"></div>
@@ -35,7 +35,7 @@
           <div class="job_infor">
             <div class="ifshow_infor" v-if="experienceshow" @click="addexperience">
               <div class="add_info">添加工作经验</div>
-              <span>+</span>
+              <span><img src="@/assets/image/add.svg" alt="" class="add_img"></span>
             </div>
             <div class="base_detail" v-if="ifexperience">
               <div class="base_update" @click="experienceAdd"></div>
@@ -53,7 +53,7 @@
           <div class="poject_infor">
             <div class="ifshow_infor" @click="addpoject" v-if="ifpoject">
               <div class="add_info">添加项目经历</div>
-              <span>+</span>
+              <span><img src="@/assets/image/add.svg" alt="" class="add_img"></span>
             </div> 
             <div class="base_detail" v-if="showpoject">
               <div class="base_update" @click="pojectAdd"></div>
@@ -108,10 +108,12 @@ export default {
   methods:{
     //增加个人基本信息
     addBase(){
+      console.log(111111)
       this.$router.push('/my/resume')
     },
     //增加求职意向
     addJob(){
+
       this.$router.push('/my/addjob')
     },
    //增加工作经验意向
@@ -124,6 +126,7 @@ export default {
     },
     //如果已经有基本信息的跳转
     goAdd(){
+       console.log(2222)
       this.$router.push({name:'Resumemy',query:{id:0}})
     },
    //如果已经有求职意向的跳转
@@ -237,6 +240,7 @@ export default {
 <style lang="scss" scoped>
 /* @import '../../../assets/css/seeker/mytab.css'; */
 .myTab{
+  margin-bottom: 80px;
   .resume_content{
     padding: 10px 40px;
     div{
@@ -244,9 +248,15 @@ export default {
     }
     .base_infor,.search_infor,.job_infor,.poject_infor{
       position: relative;
-      padding:20px 20px 10px 20px ;
+      padding:40px 40px 30px 40px ;
       border: 1px solid black;
       font-size: 28px;
+      .add_img{
+        border: 0;
+        position: absolute;
+        top: -8px;
+        left: 45px;
+      }
       .add_info{
         position: absolute;
         left: 50%;
@@ -254,7 +264,8 @@ export default {
         margin-left: -100px;
         margin-top: -20px;
         height: 20px;
-        width: 200px;
+        width: 300px;
+        font-size: 34px;
       }
       span{
         display: inline-block;

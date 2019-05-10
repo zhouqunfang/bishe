@@ -1,6 +1,5 @@
 <template>
   <div class="company_info">
-    <go-back></go-back>
     <div class="add_info" v-if="ifshow">
         <h4 @click=addDetail>请完善公司信息+</h4>
     </div>
@@ -35,9 +34,7 @@
             </div>
           </li>
           <li class="info_name">
-            <div class="imgsrc" 
-                 :style="{backgroundImage: 'url(' + coverImgUrl + ')'}"
-            >fsdf</div>
+           <img :src="coverImgUrl" alt="">
           </li>
       </ul>
     </div>
@@ -47,13 +44,10 @@
 <script>
 import FooterBar from '../component/tab.vue'
 import { Getinfor } from '@/views/api/recruiter/first.js';
-import GoBack from '../component/goback.vue'
 export default {
   name:'Companyinfo',
   components:{
-    FooterBar,
-    GoBack 
-
+    FooterBar
   },
   data(){
     return{
@@ -68,8 +62,11 @@ export default {
       coverImgUrl:''
     }
   },
-  mounted(){
+  created(){
     this.getinfor()
+  },
+  mounted(){
+
   },
   methods:{
     addDetail(){
@@ -82,8 +79,9 @@ export default {
         username:username
       }
         Getinfor(params).then(res=>{
-          console.log(res.data)
+
           if(res.data.code === "0"){
+                      console.log(res.data,2112423)
               this.ifshow = false 
               this.companyTitle = res.data.data.companyTitle
               this.companyContent = res.data.data.companyContent
@@ -92,7 +90,7 @@ export default {
               this.companyTime = res.data.data.companyTime
               this.companyMoney = res.data.data.companyMoney
               this.ifappear = true
-              this.coverImgUrl = res.data.data.companySrc
+              this.coverImgUrl = "static/image/"+res.data.data.companySrc
           }else{
             this.ifshow = true
           }
@@ -113,7 +111,7 @@ export default {
           position: absolute;
           display: inline-block;
           right:20px;
-          top:80px;
+          top:10px;
           width:80px;
           height:80px; 
           background: url('../../../assets/image/update.svg') center no-repeat;
@@ -137,7 +135,6 @@ export default {
               font-size: 32px;
               font-weight: bold;
               margin-bottom: 10px;
-              margin-left: 30px;
             }
             .info_min{
               margin-left: 30px;

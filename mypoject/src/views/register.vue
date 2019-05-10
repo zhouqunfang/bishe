@@ -17,19 +17,26 @@ export default {
   data () {
     return {
       username: '',
-      inputpassword: ''
+      inputpassword: '',
+      role:''
     }
+  },
+  created(){
+  },
+  beforeRouteEnter(to,from,next){
+        next(vm=>{
+          vm.role = to.params.role
+        })
   },
   methods: {
     register () {
-      console.log(4234234)
+      console.log(this.role,123213)
       let params = {
         password: this.inputpassword,
-        username: this.username
+        username: this.username,
+        role: this.role
       }
       this.$http.post('/api/user/register', params).then(res => {
-        // console.log(res)
-        this.$store.dispatch('add_toast', res.data.msg)
         if (res.data.status === 1) {
            this.$toast({
             message: res.data.msg,

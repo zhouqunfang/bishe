@@ -13,7 +13,7 @@
     </div>
 </template>
 <script>
-
+import { SignIn } from '@/views/api/api.js'
 export default {
   data () {
     return {
@@ -21,56 +21,62 @@ export default {
       inputpassword: ''
     }
   },
-  mounted () {
+  created () {
+    // this.haveToken()
+  },
+  computed:{
 
   },
   methods: {
+    //判断有误token
+    haveToken(){
+      let role = this.$store.state.role
+      let token = localStorage.getItem('Token')
+      if(token){
+        this.$router.push('/index')
+      }
+    },
     login () {
       let params = {
         password: this.inputpassword,
         username: this.username
       }
-      this.$store.dispatch('set_token', params).then(() => {
-        // mint ui toast
-        let toast = this.$store.state.toast
-        // console.log(toast)
-        this.$toast({
-          message: toast.message,
-          duration: 2000,
-          iconClass: 'icon icon-success',
-          className: 'success_toast'
-        }
-        )
-        this.$router.push({path: '/index'})
-      }).catch(err => {
-        this.$toast({
-          message: err,
-          duration: 2000,
-          iconClass: 'licon icon-success',
-          className: 'success_toast'
-        }
-        )
-      })
+      SignIn(params).then(res=>{
+          localStorage.setItem('Token', res.data.token) // 登录成功后将token存储在localstorage之中
+          localStorage.setItem('Username', res.data.username) // 登录成功后将用户名存储在localstorage之中
+          let role = res.data.role
+          this.$store.dispatch('set_role',role).then(()=>{
+           localStorage.setItem('Role', role) 
+            console.log(this.$store.state.routers,654645)
+            this.$router.addRoutes(this.$store.state.routers)  // 添加路由
+          })
+          if(res.data.status === 0){
+              this.$toast({
+                message: res.data.msg,
+                duration: 2000,
+                iconClass: 'icon icon-success',
+                className: 'success_toast'
+              }
+            )
+          }else if(res.data.status === 1){
+             this.$toast({
+                message: res.data.msg,
+                duration: 2000,
+                iconClass: 'icon icon-success',
+                className: 'success_toast'
+              }
+            )
+          }else{
+            if(role === 0){
+              this.$router.push({path: '/index'})
+            }else{
+              this.$router.push({path: '/first'})
+            }
+          }
+       })
+      }
     }
-    }
-
 }
-// this.$http.post('/api/user/sign',
-//   params
-// ).then(res => {
-//   // console.log(res)
-//   if (res.data.status === 2) {
-//     this.$toast({
-//       message: res.data.msg,
-//       duration: 2000,
-//       iconClass: 'icon icon-success',
-//       className: 'success_toast'
-//     })
-// 根据store中set_token方法将token保存至localStorage/sessionStorage中，获取token的value值
-// this.$store.commit('set_token', res.data['token'])
-// if (this.$store.state.token) {
-//   this.$router.push('/index')
-
 </script>
 <style lang="scss" scoped>
     #login{

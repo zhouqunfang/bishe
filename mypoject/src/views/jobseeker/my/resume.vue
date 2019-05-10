@@ -102,16 +102,15 @@ export default {
       return this.sex
    }
   },
-  mounted(){
-  
-    
+  mounted(){  
+    this.getInfor()
   },
    beforeRouteEnter(to, from, next){  
       let route= to.query
       // 因为当钩子执行前，组件实例还没被创建
       // vm 就是当前组件的实例相当于上面的 this，在next方法里可以把vm当this来用。
         next(vm =>{
-        if(route){
+        if(route === 0){
           console.log(345235)
           vm.getInfor()
           vm.ifSave = false

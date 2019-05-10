@@ -6,7 +6,7 @@ var multer = require("multer");
 // 设置图片存储路径
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './public');
+    cb(null, '../static/image');
   },
   filename: function (req, file, cb) {
     cb(null, `${Date.now()}-${file.originalname}`)
@@ -28,6 +28,8 @@ const jwt = require('jsonwebtoken')
 router.post('/api/user/register', (req, res) => {
   let password = req.body.password
   let username = req.body.username
+  let role = req.body.role
+  console.log(role ,11)
   db.User.find({ username: username }, (err, data) => {
     if (err) {
       res.send(err)
@@ -40,7 +42,8 @@ router.post('/api/user/register', (req, res) => {
       if (password) {
         let newUser = new db.User({
           username: username,
-          password: password
+          password: password,
+          role: role
         })
         newUser.save((err, data) => {
           if (err) {
@@ -60,7 +63,7 @@ router.post('/api/user/register', (req, res) => {
 router.post('/api/user/sign', (req, res) => {
   let inputpassword = req.body.password
   let username = req.body.username
-  db.User.find({ username: username, password: inputpassword }, (err, docs) => {
+  db.User.find({ username: username}, (err, docs) => {
     if (err) {
       res.send(err)
       return
@@ -85,21 +88,21 @@ router.post('/api/user/sign', (req, res) => {
         //     return
         //   }
         //添加信息到Userinfo表
-        db.Userinfo.find({ username: username }, (err, data) => {
-          if (data.length == 0) {
-            let setUser = new db.Userinfo({
-              username: username,
-              iscompany: false
-            })
-            setUser.save((err, docs) => {
-              if (err) {
-                res.send(err)
-                return
-              }
-            })
-          }
-        })
-        res.send({ 'status': 2, msg: '登录成功', 'token': docs[0].token, 'username': username })// //返回给前台
+        // db.Userinfo.find({ username: username }, (err, data) => {
+        //   if (data.length == 0) {
+        //     let setUser = new db.Userinfo({
+        //       username: username,
+        //       iscompany: false
+        //     })
+        //     setUser.save((err, docs) => {
+        //       if (err) {
+        //         res.send(err)
+        //         return
+        //       }
+        //     })
+        //   }
+        // })
+        res.send({ 'status': 2, msg: '登录成功', 'token': docs[0].token, 'username': username,'role':docs[0].role })// //返回给前台
       }
     }
   })
@@ -560,7 +563,7 @@ router.post('/api/todo/updatetodolist', (req, res) => {
       console.log(data)
       res.send({ "code": "0", "msg": "更新成功"})
     }
-  });
+  });/*  */
 })
 //首页获取职位数据
 router.post('/api/index/getjob', (req, res) => {
@@ -821,6 +824,7 @@ router.post('/api/message/deletemsg', (req, res) => {
 router.post('/api/company/imglist', upload.array('myphoto', 2), function (req, res) {
   // 读取上传的图片信息
   var files = req.files;
+  console.log(files,1111)
   // 设置返回结果
   var result = {};
   if (!files[0]) {

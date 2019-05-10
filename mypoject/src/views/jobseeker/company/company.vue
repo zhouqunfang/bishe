@@ -9,7 +9,7 @@
           >
             <div class="company_list">
               <div class="content_right">
-                 <img :src="item.companyImg" alt="">
+                 <img  src="@/assets/image/maker.svg" alt="">
               </div>
               <div class="content_left">
                 <h4>{{item.companyTitle}}</h4>
@@ -64,10 +64,10 @@ export default {
               margin: 40px 0;
             .content_right{
                   float: left;
-                  width: 112px;
-                  height: 112px;
-                  margin-top: 20px;
+                  width: 110px;
+                  height: 110px;
                   margin-right: 40px;
+                  text-align: center;
                 }
               .content_left{
                 h4{

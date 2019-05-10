@@ -34,6 +34,29 @@ Vue.prototype.$toast = Toast // 导入样式
 Vue.use(VueRouter)
 Vue.prototype.$http = axios
 Vue.use(vuex)
+router.beforeEach((to,from,next)=>{
+  let token = localStorage.getItem('Token')
+  if(token){
+    next()
+  }else
+    if (to.path === '/page' || to.path === '/'){
+      next()
+  }else{
+    next({
+      path:'/'
+    })
+  }
+})
+
+let role = localStorage.getItem('Role')
+if (role) {
+  if (!store.state.role) {
+    store.dispatch('set_role', role).then(() => {
+      router.addRoutes(store.state.routers)  // 添加路由
+      console.log(store.state.role, 98083)
+    })
+  }
+}
 new Vue({
   el: '#app',
   router,
@@ -41,3 +64,5 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+
+

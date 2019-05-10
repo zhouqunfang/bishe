@@ -30,23 +30,6 @@
           <input type="text" name="" id="" v-model="companyMoney">
         </div>
       </li>
-      <li>
-        <div class="viewPhoto">
-          <img 
-          id="portrait"
-          style="width: 300px;height: 300px"
-           :src="files"
-           />
-        </div>
-        <input 
-          type="file" 
-          accept=".jpg, .jpeg, .png"
-          id="saveImage" 
-          name="myphoto"
-          @change="addimg($event)"
-        >
-      </li>
-      <!-- <img :src="" alt=""> -->
     </ul>
     <div class="btn_save" @click="save"><span>保存</span></div>   
  
@@ -85,52 +68,9 @@ export default {
     this.getinfor()
   },
   methods:{
-    // companyImg(e) {
-    //   console.log(e.target.files[0])
-    //   //FileReader主要用于将文件内容读入内存，通过一系列异步接口，可以在主线程中访问本地文件。
-    //   var fr = new FileReader();
-    //   console.log(fr)
-    //   //当读取操作成功完成时调用
-    //   fr.onload = ()=>{
-    //     console.log(5555)
-    //     document.getElementById('portrait').src = fr.result;
-    //   };
-    // },
-    //  great(){
-    //       // document.getElementById('saveImage').onchange = ()=> {
-    //       var imgFile = event.target.files[0];
-    //       this.file = event.target.files[0];
-    //       var fr = new FileReader();
-    //       fr.onload = function () {
-    //         document.getElementById('portrait').src = fr.result;
-    //       };
-    //       fr.readAsDataURL(imgFile);
-    //       }
-    //     },
-      addimg(e){
-          var imgFile = e.target.files[0];
-          this.file = e.target.files[0];
-          var fr = new FileReader();
-          fr.onload = function () {
-            document.getElementById('portrait').src = fr.result;
-          }
-          fr.readAsDataURL(imgFile); 
-          },  
-      saveimg(){
-        let params = new FormData() // 创建form对象
-        let username = localStorage.getItem('Username')
-        params.append('myphoto', this.file, this.file.name) // 通过append向form对象添加数据
-        params.append('username',username)
-       console.log(params.get('myphoto')) // FormData私有类对象，访问不到，可以通过get判断值是否传进去
-        imgList(params).then(res=>{
-          this.imgpath = res.data.data.url
-          console.log(this.imgpath)
-        })
-      },
     //保存公司信息
     addinfor(){
       let username = localStorage.getItem('Username')
-      console.log(this.imgpath)
       let params = {
         username:username,
         companyTitle: this.companyTitle,
@@ -169,7 +109,7 @@ export default {
               this.companyTime = res.data.data.companyTimes
               this.companyMoney = res.data.data.companyMoney
               console.log(res.data.data.companySrc)
-               this.files = "require('../../../../server/public/"+ res.data.data.companySrc+"')"
+               this.files = "static/image/"+ res.data.data.companySrc+"')"
                console.log( this.files)
           }else{
             return

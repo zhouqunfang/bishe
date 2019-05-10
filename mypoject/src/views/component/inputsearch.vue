@@ -1,5 +1,5 @@
 <template>
-  <div class="input_search">
+  <div class="">
     <input type="text" placeholder="公司/职业" v-model="keyword">
     <span class="search_img"  @click="searchJob" ><img src="@/assets/image/search.svg"/></span>
   </div>
@@ -53,7 +53,6 @@ export default {
 <style scoped>
 .input_search{
     position: fixed;
-    width: 100%;
     z-index: 2;
     padding: 18px 20px;
     height: 60px;
@@ -61,20 +60,20 @@ export default {
     background: #E1E1E1;
  }
     input{
-      padding: 15px 0 15px 70px;
-      width: 85%;
-      /* text-decoration: none; */
+      width: 100%;
+      height: 100px;
       outline: none;
       line-height: 30px;
       background: #F7F7F7;
       border: none;
-      border: 2px solid  #CDCDCD;
-      border-radius: 10px;
+      border-bottom: 2px solid  #CDCDCD;
+      font-size: 32px;
+      padding-left: 60px;
     }
     .search_img{
       position: absolute;
-      top: 32px;
-      left: 34px;
+      top: 30px;
+      left: 20px;
       display: inline-block;
       width: 24px;
       height: 24px;

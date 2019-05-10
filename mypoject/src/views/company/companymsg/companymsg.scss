@@ -1,0 +1,19 @@
+.compangyMsg{
+
+  padding: 20px;
+  .resume_msg{
+    padding: 30px 0;
+    .job_personname{
+      font-size:40px; 
+      font-weight: bold;
+    }
+    .send_resume{
+      margin-left: 20px;
+    }
+    .delete_item{
+    position: absolute;
+    right: 20px;
+    // top: 20px;
+    }
+  }
+}

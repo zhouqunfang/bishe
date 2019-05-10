@@ -9,7 +9,7 @@
               <li v-for="(item,index) in jobdataList" :key="index" >
                 <router-link :to="{name:'Jobdetail',params:{_id:item._id}}">
                     <div class="joblist_left">
-                        <img src="@/assets/image/biguiyuan.jpg" alt="" class="job_img">
+                        <img src="@/assets/image/searchjob.svg" alt="" class="job_img">
                     </div>
                     <div class="joblist_right">
                         <div class="joblist_right_top">
@@ -27,7 +27,7 @@
         </div>
         <div class="new_content">
           <h3 class="recommen_new">
-            <img src="../../../assets/image/new.svg" alt="">
+            <img src="static/image/1556767160632-1555755740426-lunbo(1)" alt="">
             <span>新闻</span>
           </h3>         
           <ul>

@@ -1,9 +1,10 @@
 <template>
-  <div class="resume_info">
+  <div class="resume_info" @click="back">
+    <img src="@/assets/image/back.svg" alt="" class="back_img">
     <h4>
       <span>{{name}}</span>
       <b>个人简历</b>
-      <i @click="send()">感兴趣</i>
+      <i @click="send()"><img src="@/assets/image/like.svg" alt=""></i>
     </h4>
     <div class="base_info">
         <p>基本信息</p>
@@ -140,6 +141,9 @@ export default {
       this.getcompanyinfor()
     },
     methods:{
+      back(){
+this.$router.go(-1)
+      },
     //获取公司信息
     getcompanyinfor(){
         let username = localStorage.getItem('Username')
@@ -247,8 +251,12 @@ export default {
 <style lang="scss" scoped>
       .resume_info{
         padding: 30px;
+        .back_img{
+          position: absolute;
+        }
         h4{
           height: 80px;
+          line-height: 80px;
           text-align: center;
           span{
             display: inline-block;
@@ -257,7 +265,13 @@ export default {
             margin-right: 20px;
           }  
           b{
-            font-size: 30px;
+            color:cadetblue;
+            font-size: 24px;
+          }
+          i{
+             position: absolute;
+              right:20px;
+              top: 32px;
           }
         }
         .base_info,.job_aim,.job_experience,.job_poject{

@@ -8,10 +8,10 @@
           <router-link
               :to="{name:'Companydetail',params:{companyTitle:item.companyTitle}}"   
           >
-            <span>{{item.companyTitle}}</span>
-            <span>发来消息</span>
+            <span class="company_title">{{item.companyTitle}}</span>
+            <span class="send_msg">发来消息</span>
           </router-link> 
-          <span @click="deletelist(item._id,index)">删除</span>
+          <span @click="deletelist(item._id,index)"><img src="@/assets/image/delete.svg" alt="" class="delete_item"></span>
         </div>
         <footer-bar></footer-bar>
     </div>
