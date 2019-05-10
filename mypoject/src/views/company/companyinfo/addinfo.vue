@@ -53,15 +53,16 @@ export default {
       router:'',
       base:'',
       files:'',
-      imgpath:''
+      imgpath:'',
+      route:''
     }
   },
   beforeRouteEnter(to,from,next){
+    let route = to.query.id
     next(vm=>{
-      vm.router = to.query.id
-      console.log(vm)
+      if(route===0){
       vm.getinfor()
-     }
+     }}
     )
   },
   mounted(){
@@ -79,20 +80,17 @@ export default {
         companyPerson: this.companyPerson,
         companyTime: this.companyTime,
         companyMoney: this.companyMoney,
-        companySrc:this.imgpath
       }
       Addinfor(params).then(res=>{
-          if(res.dataimgpath.code==='0'){
-              this.$toast({
-                message: res.data.msg,
-                duration: 2000,
-                iconClass: 'icon icon-success',
-                className: 'success_toast'
+        this.$toast({
+            message: '保存成功',
+            duration: 2000,
+            iconClass: 'licon icon-success',
+            className: 'success_toast'
               }
-            )
-          }
+          ) 
       })
-         console.log('add')
+
     },
     //获取公司信息
     getinfor(){
@@ -108,14 +106,10 @@ export default {
               this.companyPerson = res.data.data.companyPerson
               this.companyTime = res.data.data.companyTimes
               this.companyMoney = res.data.data.companyMoney
-              console.log(res.data.data.companySrc)
-               this.files = "static/image/"+ res.data.data.companySrc+"')"
-               console.log( this.files)
           }else{
             return
           }
         })
-         console.log('获取')
     },
     //更新公司信息
     updateinfor(){
@@ -147,10 +141,8 @@ export default {
     save(){
       if(this.router===0){
         console.log(35434)
-        this.saveimg()
         this.$router.go(-1)
       }else{
-      this.saveimg()
       this.addinfor()
       this.$router.go(-1)
       }

@@ -27,120 +27,7 @@ const CompanyMsg = r => require.ensure([], () => r(require('@/views/company/comp
 const AddInfo = r => require.ensure([], () => r(require('@/views/company/companyinfo/addinfo')), 'chunkname1')
 const AddJobInfo = r => require.ensure([], () => r(require('@/views/company/sendjob/addjob')), 'chunkname1')
 const Resume = r => require.ensure([], () => r(require('@/views/company/first/resume')), 'chunkname1')
-// const routes =  [
-//     firstjob,
-//     sendJob,
-//     companyInfo,
-//     companyMsg,
-//     addInfo,
-//     addJobInfo ,
-//     resumeInfo,
-//     {
-//       path: '/page',
-//       name: 'Page',
-//       component: Page
-//     },
-//     {
-//       path: '/',
-//       name: 'Login',
-//       component: Login
-//     },
-//     {
-//       path: '/register',
-//       name: 'Register',
-//       component: Register
-//     },
-//     {
-//       path: '/index',
-//       name: 'Index',
-//       meta: {
-//         requireAuth: true// 添加该字段，表示进入这个路由是需要登录的
-//       },
-//       component: Index
-//     },
-//     {
-//       path: '/company',
-//       name: 'Company',
-//       component: Company
-//     },
-//     {
-//       path: '/message',
-//       name: 'Message',
-//       component: Message
-//     },
-//     {
-//       path: '/todo',
-//       name: 'Todo',
-//       component: Todo
-//     },
-//     {
-//       path: '/my',
-//       name: 'My',
-//       component: My
-//     },
-//     {
-//       path: '/my/resume',
-//       name: 'Resumemy',
-//       component: Resumemy
-//     },
-//     {
-//       path: '/findjob',
-//       name: 'Findjob',
-//       component: Findjob
-//     },
-//     {
-//       path: '/collectjob',
-//       name: 'Collectjob',
-//       component: Collectjob
-//     },
-//     {
-//       path: '/setting',
-//       name: 'Setting',
-//       component: Setting
-//     },
-//     // 搜索框得到数据模块
-//     {
-//       path: '/searchlist',
-//       name: 'Searchlist',
-//       component: Searchlist
-//     },
-//     {
-//       path: '/searchlist',
-//       component: Searchlist
-//     },
-//     {
-//       path: '/my/addjob',
-//       name: 'Addjob',
-//       component: Addjob
-//     },
-//     {
-//       path: '/my/experience',
-//       name: 'Experience',
-//       component: Experience
-//     },
-//     {
-//       path: '/my/poject',
-//       name: 'Poject',
-//       component: Poject
-//     },
-//     // 公司详情跳转路由
-//     {
-//       path: '/companydetail',
-//       component: Companydetail,
-//       name: 'Companydetail'
-//     },
-//     //公司搜素后跳转路由
-//     {
-//       path: '/company/list',
-//       component: Companylist
-//     },
-//     //职位详情跳转
-//     {
-//       path:'/index/jobdetail',
-//       component: Jobdetail,
-//       name:'Jobdetail'
-//     }
-//   ]
+
 //所有权限通用路由表 
 //如首页和登录页和一些不用权限的公用页面
 export const constantRouterMap =[
@@ -309,28 +196,7 @@ export const asyncRouterMap = [
     meta: { role: 1 } 
   }
 ];
-// routes.beforeEach((to, from, next) => {
-//   // console.log(to.fullPath)
-//   // console.log(routes)
-//   if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
-//     //  console.log(routes)
-//     //  console.log(routes.app.$options.store.state.token)
-//     const token = routes.app.$options.store.state.token
-//     // console.log(token)
-//     if (token) { // 通过vuex state获取当前的token是否存在
-//       next()
-//     } else {
-//       next(
-//         {
-//           path: '/',
-//           query: {redirect: to.fullPath} // 将跳转的路由path作为参数，登录成功后跳转到该路由 $route.fullPath: 完成解析后的 URL，包含查询参数和 hash 的完整路径
-//         }
-//       )
-//     }
-//   } else {
-//     next()
-//   }
-// })
+
 //实例化vue的时候只挂载constantRouter
 export default new Router({
   routes: constantRouterMap

@@ -39,7 +39,7 @@ router.beforeEach((to,from,next)=>{
   if(token){
     next()
   }else
-    if (to.path === '/page' || to.path === '/'){
+    if (to.path === '/'){
       next()
   }else{
     next({
@@ -53,7 +53,6 @@ if (role) {
   if (!store.state.role) {
     store.dispatch('set_role', role).then(() => {
       router.addRoutes(store.state.routers)  // 添加路由
-      console.log(store.state.role, 98083)
     })
   }
 }

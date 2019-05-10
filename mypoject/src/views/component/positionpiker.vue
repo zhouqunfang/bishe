@@ -6,7 +6,7 @@
                 <div class="xin-widget-citys-iptbox">
                     <input type="text" placeholder="城市中文名或拼音" v-model="input">
                 </div>
-                <a href="javascript:void(0)" @click="hide">取消</a>
+                <a href="javascript:void(0)" @click="hide" class="cancel">取消</a>
             </div>
             <div class="xin-widget-citys-list" v-if="input == ''">
                 <dl>
@@ -319,6 +319,9 @@ export default {
                 height: 60px;
                 display: -webkit-box;
                 background: #fafafa;
+                .cancel{
+                  width: 180px;
+                }
                 .xin-widget-citys-iptbox{
                     -webkit-box-flex: 1.0;
                     height: 100%;
@@ -444,7 +447,7 @@ export default {
         bottom: 0;
         // width: 0.5rem;
         top: 0.48rem;
-        padding-right: 0.26rem;
+        padding-right: 60px;
         z-index: 10002;
         display: -webkit-box;
         -webkit-box-align: center;

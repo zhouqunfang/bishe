@@ -633,7 +633,6 @@ router.post('/api/company/addinfor', (req, res) => {
     companyPerson: req.body.companyPerson,
     companyTime: req.body.companyTime,
     companyMoney: req.body.companyMoney,
-    companySrc: req.body.companySrc
   })
   newDatabase.save((err, data) => {
     if (err) {
