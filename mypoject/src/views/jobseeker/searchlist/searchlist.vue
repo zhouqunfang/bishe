@@ -6,7 +6,7 @@
           <li v-for="(item,index) in searchList" :key="index">
      <router-link :to="{name:'Jobdetail',params:{_id:item._id}}">       
             <div class="joblist_left">
-                <img :src="item.jobImg" alt="" job_img>
+                <img src="@/assets/image/searchjob.svg" alt="" job_img>
             </div>
             <div class="joblist_right">
               <div class="joblist_right_top">
@@ -46,17 +46,21 @@ export default {
 <style lang="scss" scoped>
 // @import '../first/firstjoblist';
   .joblist_content{
+    a{
+      color: black;
+    }
     ul{
       padding: 0 20px; 
       li{
         width: 100%;
-        height: 150px;
+        height: 180px;
+        margin-bottom: 20px;
       }
       .joblist_left{
         float: left;
         width: 112px;
         height: 112px;
-        margin-top: 20px;
+        margin-top: 32px;
         margin-right: 40px;
       }
       .joblist_right{

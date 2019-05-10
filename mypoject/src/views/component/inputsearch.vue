@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <input type="text" placeholder="公司/职业" v-model="keyword">
+    <input type="text" placeholder="" v-model="keyword">
     <span class="search_img"  @click="searchJob" ><img src="@/assets/image/search.svg"/></span>
   </div>
 </template>
@@ -68,7 +68,7 @@ export default {
       border: none;
       border-bottom: 2px solid  #CDCDCD;
       font-size: 32px;
-      padding-left: 60 px;
+      padding-left: 60px;
     }
     .search_img{
       position: absolute;
