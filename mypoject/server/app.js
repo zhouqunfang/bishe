@@ -9,33 +9,6 @@ const express = require('express')
 const app = express()
 // socket.io集成 (或挂载) 到 Node.JS HTTP 服务器
 const server=require('http').Server(app)
-const io = require('socket.io')(server)
-//socket要实现的具体逻辑
-const socketHandler = require('./socket.js')
-io.on('connection', socket => {
-  const socketid = socket.id
-  socket.on('login',username=>{
-    //登录时建立一个username到socketId的映射表
-socketHandler.saveUserSocketId(username,socketid)      
-  })
-socket.on('chat',data=>{
-    db.Idtoid.findOne({
-      username:data.to_user
-    }).then(res=>{
-//根据用户名在映射表中找到对应的socketId
-      io.to().emit('sendMsg',{
-        from_user:data.from_user,
-        message:data.message,
-        time:data.time,
-        _id: data._id
-      })
-    })
-  })
-  // socket.emit('news', { hello: 'world' })
-  // socket.on('my other event', data => {
-  //   console.log(data)
-  // })
-})
 // 引入解析post请求的模块
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
